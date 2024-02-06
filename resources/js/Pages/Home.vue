@@ -4,6 +4,7 @@ import Hero from '../Components/Hero.vue';
 import Features from '@/Components/Features.vue';
 import Services from '@/Components/Services.vue'
 import Faq from '@/Components/Faq.vue';
+import Footer from '@/Components/Footer.vue'
 </script>
 
 <template>
@@ -13,6 +14,7 @@ import Faq from '@/Components/Faq.vue';
         <Features />
         <Services />
         <Faq />
+        <Footer />
     </div>
 </template>
 

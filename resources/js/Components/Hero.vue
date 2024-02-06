@@ -5,8 +5,8 @@
       delay: 2500,
       disableOnInteraction: false,
     }" :pagination="{
-      clickable: true,
-    }" css-mode="true">
+  clickable: true,
+}" css-mode="true">
       <swiper-slide>
         <div class="swiper-image-overlay"></div>
         <img src="../../assets/swiper/img1.jpg" alt="Image 1" class="h-screen object-cover w-full" />
@@ -28,15 +28,12 @@
     <!-- Overlay for Text and Logo -->
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 text-center text-white">
       <!-- Your logo image -->
-      <img src="../../assets/as2e.png" alt="Logo" class="h-80 mx-auto mb-4" />
+      <img src="../../assets/as2e.png" alt="Logo" class=" mx-auto mb-4" />
 
       <!-- Your text -->
-      <p class="text-4xl font-bold leading-tight">
-        AUTOMATION SYSTEMS AND ENERGY EFFICIENCY
-      </p>
-    </div>
-</div>
 
+    </div>
+  </div>
 </template>
 
 

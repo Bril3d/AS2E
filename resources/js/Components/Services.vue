@@ -12,7 +12,7 @@
           We specialize in developing and implementing automation solutions that optimize your processes and enhance energy efficiency. Our goal is to bring innovation and efficiency to your operations.
         </p>
         <p class="mt-5">
-          <a class="inline-flex items-center gap-x-1 font-medium text-blue-600 dark:text-blue-500" href="tel:+216 22 051 570">
+          <a class="inline-flex items-center gap-x-1 font-medium text-blue-600 dark:text-blue-500" href="mailto:commercial@as2e-automation.com">
             Contact us to explore our services
             <svg class="flex-shrink-0 w-4 h-4 transition ease-in-out group-hover:translate-x-1"
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
