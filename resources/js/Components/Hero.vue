@@ -26,9 +26,9 @@
     </swiper-container>
 
     <!-- Overlay for Text and Logo -->
-  <div class="absolute top-1/2 left-10 max-w-full md:left-20 z-10">
-    <div class=" text-white md:text-7xl py-4">AS2E</div>
-    <div class="bg-white text-5xl font-bold text-black mix-blend-screen px-10 py-5 ">Automation Systems and Energy Efficiency</div>
+  <div class="absolute top-1/2 sm:left-10 max-w-full md:left-20 z-10 sm:mr-2">
+    <div class=" text-white text-5xl sm:text-7xl text-center sm:text-left py-4">AS2E</div>
+    <div class="bg-white text-3xl sm:text-5xl font-bold text-black mix-blend-screen px-10 py-5 ">Automation Systems and Energy Efficiency</div>
   </div>
   </div>
 </template>
