@@ -26,13 +26,10 @@
     </swiper-container>
 
     <!-- Overlay for Text and Logo -->
-    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-30 text-center text-white">
-      <!-- Your logo image -->
-      <img src="../../assets/as2e.png" alt="Logo" class=" mx-auto mb-4" />
-
-      <!-- Your text -->
-
-    </div>
+  <div class="absolute top-1/2 left-10 max-w-full md:left-20 z-10">
+    <div class=" text-white md:text-7xl py-4">AS2E</div>
+    <div class="bg-white text-5xl font-bold text-black mix-blend-screen px-10 py-5 ">Automation Systems and Energy Efficiency</div>
+  </div>
   </div>
 </template>
 
