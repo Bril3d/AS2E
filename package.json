@@ -19,6 +19,8 @@
     },
     "dependencies": {
         "@vue/server-renderer": "^3.4.15",
-        "preline": "^2.0.3"
+        "preline": "^2.0.3",
+        "swiper": "^11.0.6",
+        "vue-awesome-swiper": "^5.0.1"
     }
 }
