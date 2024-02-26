@@ -8,13 +8,22 @@ import Faq from '@/Components/Faq.vue';
 import Footer from '@/Components/Footer.vue'
 import Stats from '@/Components/Stats.vue'
 import Contact from '@/Components/Contact.vue';
+
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+    canRegister: {
+        type: Boolean,
+    },
+});
 </script>
 
 <template>
     <Head title="Welcome" />
     <div>
         <AnnouncementBanner content="This website still under development." />
-        <Hero />
+        <Hero :canLogin="canLogin" :canRegister="canRegister" />
         <Features />
         <Services />
         <Stats />
