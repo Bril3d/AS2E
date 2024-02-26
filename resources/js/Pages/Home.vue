@@ -7,6 +7,7 @@ import Services from '@/Components/Services.vue'
 import Faq from '@/Components/Faq.vue';
 import Footer from '@/Components/Footer.vue'
 import Stats from '@/Components/Stats.vue'
+import Contact from '@/Components/Contact.vue';
 </script>
 
 <template>
@@ -18,6 +19,7 @@ import Stats from '@/Components/Stats.vue'
         <Services />
         <Stats />
         <Faq />
+        <Contact />
         <Footer />
     </div>
 </template>
