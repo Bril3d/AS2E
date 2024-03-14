@@ -9,6 +9,8 @@ import Footer from '@/Components/Footer.vue'
 import Stats from '@/Components/Stats.vue'
 import Contact from '@/Components/Contact.vue';
 import SideNavigator from '@/Components/SideNavigator.vue';
+import { onMounted } from 'vue';
+import { HSCopyMarkup as HSStaticMethods } from "preline";
 
 const sections: string[] = ['Hero', 'Features', 'Services', 'Stats', 'Faq', 'Contact']
 
@@ -21,6 +23,9 @@ defineProps({
     },
 });
 
+onMounted(() => {
+   window.HSStaticMethods.autoInit()
+});
 </script>
 
 <template>
