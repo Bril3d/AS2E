@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
@@ -7,10 +8,17 @@ import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import { CaUserAvatar } from "@kalimahapps/vue-icons";
 
+const url = ref(null);
+
+function onFileChange($e) {
+    form.avatar = $e.target.files[0]
+    url.value = URL.createObjectURL(form.avatar)
+}
+
 const form = useForm({
     name: '',
     email: '',
-    avatar: '',
+    avatar: null,
     password: '',
     password_confirmation: '',
 });
@@ -29,12 +37,13 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <input type="file" @input="form.avatar = $event.target.files[0]" class="hidden" ref="file" />
-                <div class="h-32 w-32 rounded-full bg-slate-600 my-6 mx-auto flex justify-center items-center"
+                <input type="file" @input="onFileChange" class="hidden" ref="file" />
+                <div class="h-32 w-32 rounded-full bg-slate-600 my-4 mx-auto flex justify-center items-center"
                     @click="$refs.file.click()">
-                    <CaUserAvatar class="fill-white w-24 h-24" />
+                    <img v-if="url" :src="url" class="w-full h-full rounded-full object-cover" alt="Avatar Preview">
+                    <CaUserAvatar v-else class="fill-white w-24 h-24" />
                 </div>
-                <p v-if="form.avatar" class="text-center font-bold text-sm text-gray-400">{{ form.avatar.name }}</p>
+                <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Import an avatar' }}</p>
 
                 <InputLabel for="name" value="Name" />
 
