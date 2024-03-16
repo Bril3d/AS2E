@@ -91,7 +91,7 @@ function update() {
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center w-1/2">
                     <input type="file" @input="onFileChange" class="hidden" ref="file" />
-                    <img class="w-32 h-32 rounded-full" :src="avatar" alt="My Avatar" @click="$refs.file.click()">
+                    <img class="w-32 h-32 rounded-full object-cover" :src="avatar" alt="My Avatar" @click="$refs.file.click()">
                     <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Edit your avatar' }}
                     </p>
                 </div>
