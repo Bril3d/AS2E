@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,6 +16,11 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->where('provider','google');
+
+Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->where('provider','google');
 
 Route::get('/', function () {
     return Inertia::render('Home', [
