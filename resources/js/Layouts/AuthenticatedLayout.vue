@@ -152,7 +152,7 @@ import ApplicationLogo from "../Components/ApplicationLogo.vue"
             <div class="px-6">
                 <a class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="/" aria-label="AS2E">
-                    <ApplicationLogo class="w-24 h-24 mx-auto" />
+                    <ApplicationLogo class="mx-auto" />
                 </a>
             </div>
 
