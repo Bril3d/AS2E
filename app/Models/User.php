@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'avatar', 
+        'avatar',
     ];
 
     /**
@@ -45,6 +45,43 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+
+    /**
+     * Get the user's avatar.
+     *
+     * @param  string  $value
+     * @return string
+     */
+    public function getAvatarAttribute($value)
+    {
+        // Check if the avatar is synced from Provider
+        if ($this->isAvatarSyncedFromProvider($value)) {
+            // If synced from Provider, return the avatar as is
+            return $value;
+        }
+
+        // If the avatar doesn't start with 'storage/', prepend it
+        if (strpos($value, 'storage/') !== 0) {
+            return 'storage/' . $value;
+        }
+
+        return $value;
+    }
+
+    /**
+     * Check if the user's avatar is synced from Provider.
+     *
+     * @return bool
+     */
+    protected function isAvatarSyncedFromProvider($value)
+    {
+        if (strpos($value, 'avatars/') !== 0) {
+            return true;
+        }
+        return false;
+    }
+
 
     /**
      * Get all of the socials for the User
