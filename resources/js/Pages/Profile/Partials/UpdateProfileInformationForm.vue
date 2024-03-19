@@ -47,9 +47,9 @@ function update() {
 <template>
     <section class="w-full">
         <header>
-            <h2 class="text-lg font-medium text-gray-900">Profile Information</h2>
+            <h2 class="text-lg font-medium text-gray-900 dark:text-white">Profile Information</h2>
 
-            <p class="mt-1 text-sm text-gray-600">
+            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                 Update your account's profile information and email address.
             </p>
         </header>
@@ -66,7 +66,7 @@ function update() {
                         <InputError class="mt-2" :message="form.errors.name" />
                     </div>
 
-                    <div>
+                    <div class="mt-4">
                         <InputLabel for="email" value="Email" />
 
                         <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
@@ -92,7 +92,7 @@ function update() {
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center w-1/2">
                     <input type="file" @input="onFileChange" class="hidden" ref="file" />
-                    <img class="w-32 h-32 rounded-full object-cover" :src="avatar" alt="My Avatar"
+                    <img class="w-32 h-32 rounded-full object-cover hover:opacity-50 cursor-pointer transition-opacity ease-in duration-200" :src="avatar" alt="My Avatar"
                         @click="$refs.file.click()">
                     <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Edit your avatar' }}
                     </p>
