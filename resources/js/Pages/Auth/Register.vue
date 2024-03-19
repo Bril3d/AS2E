@@ -63,15 +63,15 @@ const submit = () => {
                 <div class="h-32 w-32 rounded-full bg-slate-600 my-4 mx-auto flex justify-center items-center cursor-pointer"
                     @click="$refs.file.click()">
                     <img v-if="url" :src="url" class="w-full h-full rounded-full object-cover" alt="Avatar Preview">
-                    <CaUserAvatar v-else class="fill-white w-24 h-24 hover:opacity-50 transition-opacity ease-in duration-200" />
+                    <CaUserAvatar v-else
+                        class="fill-white w-24 h-24 hover:opacity-50 transition-opacity ease-in duration-200" />
                 </div>
                 <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Import an avatar' }}</p>
 
                 <InputLabel for="name" value="Name" class="dark:text-white" />
 
-                <TextInput id="name" type="text"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    v-model="form.name" required autofocus autocomplete="name" />
+                <TextInput id="name" type="text" class="mt-1 block w-full" v-model="form.name" required autofocus
+                    autocomplete="name" />
 
                 <InputError class="mt-2" :message="form.errors.name" />
             </div>
@@ -79,9 +79,8 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="email" value="Email" class="dark:text-white" />
 
-                <TextInput id="email" type="email"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    v-model="form.email" required autocomplete="username" />
+                <TextInput id="email" type="email" class="mt-1 block w-full" v-model="form.email" required
+                    autocomplete="username" />
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
@@ -89,9 +88,8 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="password" value="Password" class="dark:text-white" />
 
-                <TextInput id="password" type="password"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-                    v-model="form.password" required autocomplete="new-password" />
+                <TextInput id="password" type="password" class="mt-1 block w-full" v-model="form.password" required
+                    autocomplete="new-password" />
 
                 <InputError class="mt-2" :message="form.errors.password" />
             </div>
@@ -99,8 +97,7 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="password_confirmation" value="Confirm Password" class="dark:text-white" />
 
-                <TextInput id="password_confirmation" type="password"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                <TextInput id="password_confirmation" type="password" class="mt-1 block w-full"
                     v-model="form.password_confirmation" required autocomplete="new-password" />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" />

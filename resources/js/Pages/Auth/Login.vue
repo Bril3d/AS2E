@@ -63,20 +63,20 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" class="dark:text-white" />
+                <InputLabel for="email" value="Email"  />
 
                 <TextInput id="email" type="email"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    class="mt-1 block w-full"
                     v-model="form.email" required autofocus autocomplete="username" />
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" class="dark:text-white" />
+                <InputLabel for="password" value="Password" />
 
                 <TextInput id="password" type="password"
-                    class="mt-1 block w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    class="mt-1 block w-full"
                     v-model="form.password" required autocomplete="current-password" />
 
                 <InputError class="mt-2" :message="form.errors.password" />
@@ -85,7 +85,7 @@ const submit = () => {
             <div class="block mt-4">
                 <label class="flex items-center">
                     <Checkbox name="remember" v-model:checked="form.remember"
-                        class="dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" />
+                        />
                     <span class="ms-2 text-sm text-gray-600 dark:text-white">Remember me</span>
                 </label>
             </div>
