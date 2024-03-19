@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SocialController;
+use App\Models\User;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -18,9 +20,9 @@ use Inertia\Inertia;
 */
 
 
-Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->where('provider','google');
+Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->where('provider', 'google');
 
-Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->where('provider','google');
+Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->where('provider', 'google');
 
 Route::get('/', function () {
     return Inertia::render('Home', [
@@ -29,9 +31,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get(
+    '/dashboard',
+    [DashboardController::class, 'stats']
+)->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

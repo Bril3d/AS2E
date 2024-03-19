@@ -25,26 +25,26 @@ const props = defineProps({
                         <!-- Grid -->
                         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                             <!-- Card -->
-                            <StatsCard header="Total Users" tooltip="The number of daily users" number="5">
-                                <ClUsers class=" text-gray-600 dark:text-gray-400 size-5" />
+                            <StatsCard header="Total Users" tooltip="The number of daily users" :number="users">
+                                <ClUsers class="text-gray-600 dark:text-gray-400 size-5" />
                             </StatsCard>
                             <!-- End Card -->
 
                             <!-- Card -->
-                            <StatsCard header="Total Projects" tooltip="The number of projects" number="50">
-                                <BxPackage class=" text-gray-600 dark:text-gray-400 size-5" />
+                            <StatsCard header="Total Projects" tooltip="The number of projects" :number="50">
+                                <BxPackage class="text-gray-600 dark:text-gray-400 size-5" />
                             </StatsCard>
                             <!-- End Card -->
 
                             <!-- Card -->
-                            <StatsCard header="Total Posts" tooltip="The number of posts" number="5">
-                                <BsPostcardHeart class=" text-gray-600 dark:text-gray-400 size-5" />
+                            <StatsCard header="Total Posts" tooltip="The number of posts" :number="5">
+                                <BsPostcardHeart class="text-gray-600 dark:text-gray-400 size-5" />
                             </StatsCard>
                             <!-- End Card -->
 
                             <!-- Card -->
-                            <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" number="5">
-                                <AkCalendar class=" text-gray-600 dark:text-gray-400 size-5" />
+                            <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" :number="5">
+                                <AkCalendar class="text-gray-600 dark:text-gray-400 size-5" />
                             </StatsCard>
                             <!-- End Card -->
                         </div>
