@@ -123,7 +123,7 @@ import ApplicationLogo from "../Components/ApplicationLogo.vue"
                 <!-- Breadcrumb -->
                 <ol class="ms-3 flex items-center whitespace-nowrap" aria-label="Breadcrumb">
                     <li class="flex items-center text-sm text-gray-800 dark:text-gray-400">
-                        Application Layout
+                        Dashboard
                         <svg class="flex-shrink-0 mx-3 overflow-visible size-2.5 text-gray-400 dark:text-gray-600"
                             width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14"
@@ -131,7 +131,7 @@ import ApplicationLogo from "../Components/ApplicationLogo.vue"
                         </svg>
                     </li>
                     <li class="text-sm font-semibold text-gray-800 truncate dark:text-gray-400" aria-current="page">
-                        Dashboard
+                        {{ $page.component }}
                     </li>
                 </ol>
                 <!-- End Breadcrumb -->
@@ -166,11 +166,11 @@ import ApplicationLogo from "../Components/ApplicationLogo.vue"
                     </li>
 
                     <li class="hs-accordion" id="users-accordion">
-                        <button type="button"
+                        <Link as="button" href="/users"
                             class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <ClUsers class="w-4 h-4" />
-                            Users
-                        </button>
+                        <ClUsers class="w-4 h-4" />
+                        Users
+                        </Link>
                     </li>
 
                     <li class="hs-accordion" id="projects-accordion">
@@ -255,7 +255,13 @@ import ApplicationLogo from "../Components/ApplicationLogo.vue"
         <!-- Content -->
         <div class="w-full pt-10 px-4 sm:px-6 md:px-8 lg:ps-72">
             <!-- Page Heading -->
-            <slot />
+            <div class="py-12">
+                <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                    <div class="bg-white dark:bg-slate-700 overflow-hidden shadow-sm sm:rounded-lg">
+                        <slot />
+                    </div>
+                </div>
+            </div>
             <!-- End Page Heading -->
         </div>
         <!-- End Content -->
