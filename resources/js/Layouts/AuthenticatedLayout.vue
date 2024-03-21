@@ -4,7 +4,7 @@ import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut } from "@kalimahapps/vue-i
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 
 function onPage(component) {
-   return usePage().component === component
+    return usePage().component === component
 }
 
 </script>
@@ -73,8 +73,7 @@ function onPage(component) {
                             <button id="hs-dropdown-with-header" type="button"
                                 class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                 <img class="inline-block size-[38px] rounded-full ring-2 ring-white dark:ring-gray-800 object-cover"
-                                    :src="$page.props.auth.user.avatar"
-                                    alt="My Avatar">
+                                    :src="$page.props.auth.user.avatar" alt="My Avatar">
                             </button>
 
                             <div class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700"
@@ -158,8 +157,8 @@ function onPage(component) {
                 <ul class="space-y-1.5">
                     <li>
                         <Link
-                        :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
-                        class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
+                            :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
                             href="/dashboard">
                         <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -172,7 +171,8 @@ function onPage(component) {
                     </li>
 
                     <li class="hs-accordion" id="users-accordion">
-                        <Link as="button" href="/users" :class="onPage('Users') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                        <Link as="button" href="/users"
+                            :class="onPage('Users') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <ClUsers class="w-4 h-4" />
                         Users
@@ -263,9 +263,12 @@ function onPage(component) {
             <!-- Page Heading -->
             <div class="py-12">
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-slate-700 overflow-hidden shadow-sm sm:rounded-lg">
-                        <slot />
-                    </div>
+                    <transition name="route" mode="out-in" appear>
+                        <div :key="$page.url"
+                            class="bg-white dark:bg-slate-700 overflow-hidden shadow-sm sm:rounded-lg">
+                            <slot />
+                        </div>
+                    </transition>
                 </div>
             </div>
             <!-- End Page Heading -->
@@ -274,3 +277,29 @@ function onPage(component) {
         <!-- ========== END MAIN CONTENT ========== -->
     </div>
 </template>
+
+<style>
+.route-enter-from {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+
+.route-leave-to {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.route-enter-active {
+    transition: all 0.5s ease-out;
+}
+
+.route-leave-active {
+    transition: all 0.3s ease-in;
+}
+
+.route-enter-to,
+.route-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+}
+</style>
