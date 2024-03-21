@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import UserCard from '@/Components/UserCard.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Head, router } from '@inertiajs/vue3';
+import { FaUsersSlash } from "@kalimahapps/vue-icons";
 import { ref } from 'vue';
 
 const { users } = defineProps({
@@ -51,9 +52,10 @@ const { data } = users
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div v-if="data.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <UserCard v-for="(user, index) in data" :user="user" :key="index" />
       </div>
+      <div v-else class="flex justify-center items-center flex-col gap-2 opacity-50"><FaUsersSlash class="text-white w-[200px] h-[200px]" /> <span class="text-white">No Users Found</span></div>
       <Pagination :links="users.links" />
     </div>
   </AuthenticatedLayout>
