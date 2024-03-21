@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable 
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -55,6 +55,11 @@ class User extends Authenticatable
      */
     public function getAvatarAttribute($value)
     {
+        // Check if $value is null or empty
+        if (!$value) {
+            return 'https://lh3.googleusercontent.com/a/ACg8ocJHYACBftndGFKQK84XnhqFrsyBQ598CXJbKj4PJ4yBvw=s96-c';
+        }
+
         // Check if the avatar is synced from Provider
         if ($this->isAvatarSyncedFromProvider($value)) {
             // If synced from Provider, return the avatar as is

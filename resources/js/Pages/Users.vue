@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import UserCard from '@/Components/UserCard.vue';
 import Pagination from '@/Components/Pagination.vue';
+import { Head } from '@inertiajs/vue3';
 
 const { users } = defineProps({
   users: {
@@ -15,6 +16,7 @@ const { data } = users
 
 
 <template>
+  <Head title="Users List" />
   <AuthenticatedLayout>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">

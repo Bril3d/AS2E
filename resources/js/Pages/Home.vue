@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import { Head } from '@inertiajs/vue3';
 import AnnouncementBanner from '@/Components/AnnouncementBanner.vue';
 import Hero from '../Components/Hero.vue';
@@ -12,7 +12,7 @@ import SideNavigator from '@/Components/SideNavigator.vue';
 import { onMounted } from 'vue';
 import { HSCopyMarkup as HSStaticMethods } from "preline";
 
-const sections: string[] = ['Hero', 'Features', 'Services', 'Stats', 'Faq', 'Contact']
+const sections = ['Hero', 'Features', 'Services', 'Stats', 'Faq', 'Contact']
 
 defineProps({
     canLogin: {
