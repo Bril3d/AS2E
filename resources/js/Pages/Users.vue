@@ -16,10 +16,9 @@ const { users } = defineProps({
 const searchQuery = ref('');
 
 function search() {
-  if (searchQuery.value.trim() !== '') {
-    router.get('/users', { search: searchQuery.value })
-  }
-  searchQuery.value = ''
+  const route = searchQuery.value.trim() !== '' ? '/users?search=' + searchQuery.value.trim() : '/users';
+  router.get(route);
+  searchQuery.value = '';
 }
 
 const { data } = users
@@ -55,7 +54,9 @@ const { data } = users
       <div v-if="data.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <UserCard v-for="(user, index) in data" :user="user" :key="index" />
       </div>
-      <div v-else class="flex justify-center items-center flex-col gap-2 opacity-50"><FaUsersSlash class="text-white w-[200px] h-[200px]" /> <span class="text-white">No Users Found</span></div>
+      <div v-else class="flex justify-center items-center flex-col gap-2 opacity-50">
+        <FaUsersSlash class="text-white w-[200px] h-[200px]" /> <span class="text-white">No Users Found</span>
+      </div>
       <Pagination :links="users.links" />
     </div>
   </AuthenticatedLayout>
