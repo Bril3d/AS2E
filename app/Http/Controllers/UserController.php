@@ -9,11 +9,15 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::orderBy("name")->paginate("15");
+        $search = $request->search;
 
-
+        if ($search) {
+            $users = User::where('name', 'like', '%' . $search . '%')->orderBy('name')->paginate(15);
+        } else {
+            $users = User::orderBy("name")->paginate(15);
+        }
         return Inertia::render("Users", ["users" => $users]);
     }
 }
