@@ -68,7 +68,7 @@ class User extends Authenticatable
 
         // If the avatar doesn't start with 'storage/', prepend it
         if (strpos($value, 'storage/') !== 0) {
-            return 'storage/' . $value;
+            return '/storage/' . $value;
         }
 
         return $value;

@@ -19,18 +19,22 @@ const avatar = computed(() => {
     return url.value ? url.value : avatar
 })
 
-defineProps({
+const props = defineProps({
     mustVerifyEmail: {
         type: Boolean,
     },
     status: {
         type: String,
     },
+    user: {
+        type:Object
+    }
 });
 
-const user = usePage().props.auth.user;
+const user = props.user ? props.user : usePage().props.auth.user;
 
 const form = useForm({
+    id: user.id,
     name: user.name,
     avatar: user.avatar,
     email: user.email,
