@@ -93,10 +93,10 @@ class ProfileController extends Controller
             $user->delete();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return Redirect::to('/');
+            return Redirect::to('/')->with('success', 'User Deleted Successfully');
         }
 
         $user->delete();
-        return Redirect::to('/users');
+        return Redirect::to('/users')->with('success', 'User Deleted Successfully');
     }
 }

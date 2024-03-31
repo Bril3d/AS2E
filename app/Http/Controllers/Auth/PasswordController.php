@@ -39,6 +39,6 @@ class PasswordController extends Controller
             ]);
         }
 
-        return back();
+        return back()->with('success', 'Password Updated Successfully');
     }
 }

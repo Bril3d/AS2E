@@ -5,11 +5,13 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import "preline";
 import SectionHeader from './Components/SectionHeader.vue'
 import { register } from 'swiper/element/bundle';
 import { router } from '@inertiajs/vue3'
-import {HSCopyMarkup as HSStaticMethods} from "preline";
+import "preline";
+import Toast, { POSITION } from "vue-toastification";
+import "vue-toastification/dist/index.css";
+import { toastCall } from './toast.js';
 
 router.on('finish', (event) => {
     window.HSStaticMethods.autoInit();
@@ -17,6 +19,8 @@ router.on('finish', (event) => {
 
 register();
 const appName = import.meta.env.VITE_APP_NAME || 'AS2E';
+
+toastCall();
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -26,6 +30,9 @@ createInertiaApp({
             .mixin({ components: { SectionHeader } })
             .use(plugin)
             .use(ZiggyVue)
+            .use(Toast, {
+                position: POSITION.BOTTOM_RIGHT
+            })
             .mount(el);
     },
     progress: {
