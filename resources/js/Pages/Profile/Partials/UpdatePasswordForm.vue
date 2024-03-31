@@ -3,17 +3,30 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { useForm, usePage } from '@inertiajs/vue3';
+import { ref, computed } from 'vue';
+
+const props = defineProps({
+    id: {
+        type: Number,
+        required: false
+    }
+})
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 
 const form = useForm({
+    id: props.id ? props.id : usePage().props.auth.user.id,
     current_password: '',
     password: '',
     password_confirmation: '',
 });
+
+
+const isMyAccount = computed(() => {
+    return props.id ? usePage().props.auth.user.id === props.id : true
+})
 
 const updatePassword = () => {
     form.put(route('password.update'), {
@@ -44,17 +57,11 @@ const updatePassword = () => {
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-            <div>
+            <div v-if="isMyAccount">
                 <InputLabel for="current_password" value="Current Password" />
 
-                <TextInput
-                    id="current_password"
-                    ref="currentPasswordInput"
-                    v-model="form.current_password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="current-password"
-                />
+                <TextInput id="current_password" ref="currentPasswordInput" v-model="form.current_password"
+                    type="password" class="mt-1 block w-full" autocomplete="current-password" />
 
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
@@ -62,14 +69,8 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password" value="New Password" />
 
-                <TextInput
-                    id="password"
-                    ref="passwordInput"
-                    v-model="form.password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="new-password"
-                />
+                <TextInput id="password" ref="passwordInput" v-model="form.password" type="password"
+                    class="mt-1 block w-full" autocomplete="new-password" />
 
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
@@ -77,13 +78,8 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password_confirmation" value="Confirm Password" />
 
-                <TextInput
-                    id="password_confirmation"
-                    v-model="form.password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="new-password"
-                />
+                <TextInput id="password_confirmation" v-model="form.password_confirmation" type="password"
+                    class="mt-1 block w-full" autocomplete="new-password" />
 
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
@@ -91,12 +87,8 @@ const updatePassword = () => {
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
 
-                <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
-                >
+                <Transition enter-active-class="transition ease-in-out" enter-from-class="opacity-0"
+                    leave-active-class="transition ease-in-out" leave-to-class="opacity-0">
                     <p v-if="form.recentlySuccessful" class="text-sm text-gray-600">Saved.</p>
                 </Transition>
             </div>
