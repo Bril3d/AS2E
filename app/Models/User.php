@@ -97,4 +97,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(Social::class);
     }
+
+
+    /**
+     * Get all of the appointment for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function appointment(): HasMany
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function isAdmin() {
+        return (bool) $this->id === 29;
+      }
 }
