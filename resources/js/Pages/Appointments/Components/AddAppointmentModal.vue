@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div v-if="show" class="backdrop"></div>
     <transition name="route">
-      <div v-if="show" @click.self="closeModal"
+      <div v-if="show" @click.self.prevent="closeModal"
         class="block w-full h-full fixed top-0 left-0 overflow-x-hidden overflow-y-auto z-[61]">
         <div class="duration-500 mt-7 opacity-100 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
           <div class="flex flex-col border shadow-sm rounded-xl bg-gray-50 border-gray-300 shadow-slate-700/[.7]">
@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import moment from 'moment'
 import { router } from '@inertiajs/vue3';
 
@@ -98,8 +98,16 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'event-created'])
 
+const canClose = ref(true);
+
 const closeModal = () => {
-  emit('close');
+  if (canClose.value) {
+    emit('close');
+    canClose.value = false;
+    setTimeout(() => {
+      canClose.value = true;
+    }, 2000);
+  }
 }
 
 const event = reactive({

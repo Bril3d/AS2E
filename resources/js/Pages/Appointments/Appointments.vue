@@ -68,6 +68,7 @@ const calendarOptions = reactive({
   selectMirror: true,
   dayMaxEvents: true,
   weekends: true,
+  longPressDelay: 0,
   select: handleDateClick,
   eventClick: handleEventClick,
 })
@@ -110,6 +111,7 @@ const eventResize = (e) => {
 const rerenderCalendar = () => {
   router.get('/appointments');
 }
+
 </script>
 <template>
 
