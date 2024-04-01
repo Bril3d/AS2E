@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('appointments', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->id();
             $table->text('title');
             $table->text('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -20,21 +19,19 @@ class AppointmentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+
+        $start = Carbon::parse($request->input('start'))->toDateTimeString();
+        $end = Carbon::parse($request->input('end'))->toDateTimeString();
+
         /* If user is admin asign to specific ID else assign to authUser */
-        $assignee =
-            $request->assignee && auth()->user()->isAdmin ?
-            $request->assignee :
-            $assignee = auth()->user()->id;
+        $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
 
         $appointment = new Appointment([
-            'start' => $request->start,
-            'end' => $request->end,
+            'start' => $start,
+            'end' => $end,
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $assignee
@@ -47,9 +44,6 @@ class AppointmentController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
     public function filter(Request $request)
     {
@@ -66,10 +60,6 @@ class AppointmentController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Appointment  $appointment
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Appointment $appointment)
     {
@@ -83,9 +73,6 @@ class AppointmentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Appointment  $appointment
-     * @return \Illuminate\Http\Response
      */
     public function destroy(Appointment $appointment)
     {
