@@ -50,7 +50,7 @@
                           </div>
                           <select class="custom-select focus:outline-none w-full" v-model="event.assignee">
                             <option disabled selected value="0">Assign to:</option>
-                            <option v-for="user in users" :key="user.id" :value="user.id">{{ user.full_name }}</option>
+                            <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
                           </select>
                         </div>
                       </li>
@@ -83,7 +83,7 @@
 import { router } from '@inertiajs/vue3'
 import moment from 'moment'
 export default {
-  props: ['show', 'date'],
+  props: ['show', 'date', 'users'],
   emits: ['event-created', 'close'],
   data: () => ({
     event: {
@@ -91,19 +91,18 @@ export default {
       assignee: 0,
       description: null
     },
-    users: []
   }),
 
   methods: {
     closeModal() {
       this.event.title = null
-      this.event.assignee = 'nobody'
+      this.event.assignee = 0
       this.event.note = null
       this.$emit('close')
     },
 
     formatDate(date, format = 'DD/MM/YY HH:mm') {
-      return moment.utc(date).format(format)
+      return moment(date).format(format)
     },
 
     transformEventDates(start, end) {
@@ -132,19 +131,15 @@ export default {
         end: eventData.end,
         title: this.event.title,
         assignee: this.event.assignee,
-        note: this.event.note
+        description: this.event.description
       }
 
-      router.post('/appointments/new', newEventData)
-        .then(({
-          data
-        }) => {
+      router.post('/appointments/new', newEventData, {
+        onSuccess: () => {
           this.closeModal()
           this.$emit('event-created')
-        })
-        .catch(error => {
-          this.$emit('error')
-        })
+        }
+      })
     }
 
   },
@@ -154,19 +149,6 @@ export default {
       return true
     }
   },
-
-  mounted() {
-    // router.get('/users')
-    //   .then(({
-    //     data
-    //   }) => {
-    //     this.users = data
-    //   })
-    //   .catch(error => {
-    //     this.users = []
-    //     this.event.assignee = null
-    //   })
-  }
 }
 </script>
 

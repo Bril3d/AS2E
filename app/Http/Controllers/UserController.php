@@ -20,4 +20,11 @@ class UserController extends Controller
         }
         return Inertia::render("Users", ["users" => $users]);
     }
+
+
+    public function userList()
+    {
+        $users = User::orderBy("name")->get();
+        return ["users" => $users];
+    }
 }

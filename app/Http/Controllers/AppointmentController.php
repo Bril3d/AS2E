@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Inertia\Inertia;
@@ -14,7 +15,12 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Appointments');
+
+        $events = Appointment::all();
+        $users = User::orderBy('name')->get();
+
+
+        return Inertia::render('Appointments/Appointments', ["events" => $events, "users" => $users]);
     }
 
     /**
