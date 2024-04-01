@@ -19,54 +19,51 @@
                       </svg>
                     </button>
                   </div>
-                  <div class="p-4">
-                    <ul class="list-none">
-                      <li class="mb-2">
-                        <div class="flex items-center border border-gray-300 rounded-lg">
-                          <div class="p-2 bg-gray-200 rounded-l-lg">
-                            <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                          </div>
-                          <input type="text" class="w-full py-2 px-4 focus:outline-none" v-model="event.title"
-                            placeholder="Add title ..." ref="eventTitle" autofocus>
+                  <div class="flex flex-col gap-2 p-4">
+                    <div class="mb-2">
+                      <div class="flex items-center border border-gray-300 rounded-lg">
+                        <div class="p-2 bg-gray-200 rounded-l-lg">
+                          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
                         </div>
-                      </li>
-                      <li class="mb-2 flex items-center">
-                        <svg class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        {{ formatDate(date.start) }}
-                      </li>
-                      <li v-if="users.length > 0" class="mb-2">
-                        <div class="flex items-center border border-gray-300 rounded-lg">
-                          <div class="p-2 bg-gray-200 rounded-l-lg">
-                            <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                          </div>
-                          <select class="custom-select focus:outline-none w-full" v-model="event.assignee">
-                            <option disabled selected value="0">Assign to:</option>
-                            <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
-                          </select>
+                        <input type="text" class="w-full py-2 px-4 focus:outline-none" v-model="event.title"
+                          placeholder="Add title ..." ref="eventTitle" autofocus>
+                      </div>
+                    </div>
+                    <div class="mb-2 flex items-center">
+                      <svg class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                      </svg>
+                      {{ formatDate(date.start) }}
+                    </div>
+                    <div v-if="users.length > 0" class="mb-2">
+                      <div class="flex items-center border-main border-2 rounded-lg">
+                        <div class="p-2 bg-gray-200 rounded-l-lg">
+                          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M6 18L18 6M6 6l12 12"></path>
+                          </svg>
                         </div>
-                      </li>
-                      <li class="mb-2">
-                        <textarea class="w-full py-2 px-4 focus:outline-none rounded-lg" id="appointmentNote" rows="3"
-                          v-model="event.description" placeholder="Description ..."></textarea>
-                      </li>
-                    </ul>
+                        <select class="focus:outline-none focus:border-none border-none w-full"
+                          v-model="event.assignee">
+                          <option disabled selected value="0">Assign to:</option>
+                          <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="mb-2">
+                      <textarea class="w-full py-2 px-4 focus:ring-main-dark rounded-lg border-main border-2"
+                        id="appointmentNote" rows="3" v-model="event.description"
+                        placeholder="Description ..."></textarea>
+                    </div>
                   </div>
 
-                  <div class="flex items-center justify-end px-4 py-2 border-t border-gray-200">
-                    <button type="button" class="text-gray-600 hover:text-gray-800 mr-2 focus:outline-none"
-                      @click="closeModal">Close</button>
-                    <button type="button"
-                      class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none"
-                      @click="saveEvent" :disabled="!validEventData">Create</button>
+                  <div class="flex items-center gap-2 justify-end px-4 py-2 border-t border-gray-200">
+                    <DangerButton @click="closeModal">Close</DangerButton>
+                    <PrimaryButton @click="saveEvent" :disabled="!validEventData">Create</PrimaryButton>
                   </div>
                 </div>
               </div>
@@ -79,76 +76,60 @@
   </Teleport>
 </template>
 
-<script>
-import { router } from '@inertiajs/vue3'
+<script setup>
+import { reactive } from 'vue'
 import moment from 'moment'
-export default {
-  props: ['show', 'date', 'users'],
-  emits: ['event-created', 'close'],
-  data: () => ({
-    event: {
-      title: null,
-      assignee: 0,
-      description: null
-    },
-  }),
+import { router } from '@inertiajs/vue3';
 
-  methods: {
-    closeModal() {
-      this.event.title = null
-      this.event.assignee = 0
-      this.event.note = null
-      this.$emit('close')
-    },
-
-    formatDate(date, format = 'DD/MM/YY HH:mm') {
-      return moment(date).format(format)
-    },
-
-    transformEventDates(start, end) {
-      // if start is same as end add 1hr
-      let startTime = new Date(start)
-      let endTime = new Date(end)
-
-      if (startTime.getTime() === endTime.getTime()) {
-        let endTime = (new Date(end))
-        endTime.setHours(endTime.getHours() + 1)
-        return {
-          start,
-          end: endTime.toISOString()
-        }
-      }
-      return {
-        start,
-        end
-      }
-    },
-
-    saveEvent() {
-      let eventData = this.transformEventDates(this.date.start, this.date.end)
-      let newEventData = {
-        start: eventData.start,
-        end: eventData.end,
-        title: this.event.title,
-        assignee: this.event.assignee,
-        description: this.event.description
-      }
-
-      router.post('/appointments/new', newEventData, {
-        onSuccess: () => {
-          this.closeModal()
-          this.$emit('event-created')
-        }
-      })
-    }
-
+const props = defineProps({
+  show: {
+    type: Boolean,
+    required: false
   },
-
-  computed: {
-    validEventData() {
-      return true
-    }
+  date: {
+    type: Object,
+    required: true
   },
+  users: {
+    type: Object,
+    required: true
+  }
+})
+
+const emit = defineEmits(['close', 'event-created'])
+
+const closeModal = () => {
+  emit('close');
+}
+
+const event = reactive({
+  title: null,
+  assignee: 0,
+  description: null
+})
+
+const formatDate = (date, format = 'DD/MM/YY HH:mm') => {
+  return moment(date).format(format)
+}
+
+const saveEvent = () => {
+  let newEventData = {
+    start: props.date.start,
+    end: props.date.end,
+    title: event.title,
+    assignee: event.assignee,
+    description: event.description
+  }
+
+  router.post('/appointments/new', newEventData, {
+    onSuccess: () => {
+      emit('event-created')
+    }
+  })
+}
+
+const validEventData = () => {
+  return true
 }
 </script>
 
