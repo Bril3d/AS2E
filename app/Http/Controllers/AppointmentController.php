@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 use Inertia\Inertia;
 
 class AppointmentController extends Controller
@@ -28,14 +27,11 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
 
-        $start = Carbon::parse($request->input('start'))->toDateTimeString();
-        $end = Carbon::parse($request->input('end'))->toDateTimeString();
-
         $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
 
         $appointment = new Appointment([
-            'start' => $start,
-            'end' => $end,
+            'start' => $request->start,
+            'end' => $request->end,
             'title' => $request->title,
             'description' => $request->description,
             'user_id' => $assignee

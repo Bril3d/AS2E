@@ -116,14 +116,14 @@ const event = reactive({
   description: null
 })
 
-const formatDate = (date, format = 'DD/MM/YY HH:mm') => {
+const formatDate = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
   return moment(date).format(format)
 }
 
 const saveEvent = () => {
   let newEventData = {
-    start: props.date.start,
-    end: props.date.end,
+    start: formatDate(props.date.start),
+    end: formatDate(props.date.end),
     title: event.title,
     assignee: event.assignee,
     description: event.description
