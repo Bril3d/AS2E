@@ -6,10 +6,10 @@
           class="rounded-sm transform  transition duration-500 ease-in-out hover:rotate-45 hover:scale-110 rotate-45 scale-110"
           data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
           <path
-            class="fill-current origin-center transform transition duration-200 ease-in-out dark:text-white text-mid rotate-90"
+            class="fill-black dark:fill-white origin-center transform transition duration-200 ease-in-out dark:text-white text-mid rotate-90"
             d="M5.64 5.64h12.73v12.73H5.64z"></path>
           <path
-            class="fill-current origin-center transform transition duration-500 ease-in-out dark:text-white text-dark rotate-45 opacity-100"
+            class="fill-cyan-400 origin-center transform transition duration-500 ease-in-out dark:text-white text-dark rotate-45 opacity-100"
             d="M12 22.41L1.59 12 12 1.59 22.41 12zM4.41 12L12 19.59 19.59 12 12 4.41z"></path>
         </svg>
         <svg v-else
@@ -18,11 +18,11 @@
           <path class="origin-center transform transition duration-200 ease-in-out text-light rotate-0"
             d="M5.64 5.64h12.73v12.73H5.64z"></path>
           <path
-            class="fill-current origin-center transform transition duration-500 ease-in-out dark:text-white text-light rotate-45"
+            class="fill-gray-400 origin-center transform transition duration-500 ease-in-out dark:text-white text-light rotate-45"
             d="M12 22.41L1.59 12 12 1.59 22.41 12zM4.41 12L12 19.59 19.59 12 12 4.41z"></path>
         </svg>
       </button>
-      <div class="w-0.5 dark:bg-white bg-dark h-36 opacity-20 mt-2 z-30"></div>
+      <div class="w-0.5 dark:bg-white bg-black h-36 opacity-20 mt-2 z-30"></div>
     </div>
   </div>
 </template>
