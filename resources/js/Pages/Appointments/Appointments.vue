@@ -6,7 +6,6 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue'
 import AddAppointmentModal from './Components/AddAppointmentModal.vue'
-import PrimaryButton from '../../Components/PrimaryButton.vue'
 import { router, Head } from '@inertiajs/vue3'
 
 
