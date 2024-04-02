@@ -1,37 +1,26 @@
 <script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import UserCard from '@/Components/UserCard.vue';
-import Pagination from '@/Components/Pagination.vue';
-import { Head, router } from '@inertiajs/vue3';
-import { FaUsersSlash } from "@kalimahapps/vue-icons";
-import { ref } from 'vue';
+import { Head } from '@inertiajs/vue3';
+import AuthanticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
+import Table from '../../Components/Table.vue';
+import TableDataCell from '../../Components/TableDataCell.vue';
+import TableHeaderCell from '../../Components/TableHeaderCell.vue';
 
-const { users } = defineProps({
-  users: {
+const props = defineProps({
+  roles: {
     type: Object,
     required: true
   }
 })
 
-const searchQuery = ref('');
-
-function search() {
-  const route = searchQuery.value.trim() !== '' ? '/users?search=' + searchQuery.value.trim() : '/users';
-  router.get(route);
-  searchQuery.value = '';
-}
-
-const { data } = users
 </script>
-
 
 <template>
 
-  <Head title="Users List" />
-  <AuthenticatedLayout>
+  <Head title="Roles" />
+  <AuthanticatedLayout>
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
-        <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Users</h2>
+        <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Roles</h2>
       </div>
       <div class="flex justify-end mb-5">
         <div class="hidden sm:block">
@@ -51,14 +40,24 @@ const { data } = users
           </div>
         </div>
       </div>
-      <div v-if="data.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <UserCard v-for="(user, index) in data" :user="user" :key="index" />
+      <div class="mt-6">
+        <Table>
+          <template #header>
+            <tr>
+              <TableHeaderCell>ID</TableHeaderCell>
+              <TableHeaderCell>Name</TableHeaderCell>
+              <TableHeaderCell>Action</TableHeaderCell>
+            </tr>
+          </template>
+          <template #default>
+            <tr v-for="role in roles" :key="role.id">
+              <TableDataCell>{{ role.id }}</TableDataCell>
+              <TableDataCell>{{ role.name }}</TableDataCell>
+              <TableDataCell>Edit/Delete</TableDataCell>
+            </tr>
+          </template>
+        </Table>
       </div>
-      <div v-else class="flex justify-center items-center flex-col gap-2 opacity-50">
-        <FaUsersSlash class="text-black dark:text-white w-[200px] h-[200px]" /> <span class="dark:text-white">No Users
-          Found</span>
-      </div>
-      <Pagination :links="users.links" />
     </div>
-  </AuthenticatedLayout>
+  </AuthanticatedLayout>
 </template>

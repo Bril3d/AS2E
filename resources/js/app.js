@@ -10,7 +10,7 @@ import { router } from '@inertiajs/vue3'
 import "preline";
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
-import { toastCall } from './toast.js';
+import { toastCall } from './Composables/toast.js';
 import SectionHeader from './Components/SectionHeader.vue'
 import PrimaryButton from './Components/PrimaryButton.vue'
 import DangerButton from './Components/DangerButton.vue'

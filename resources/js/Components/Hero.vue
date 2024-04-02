@@ -1,9 +1,16 @@
 <template>
   <div class="relative h-screen">
     <div v-if="canLogin" class="absolute sm:top-0 sm:right-0 p-6 text-end z-10">
-      <Link v-if="$page.props.auth.user" :href="route('logout')" method="post"
-        class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-      Logout</Link>
+      <template v-if="$page.props.auth.user">
+        <!-- <Link v-if="hasRole('admin')" :href="route('dashboard')"
+          class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+        Dashboard</Link> -->
+
+        <Link :href="route('logout')" method="post" as="button"
+          class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
+        Logout</Link>
+      </template>
+
 
       <template v-else>
         <Link :href="route('login')"
@@ -42,9 +49,12 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import { usePermission } from "@/Composables/permissions.js"
 import { EffectFade, Pagination } from 'swiper/modules';
 
+
 const modules = [EffectFade, Pagination]
+const { hasRole } = usePermission();
 const swiperImages = [
   {
     src: new URL('../../assets/swiper/img1.jpg', import.meta.url), alt: 'Image 1'

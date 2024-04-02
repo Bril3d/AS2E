@@ -1,6 +1,6 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar } from "@kalimahapps/vue-icons";
+import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 
 function onPage(component) {
@@ -184,20 +184,6 @@ function onPage(component) {
                             class="hs-accordion-toggle w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 hs-accordion-active:text-blue-600 hs-accordion-active:hover:bg-transparent text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:hs-accordion-active:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                             <BxPackage class="w-4 h-4" />
                             Projects
-
-                            <svg class="hs-accordion-active:block ms-auto hidden size-4"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m18 15-6-6-6 6" />
-                            </svg>
-
-                            <svg class="hs-accordion-active:hidden ms-auto block size-4"
-                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="m6 9 6 6 6-6" />
-                            </svg>
                         </button>
 
                         <div id="projects-accordion-child"
@@ -231,6 +217,22 @@ function onPage(component) {
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <AkCalendar class="w-4 h-4" />
                         Calendar
+                        </Link>
+                    </li>
+                    <li>
+                        <Link as="button" href="/roles"
+                            :class="onPage('Roles') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <CgUserAdd class="w-4 h-4" />
+                        Roles
+                        </Link>
+                    </li>
+                    <li>
+                        <Link as="button" href="/permissions"
+                            :class="onPage('Permissions') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <CgUserList class="w-4 h-4" />
+                        Permissions
                         </Link>
                     </li>
                     <li><a class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
