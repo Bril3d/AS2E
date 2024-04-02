@@ -55,9 +55,9 @@ const { data } = users
         <UserCard v-for="(user, index) in data" :user="user" :key="index" />
       </div>
       <div v-else class="flex justify-center items-center flex-col gap-2 opacity-50">
-        <FaUsersSlash class="text-white w-[200px] h-[200px]" /> <span class="text-white">No Users Found</span>
+        <FaUsersSlash class="text-black dark:text-white w-[200px] h-[200px]" /> <span class="dark:text-white">No Users Found</span>
       </div>
-      <Pagination :links="users.links" />
+      <Pagination :links="users.links"  />
     </div>
   </AuthenticatedLayout>
 </template>
