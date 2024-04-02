@@ -1,9 +1,9 @@
 <template>
   <div class="relative h-screen">
     <div v-if="canLogin" class="absolute sm:top-0 sm:right-0 p-6 text-end z-10">
-      <Link v-if="$page.props.auth.user" :href="route('dashboard')"
+      <Link v-if="$page.props.auth.user" :href="route('logout')" method="post"
         class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-      Dashboard</Link>
+      Logout</Link>
 
       <template v-else>
         <Link :href="route('login')"
