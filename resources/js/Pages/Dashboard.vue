@@ -8,6 +8,10 @@ const props = defineProps({
     users: {
         type: Number,
         required: true,
+    },
+    dates: {
+        type:Number,
+        required:true,
     }
 })
 </script>
@@ -40,7 +44,7 @@ const props = defineProps({
                             <!-- End Card -->
 
                             <!-- Card -->
-                            <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" :number="5">
+                            <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" :number="dates">
                                 <AkCalendar class="text-gray-600 dark:text-gray-400 size-5" />
                             </StatsCard>
                             <!-- End Card -->

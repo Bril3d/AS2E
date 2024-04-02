@@ -19,7 +19,6 @@ class AppointmentController extends Controller
         $events = Appointment::all();
         $users = User::orderBy('name')->get();
 
-
         return Inertia::render('Appointments/Appointments', ["events" => $events, "users" => $users]);
     }
 
@@ -32,7 +31,6 @@ class AppointmentController extends Controller
         $start = Carbon::parse($request->input('start'))->toDateTimeString();
         $end = Carbon::parse($request->input('end'))->toDateTimeString();
 
-        /* If user is admin asign to specific ID else assign to authUser */
         $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
 
         $appointment = new Appointment([

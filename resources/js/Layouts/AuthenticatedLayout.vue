@@ -1,6 +1,6 @@
 <script setup>
 import { Link, usePage } from '@inertiajs/vue3';
-import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut } from "@kalimahapps/vue-icons";
+import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 
 function onPage(component) {
@@ -229,7 +229,7 @@ function onPage(component) {
                         <Link as="button" href="/appointments"
                             :class="onPage('Calendar') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
-                        <ClUsers class="w-4 h-4" />
+                        <AkCalendar class="w-4 h-4" />
                         Calendar
                         </Link>
                     </li>
