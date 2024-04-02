@@ -1,11 +1,13 @@
 <script setup>
-import { ref, reactive, onMounted } from 'vue'
+import { ref, reactive } from 'vue'
 import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue'
 import AddAppointmentModal from './Components/AddAppointmentModal.vue'
+import ShowAppointmentModal from './Components/ShowAppointmentModal.vue'
+import moment from 'moment'
 import { router, Head } from '@inertiajs/vue3'
 
 
@@ -28,7 +30,7 @@ const newEventDetails = reactive({
   end: null,
 })
 
-const currentEvent = ref(null)
+const currentEvent = ref({})
 
 
 const handleDateClick = (e) => {
@@ -38,9 +40,29 @@ const handleDateClick = (e) => {
 }
 
 const handleEventClick = (e) => {
-  console.log(e.event)
-  // currentEvent.value = e.event
-  // eventDetailModalOpen.value = true
+  console.log(e)
+  currentEvent.value = e.event
+  eventDetailModalOpen.value = true
+}
+
+const formatDate = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
+  return moment(date).format(format)
+}
+
+const handleEventDrop = (e) => {
+  const updatedEventData = {
+    start: formatDate(e.event.start),
+    end: formatDate(e.event.end)
+  }
+  router.put(`appointments/${e.event.id}`, updatedEventData)
+}
+
+const eventResize = (e) => {
+  const updatedEventData = {
+    start: formatDate(e.event.start),
+    end: formatDate(e.event.end)
+  }
+  router.put(`/appointments/${e.event.id}`, updatedEventData)
 }
 
 const calendarOptions = reactive({
@@ -70,22 +92,13 @@ const calendarOptions = reactive({
   longPressDelay: 0,
   select: handleDateClick,
   eventClick: handleEventClick,
+  eventDrop: handleEventDrop,
+  eventResize: eventResize
 })
 
 const toggleWeekends = () => {
   calendarOptions.weekends = !calendarOptions.weekends
 }
-
-
-const handleEventDrop = (e) => {
-  const updatedEventData = {
-    start: e.event.start,
-    end: e.event.end
-  }
-  router.put(`appointments/${e.event.id}`, updatedEventData)
-}
-
-
 
 const resetNewEventData = () => {
   newEventDetails.title = null
@@ -97,14 +110,6 @@ const resetNewEventData = () => {
 const newEventCreated = () => {
   rerenderCalendar()
   resetNewEventData()
-}
-
-const eventResize = (e) => {
-  const updatedEventData = {
-    start: e.event.start,
-    end: e.event.end
-  }
-  router.put(`/appointments/${e.event.id}`, updatedEventData)
 }
 
 const rerenderCalendar = () => {
@@ -120,9 +125,9 @@ const rerenderCalendar = () => {
       @event-created="newEventCreated" :users="props.users" />
     <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <PrimaryButton @click="toggleWeekends" class="my-6 ">toggle weekends</PrimaryButton>
-      <FullCalendar ref="fullCalendar" class="dark:text-white " :options="calendarOptions" />
+      <FullCalendar ref="fullCalendar" class="dark:text-white" :options="calendarOptions" />
     </div>
-    <!-- <show-appointment-modal :show="eventDetailModalOpen" :event="currentEvent"
-      @close="eventDetailModalOpen = false" @event-deleted="rerenderCalendar" @event-updated="rerenderCalendar" /> -->
+    <show-appointment-modal v-if="eventDetailModalOpen" :show="eventDetailModalOpen" :appointment="currentEvent"
+      @close="eventDetailModalOpen = false" @appointment-deleted="rerenderCalendar" @appointment-updated="rerenderCalendar" :users="props.users" />
   </AuthenticatedLayout>
 </template>

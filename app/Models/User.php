@@ -110,6 +110,6 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        return (bool) $this->id === 29;
+        return (bool) true;
       }
 }

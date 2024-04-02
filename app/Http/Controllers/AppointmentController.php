@@ -64,6 +64,7 @@ class AppointmentController extends Controller
     public function update(Request $request, Appointment $appointment)
     {
         $user = auth()->user();
+
         if ($appointment->user_id === $user->id || $user->isAdmin) {
             $appointment->update($request->all());
         } else {
