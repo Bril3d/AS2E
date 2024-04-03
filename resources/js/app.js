@@ -11,6 +11,7 @@ import "preline";
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import { toastCall } from './Composables/toast.js';
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import SectionHeader from './Components/SectionHeader.vue'
 import PrimaryButton from './Components/PrimaryButton.vue'
 import DangerButton from './Components/DangerButton.vue'
@@ -29,7 +30,7 @@ createInertiaApp({
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
-            .mixin({ components: { SectionHeader, PrimaryButton, DangerButton } })
+            .mixin({ components: { SectionHeader, PrimaryButton, DangerButton, AuthenticatedLayout } })
             .use(plugin)
             .use(ZiggyVue)
             .use(Toast, {

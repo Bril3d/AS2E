@@ -4,7 +4,6 @@ import FullCalendar from '@fullcalendar/vue3'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import AuthenticatedLayout from '../../Layouts/AuthenticatedLayout.vue'
 import AddAppointmentModal from './Components/AddAppointmentModal.vue'
 import ShowAppointmentModal from './Components/ShowAppointmentModal.vue'
 import moment from 'moment'
@@ -120,14 +119,14 @@ const rerenderCalendar = () => {
 <template>
 
   <Head title="Calendar" />
-  <AuthenticatedLayout>
+
+  <AuthenticatedLayout title="Calendar">
+    <PrimaryButton @click="toggleWeekends" class="my-6 ">toggle weekends</PrimaryButton>
+    <FullCalendar ref="fullCalendar" class="dark:text-white" :options="calendarOptions" />
     <add-appointment-modal :show="newEventModalOpen" :date="newEventDetails" @close="resetNewEventData"
       @event-created="newEventCreated" :users="props.users" />
-    <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      <PrimaryButton @click="toggleWeekends" class="my-6 ">toggle weekends</PrimaryButton>
-      <FullCalendar ref="fullCalendar" class="dark:text-white" :options="calendarOptions" />
-    </div>
     <show-appointment-modal v-if="eventDetailModalOpen" :show="eventDetailModalOpen" :appointment="currentEvent"
-      @close="eventDetailModalOpen = false" @appointment-deleted="rerenderCalendar" @appointment-updated="rerenderCalendar" :users="props.users" />
+      @close="eventDetailModalOpen = false" @appointment-deleted="rerenderCalendar"
+      @appointment-updated="rerenderCalendar" :users="props.users" />
   </AuthenticatedLayout>
 </template>
