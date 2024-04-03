@@ -40,7 +40,7 @@ const form = useForm({
     name: user.name,
     avatar: user.avatar,
     email: user.email,
-    role: { name: 'user' }
+    role: { name: user.roles[0] ? user.roles[0] : 'user' }
 });
 
 function update() {
