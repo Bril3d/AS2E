@@ -17,7 +17,7 @@ class AppointmentController extends Controller
     {
 
         $events = Appointment::all();
-        $users = User::orderBy('name')->get();
+        $users = User::select('name', 'id')->orderBy('name')->get();
 
         return Inertia::render('Appointments/Appointments', ["events" => AppointmentResource::collection($events), "users" => $users]);
     }
@@ -28,7 +28,7 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
 
-        $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
+        $assignee = $request->assignee  ? $request->assignee['id'] : $assignee = auth()->user()->id;
 
         $appointment = new Appointment([
             'start' => $request->start,
