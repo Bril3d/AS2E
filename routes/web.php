@@ -35,7 +35,6 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-
     Route::get('/profile/{id?}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -48,5 +47,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
     require __DIR__ . '/appointment.php';
 });

@@ -1,7 +1,7 @@
 <script setup>
 import UserCard from '@/Components/UserCard.vue';
 import Pagination from '@/Components/Pagination.vue';
-import { Head, router } from '@inertiajs/vue3';
+import { Head, router, Link } from '@inertiajs/vue3';
 import { FaUsersSlash } from "@kalimahapps/vue-icons";
 import { ref } from 'vue';
 
@@ -28,7 +28,10 @@ const { data } = users
 
   <Head title="Users List" />
   <AuthenticatedLayout title="Users">
-    <div class="flex justify-end mb-5">
+    <div class="flex justify-between items-center mb-5">
+      <Link as="button" :href="route('users.create')"
+        class="inline-flex items-center px-4 py-2 bg-main border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-main-dark focus:bg-main-dark active:bg-main-dark focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2 transition ease-in-out duration-150">
+      New User</Link>
       <div class="hidden sm:block">
         <label for="icon" class="sr-only">Search</label>
         <div class="relative">

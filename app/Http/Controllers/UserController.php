@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateUserRequest;
+use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Inertia\Response;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -18,13 +24,31 @@ class UserController extends Controller
         } else {
             $users = User::orderBy("name")->paginate(15);
         }
-        return Inertia::render("Users", ["users" => $users]);
+        return Inertia::render("Users/Users", ["users" => $users]);
     }
 
-
-    public function userList()
+    public function create(): Response
     {
-        $users = User::orderBy("name")->get();
-        return ["users" => $users];
+        return Inertia::render('Users/Create', ['roles' => Role::all()]);
+    }
+
+    public function store(CreateUserRequest $request): RedirectResponse
+    {
+        if ($request->hasFile('avatar')) {
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+        } else {
+            $avatarPath = null;
+        }
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'avatar' => $avatarPath,
+        ]);
+
+        $user->assignRole($request->role['name']);
+
+        return to_route('users.index')->with('User Created Succussfully');
     }
 }

@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
@@ -8,11 +9,13 @@ function onPage(component) {
 }
 
 const props = defineProps({
-    title: {
-        type: String,
-        required: true,
-    }
+    title: String
 })
+
+
+onMounted(() => {
+   window.HSStaticMethods.autoInit()
+});
 
 </script>
 
@@ -266,7 +269,7 @@ const props = defineProps({
                         <div :key="$page.url"
                             class="bg-white dark:bg-slate-700 overflow-hidden shadow-sm sm:rounded-lg">
                             <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-                                <div class="max-w-2xl mx-auto text-center mb-10 lg:mb-14">
+                                <div :class="{ 'max-w-2xl mx-auto text-center mb-10 lg:mb-14': title }">
                                     <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">{{
                                         title }}
                                     </h2>
