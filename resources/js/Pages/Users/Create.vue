@@ -108,6 +108,7 @@ const submit = () => {
                     <InputLabel for="roles" value="Roles" />
                     <VueMultiselect class="dark:bg-slate-600" id="roles" v-model="form.role" :options="roles"
                       :close-on-select="true" placeholder="Select a role" label="name" track-by="name" />
+                    <InputError :message="form.errors.role" class="mt-2" />
                   </div>
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center w-1/2">

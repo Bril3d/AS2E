@@ -3,6 +3,7 @@ import { ref, computed } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import VueMultiselect from 'vue-multiselect'
 import { Link, useForm, usePage } from '@inertiajs/vue3';
 
 
@@ -26,9 +27,11 @@ const props = defineProps({
         type: String,
     },
     user: {
-        type:Object
-    }
+        type: Object
+    },
+    roles: Array
 });
+
 
 const user = props.user ? props.user : usePage().props.auth.user;
 
@@ -37,6 +40,7 @@ const form = useForm({
     name: user.name,
     avatar: user.avatar,
     email: user.email,
+    role: { name: 'user' }
 });
 
 function update() {
@@ -92,12 +96,19 @@ function update() {
                             A new verification link has been sent to your email address.
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <InputLabel for="roles" value="Roles" />
+                        <VueMultiselect class="dark:bg-slate-600" id="roles" v-model="form.role" :options="roles"
+                            :close-on-select="true" placeholder="Select a role" label="name" track-by="name" />
+                        <InputError :message="form.errors.role" class="mt-2" />
+                    </div>
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center w-1/2">
                     <input type="file" @input="onFileChange" class="hidden" ref="file" />
-                    <img class="w-32 h-32 rounded-full object-cover hover:opacity-50 cursor-pointer transition-opacity ease-in duration-200" :src="avatar" alt="My Avatar"
-                        @click="$refs.file.click()">
-                    <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Update your avatar' }}
+                    <img class="w-32 h-32 rounded-full object-cover hover:opacity-50 cursor-pointer transition-opacity ease-in duration-200"
+                        :src="avatar" alt="My Avatar" @click="$refs.file.click()">
+                    <p class="text-center font-bold text-sm text-gray-400">{{ form.avatar?.name || 'Update your avatar'
+                        }}
                     </p>
                 </div>
             </div>
@@ -112,3 +123,5 @@ function update() {
         </form>
     </section>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

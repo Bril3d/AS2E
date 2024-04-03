@@ -12,23 +12,22 @@ defineProps({
         type: String,
     },
     user: {
-        type:Object
-    }
+        type: Object
+    },
+    roles: Array
 });
 </script>
 
 <template>
+
     <Head title="Profile" />
 
     <AuthenticatedLayout>
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <UpdateProfileInformationForm
-                        :must-verify-email="mustVerifyEmail"
-                        :status="status"
-                        :user="user"
-                    />
+                    <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" :user="user"
+                        :roles="roles" />
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">

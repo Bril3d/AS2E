@@ -20,6 +20,7 @@ class ProfileUpdateRequest extends FormRequest
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($userId)],
+            'roles' => ['sometimes', 'array']
         ];
 
         if ($this->hasFile('avatar')) {
