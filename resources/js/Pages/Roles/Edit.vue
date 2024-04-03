@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue'
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import InputLabel from '@/Components/InputLabel.vue'
 import TextInput from '@/Components/TextInput.vue';
@@ -15,7 +16,11 @@ const props = defineProps({
 
 const form = useForm({
   name: props.role.name,
-  permissions: props.role.permissions
+  permissions: []
+})
+
+onMounted(() => {
+  form.permissions = props.role?.permissions
 })
 
 </script>
@@ -36,8 +41,8 @@ const form = useForm({
         </div>
         <div class="mt-4">
           <InputLabel for="permissions" value="Permissions" />
-          <VueMultiselect id="permissions" v-model="form.permissions" :options="permissions" :multiple="true" :close-on-select="true"
-            placeholder="Select Permissions" label="name" track-by="name" />
+          <VueMultiselect id="permissions" v-model="form.permissions" :options="permissions" :multiple="true"
+            :close-on-select="true" placeholder="Select Permissions" label="name" track-by="name" />
         </div>
         <div class="flex justify-end">
           <PrimaryButton type="submit" class="mt-4" :class="{ 'opacity-25': form.processing }"
