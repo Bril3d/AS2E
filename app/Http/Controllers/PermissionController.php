@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreatePermissionRequest;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
@@ -16,7 +19,7 @@ class PermissionController extends Controller
     {
         $permissions = Permission::all();
 
-        return Inertia::render('Permissions/Permissions',['permissions'=> $permissions]);
+        return Inertia::render('Permissions/Permissions', ['permissions' => $permissions]);
     }
 
     /**
@@ -24,46 +27,42 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Permissions/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CreatePermissionRequest $request): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        Permission::create($request->validated());
+        return to_route('permissions.index');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Permission $permission): Response
     {
-        //
+        return Inertia::render('Permissions/Edit', ['permission' => $permission]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CreatePermissionRequest $request, Permission $permission)
     {
-        //
+        $permission->update($request->validated());
+
+        return to_route('permissions.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Permission $permission)
     {
-        //
+        $permission->delete();
+        return back();
     }
 }
