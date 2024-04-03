@@ -37,7 +37,7 @@ const closeModal = () => {
 }
 
 const event = reactive({
-  title: null,
+  title: '',
   assignee: null,
   description: null
 })

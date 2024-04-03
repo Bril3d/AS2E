@@ -39,10 +39,10 @@ const handleDateClick = (e) => {
 }
 
 const handleEventClick = (e) => {
-  console.log(e)
-  currentEvent.value = e.event
-  eventDetailModalOpen.value = true
-}
+  currentEvent.value = e.event;
+  eventDetailModalOpen.value = true;
+};
+
 
 const formatDate = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
   return moment(date).format(format)

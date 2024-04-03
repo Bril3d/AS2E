@@ -10,7 +10,7 @@ import { router } from '@inertiajs/vue3';
 const props = defineProps({
   show: {
     type: Boolean,
-    required: false
+    required: false,
   },
   appointment: {
     type: Object,
@@ -70,6 +70,7 @@ const date = reactive({
   user: props.appointment.extendedProps.user,
   description: props.appointment.extendedProps.description
 })
+
 </script>
 
 <template>
@@ -79,7 +80,8 @@ const date = reactive({
       <div v-if="show" @click.self.prevent="closeModal"
         class="block w-full h-full fixed top-0 left-0 overflow-x-hidden overflow-y-auto z-[61]">
         <div class="duration-500 mt-7 opacity-100 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
-          <div class="flex flex-col border shadow-sm rounded-xl bg-gray-50 dark:bg-slate-700 border-gray-300 shadow-slate-700/[.7]">
+          <div
+            class="flex flex-col border shadow-sm rounded-xl bg-gray-50 dark:bg-slate-700 border-gray-300 shadow-slate-700/[.7]">
             <div class="p-4 overflow-y-auto">
               <div class="w-full bg-white dark:bg-slate-700 rounded-md">
                 <div class="relative bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg w-full">
@@ -97,8 +99,8 @@ const date = reactive({
                     <div class="mb-2">
                       <InputLabel value="Title" for="title" />
                       <div class="mb-2">
-                        <TextInput id="title" type="text" class="w-full py-2 px-4 focus:outline-none"
-                          v-model="date.title" placeholder="Add title..." autofocus />
+                        <TextInput v-model="date.title" id="title" type="text"
+                          class="w-full py-2 px-4 focus:outline-none" placeholder="Add title..." autofocus />
                       </div>
                     </div>
                     <div class="mb-2">
