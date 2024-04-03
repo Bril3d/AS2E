@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRoleRequest extends FormRequest
@@ -22,7 +23,7 @@ class CreateRoleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required']
+            'name' => ['required', 'string', 'max:30', Rule::unique('roles', 'name')->ignore($this->role)]
         ];
     }
 }
