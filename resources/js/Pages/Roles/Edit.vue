@@ -3,16 +3,19 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import InputLabel from '@/Components/InputLabel.vue'
 import TextInput from '@/Components/TextInput.vue';
 import InputError from '@/Components/InputError.vue';
+import VueMultiselect from 'vue-multiselect'
 
 const props = defineProps({
   role: {
     type: Object,
     required: true,
-  }
+  },
+  permissions: Array,
 })
 
 const form = useForm({
-  name: props.role.name
+  name: props.role.name,
+  permissions: props.permissions
 })
 
 </script>
@@ -31,11 +34,20 @@ const form = useForm({
           <TextInput id="name" class="w-full" v-model="form.name" />
           <InputError class="mt-2" :message="form.errors.name" />
         </div>
+        <div class="mt-4">
+          <InputLabel for="permissions" value="Permissions" />
+          <VueMultiselect id="permissions" v-model="form.permissions" :options="permissions" :multiple="true" :close-on-select="true"
+            placeholder="Select Permissions" label="name" track-by="name" />
+        </div>
         <div class="flex justify-end">
-          <PrimaryButton type="submit" class="mt-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">Update
+          <PrimaryButton type="submit" class="mt-4" :class="{ 'opacity-25': form.processing }"
+            :disabled="form.processing">
+            Update
           </PrimaryButton>
         </div>
       </form>
     </div>
   </AuthenticatedLayout>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>
