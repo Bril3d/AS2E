@@ -47,4 +47,14 @@
   background-color: #008893 !important;
 }
 
-@media screen and (max-width:767px) { .fc-toolbar.fc-header-toolbar {flex-direction:column;} .fc-toolbar-chunk { display: table-row; text-align:center; padding:5px 0; } }
+@media (prefers-color-scheme: dark) {
+  .multiselect__tags, .multiselect__input, .multiselect__single, .multiselect__content-wrapper, .multiselect__option--selected {
+    background-color: rgb(15 23 42)  !important;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .fc-toolbar.fc-header-toolbar {
+    flex-direction:column;} .fc-toolbar-chunk { display: table-row; text-align:center; padding:5px 0; 
+  } 
+}
