@@ -36,6 +36,15 @@ const validAppointmentData = () => {
   return true
 }
 
+const deleteAppointment = () => {
+  router.delete('/appointments/' + props.appointment.id, {
+    preserveScroll: true,
+    onSuccess: () => {
+      emit('appointment-deleted');
+    }
+  });
+}
+
 const updateAppointment = () => {
   let updatedAppointmentData = {
     id: props.appointment.id,
@@ -107,7 +116,7 @@ console.log(date.value)
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
                       </svg>
-                      {{ date.start + '   -   ' + date.end  }}
+                      {{ date.start + ' - ' + date.end }}
                     </div>
                     <div v-if="users.length > 0" class="mb-2">
                       <div class="flex items-center border-main border-2 rounded-lg">
@@ -130,7 +139,7 @@ console.log(date.value)
                   </div>
 
                   <div class="flex items-center gap-2 justify-end px-4 py-2 border-t border-gray-200">
-                    <DangerButton @click="closeModal">Cancel</DangerButton>
+                    <DangerButton @click="deleteAppointment">Delete</DangerButton>
                     <PrimaryButton @click="updateAppointment" :disabled="!validAppointmentData">Update</PrimaryButton>
                   </div>
                 </div>

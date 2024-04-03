@@ -63,13 +63,9 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        $user = auth()->user();
+        $appointment->update($request->all());
 
-        if ($appointment->user_id === $user->id || $user->isAdmin) {
-            $appointment->update($request->all());
-        } else {
-            abort(403);
-        }
+        return back()->with('success', 'Appointment Updated Successfully');
     }
 
     /**
@@ -77,11 +73,8 @@ class AppointmentController extends Controller
      */
     public function destroy(Appointment $appointment)
     {
-        $user = auth()->user();
-        if ($appointment->user_id === $user->id || $user->isAdmin) {
-            $appointment->delete();
-        } else {
-            abort(403);
-        }
+        $appointment->delete();
+
+        return back()->with('success', 'Appointment Deleted Successfully');
     }
 }
