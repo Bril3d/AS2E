@@ -56,6 +56,6 @@ const { data } = users
       <FaUsersSlash class="text-black dark:text-white w-[200px] h-[200px]" /> <span class="dark:text-white">No Users
         Found</span>
     </div>
-    <Pagination :links="users.links" />
+    <Pagination :links="users.meta.links" />
   </AuthenticatedLayout>
 </template>

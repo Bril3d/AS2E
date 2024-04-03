@@ -24,7 +24,8 @@ class UserController extends Controller
         } else {
             $users = User::orderBy("name")->paginate(15);
         }
-        return Inertia::render("Users/Users", ["users" => $users]);
+        
+        return Inertia::render("Users/Users", ["users" => UserResource::collection($users)]);
     }
 
     public function create(): Response

@@ -26,7 +26,7 @@ defineProps({
           </Link>
         </div>
         <p class="text-xs uppercase text-gray-500">
-          Admin
+          {{ user.roles[0] ? user.roles[0] : 'User' }}
         </p>
       </div>
 
