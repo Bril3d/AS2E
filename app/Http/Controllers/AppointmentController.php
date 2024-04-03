@@ -26,18 +26,26 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $assigneeIds = collect($request->input('assignee'))
+            ->pluck('id')
+            ->toArray();
 
-        $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
 
-        $appointment = new Appointment([
-            'start' => $request->start,
-            'end' => $request->end,
-            'title' => $request->title,
-            'description' => $request->description,
-            'user_id' => $assignee
-        ]);
+        if (empty($assigneeIds)) {
+            $assigneeIds[] = auth()->user()->id;
+        }
 
-        $appointment->save();
+        foreach ($assigneeIds as $assigneeId) {
+            $appointment = new Appointment([
+                'start' => $request->start,
+                'end' => $request->end,
+                'title' => $request->title,
+                'description' => $request->description,
+            ]);
+
+            $appointment->user()->associate($assigneeId);
+            $appointment->save();
+        }
 
         return back()->with('success', 'Imported Successfully');
     }

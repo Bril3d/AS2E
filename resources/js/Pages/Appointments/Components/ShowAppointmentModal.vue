@@ -1,6 +1,10 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import moment from 'moment'
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import VueMultiselect from 'vue-multiselect'
 import { router } from '@inertiajs/vue3';
 
 const props = defineProps({
