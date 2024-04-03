@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -18,7 +19,7 @@ class AppointmentController extends Controller
         $events = Appointment::all();
         $users = User::orderBy('name')->get();
 
-        return Inertia::render('Appointments/Appointments', ["events" => $events, "users" => $users]);
+        return Inertia::render('Appointments/Appointments', ["events" => AppointmentResource::collection($events), "users" => $users]);
     }
 
     /**
@@ -26,26 +27,18 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        $assigneeIds = collect($request->input('assignee'))
-            ->pluck('id')
-            ->toArray();
 
+        $assignee = $request->assignee  ? $request->assignee : $assignee = auth()->user()->id;
 
-        if (empty($assigneeIds)) {
-            $assigneeIds[] = auth()->user()->id;
-        }
+        $appointment = new Appointment([
+            'start' => $request->start,
+            'end' => $request->end,
+            'title' => $request->title,
+            'description' => $request->description,
+            'user_id' => $assignee
+        ]);
 
-        foreach ($assigneeIds as $assigneeId) {
-            $appointment = new Appointment([
-                'start' => $request->start,
-                'end' => $request->end,
-                'title' => $request->title,
-                'description' => $request->description,
-            ]);
-
-            $appointment->user()->associate($assigneeId);
-            $appointment->save();
-        }
+        $appointment->save();
 
         return back()->with('success', 'Imported Successfully');
     }
@@ -71,7 +64,11 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        $appointment->update($request->all());
+        $appointment->update($request->except('user_id'));
+
+        $appointment->user_id = $request->user['id'];
+
+        $appointment->save();
 
         return back()->with('success', 'Appointment Updated Successfully');
     }

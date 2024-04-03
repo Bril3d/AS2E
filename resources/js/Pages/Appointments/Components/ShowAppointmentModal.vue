@@ -41,7 +41,7 @@ const validAppointmentData = () => {
 }
 
 const deleteAppointment = () => {
-  router.delete('/appointments/' + props.appointment.id, {
+  router.delete('/appointments/' + date.id, {
     preserveScroll: true,
     onSuccess: () => {
       emit('appointment-deleted');
@@ -50,16 +50,8 @@ const deleteAppointment = () => {
 }
 
 const updateAppointment = () => {
-  let updatedAppointmentData = {
-    id: props.appointment.id,
-    title: date.title,
-    start: date.start,
-    end: date.end,
-    user_id: date.user_id,
-    description: date.description
-  }
 
-  router.put('/appointments/' + updatedAppointmentData.id, updatedAppointmentData, {
+  router.put('/appointments/' + date.id, date, {
     onSuccess: () => {
       emit('appointment-updated')
     }
@@ -75,10 +67,9 @@ const date = reactive({
   title: props.appointment.title,
   start: formatDate(props.appointment.start),
   end: formatDate(props.appointment.end),
-  user_id: props.appointment.extendedProps.user_id,
+  user: props.appointment.extendedProps.user,
   description: props.appointment.extendedProps.description
 })
-console.log(date.value)
 </script>
 
 <template>
@@ -88,10 +79,10 @@ console.log(date.value)
       <div v-if="show" @click.self.prevent="closeModal"
         class="block w-full h-full fixed top-0 left-0 overflow-x-hidden overflow-y-auto z-[61]">
         <div class="duration-500 mt-7 opacity-100 ease-out transition-all md:max-w-2xl md:w-full m-3 md:mx-auto">
-          <div class="flex flex-col border shadow-sm rounded-xl bg-gray-50 border-gray-300 shadow-slate-700/[.7]">
+          <div class="flex flex-col border shadow-sm rounded-xl bg-gray-50 dark:bg-slate-700 border-gray-300 shadow-slate-700/[.7]">
             <div class="p-4 overflow-y-auto">
-              <div class="w-full bg-white rounded-md">
-                <div class="relative bg-white rounded-lg w-full">
+              <div class="w-full bg-white dark:bg-slate-700 rounded-md">
+                <div class="relative bg-white dark:bg-gray-700 dark:text-gray-200 rounded-lg w-full">
                   <div class="flex items-center justify-between px-4 py-2 border-b border-gray-200">
                     <h5 class="text-lg font-semibold">Appointment Details</h5>
                     <button type="button" class="text-gray-600 hover:text-gray-800 focus:outline-none"
@@ -104,41 +95,29 @@ console.log(date.value)
                   </div>
                   <div class="flex flex-col gap-2 p-4">
                     <div class="mb-2">
-                      <div class="flex items-center border border-gray-300 rounded-lg">
-                        <div class="p-2 bg-gray-200 rounded-l-lg">
-                          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M6 18L18 6M6 6l12 12"></path>
-                          </svg>
-                        </div>
-                        <input type="text" class="w-full py-2 px-4 focus:outline-none" v-model="date.title"
-                          placeholder="Title" ref="appointmentTitle" autofocus>
-                      </div>
-                    </div>
-                    <div class="mb-2 flex items-center">
-                      <svg class="h-6 w-6 text-gray-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
-                        </path>
-                      </svg>
-                      {{ date.start + ' - ' + date.end }}
-                    </div>
-                    <div v-if="users.length > 0" class="mb-2">
-                      <div class="flex items-center border-main border-2 rounded-lg">
-                        <div class="p-2 bg-gray-200 rounded-l-lg">
-                          <svg class="h-6 w-6 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                              d="M6 18L18 6M6 6l12 12"></path>
-                          </svg>
-                        </div>
-                        <select class="focus:outline-none focus:border-none border-none w-full" v-model="date.user_id">
-                          <option disabled value="0">Assign to:</option>
-                          <option v-for="user in users" :key="user.id" :value="user.id">{{ user.name }}</option>
-                        </select>
+                      <InputLabel value="Title" for="title" />
+                      <div class="mb-2">
+                        <TextInput id="title" type="text" class="w-full py-2 px-4 focus:outline-none"
+                          v-model="date.title" placeholder="Add title..." autofocus />
                       </div>
                     </div>
                     <div class="mb-2">
-                      <textarea class="w-full py-2 px-4 focus:ring-main-dark rounded-lg border-main border-2"
-                        id="appointmentNote" rows="3" v-model="date.description" placeholder="Description"></textarea>
+                      <InputLabel value="Date" for="date" />
+                      <span id="date">{{ formatDate(date.start, 'YYYY/MM/DD') + ' - ' + formatDate(date.end,
+      'YYYY/MM/DD')
+                        }}</span>
+                    </div>
+                    <div v-if="users.length > 0" class="mb-2">
+                      <InputLabel value="Users" for="users" />
+                      <VueMultiselect class="dark:bg-slate-600" id="users" v-model="date.user" :options="users"
+                        :close-on-select="true" placeholder="Select Users" label="name" track-by="name" />
+                    </div>
+                    <div class="mb-2">
+                      <InputLabel value="Description" for="appointmentNote" />
+                      <textarea
+                        class="w-full py-2 px-4 focus:ring-main-dark rounded-lg border-main border-2 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                        id="appointmentNote" rows="3" v-model="date.description"
+                        placeholder="Description ..."></textarea>
                     </div>
                   </div>
 

@@ -114,15 +114,14 @@ const validEventData = () => {
                     <div v-if="users.length > 0" class="mb-2">
                       <InputLabel value="Users" for="users" />
                       <VueMultiselect class="dark:bg-slate-600" id="users" v-model="event.assignee" :options="users"
-                        :multiple="true" :close-on-select="true" placeholder="Select Users" label="name"
-                        track-by="name" />
+                        :close-on-select="true" placeholder="Select Users" label="name" track-by="name" />
                     </div>
                     <div class="mb-2">
                       <InputLabel value="Description" for="appointmentNote" />
                       <textarea
                         class="w-full py-2 px-4 focus:ring-main-dark rounded-lg border-main border-2 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                         id="appointmentNote" rows="3" v-model="event.description"
-                        placeholder="Description ..."></textarea>
+                        placeholder="Description..."></textarea>
                     </div>
                   </div>
 
