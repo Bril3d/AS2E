@@ -65,7 +65,7 @@ function update() {
 
         <form @submit.prevent="update" class="mt-6 space-y-6">
             <div class="flex flex-col md:flex-row md:justify-between w-full">
-                <div class="md:w-1/2 order-2">
+                <div class="md:w-1/2 order-2 md:order-1">
                     <div>
                         <InputLabel for="name" value="Name" />
 
@@ -113,7 +113,7 @@ function update() {
                         <InputError :message="form.errors.permissions" class="mt-2" />
                     </div>
                 </div>
-                <div class="flex flex-col gap-4 justify-center items-center md:w-1/2 order-1">
+                <div class="flex flex-col gap-4 justify-center items-center md:w-1/2 order-1 md:order-2">
                     <input type="file" @input="onFileChange" class="hidden" ref="file" />
                     <img class="w-32 h-32 rounded-full object-cover hover:opacity-50 cursor-pointer transition-opacity ease-in duration-200"
                         :src="avatar" alt="My Avatar" @click="$refs.file.click()">
