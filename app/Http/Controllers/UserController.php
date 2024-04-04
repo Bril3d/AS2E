@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -24,12 +25,15 @@ class UserController extends Controller
         } else {
             $users = User::orderBy("name")->paginate(15);
         }
+        
+        $users->load(['roles','permissions']);
+
         return Inertia::render("Users/Users", ["users" => UserResource::collection($users)]);
     }
 
     public function create(): Response
     {
-        return Inertia::render('Users/Create', ['roles' => Role::all()]);
+        return Inertia::render('Users/Create', ['roles' => Role::all(), 'permissions' => Permission::all()]);
     }
 
     public function store(CreateUserRequest $request): RedirectResponse
@@ -47,7 +51,8 @@ class UserController extends Controller
             'avatar' => $avatarPath,
         ]);
 
-        $user->assignRole($request->role['name']);
+        $user->syncRoles($request->input('roles.*.name'));
+        $user->syncPermissions($request->input('permissions.*.name'));
 
         return to_route('users.index')->with('User Created Succussfully');
     }
