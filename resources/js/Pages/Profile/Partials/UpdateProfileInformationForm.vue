@@ -29,7 +29,8 @@ const props = defineProps({
     user: {
         type: Object
     },
-    roles: Array
+    roles: Array,
+    permissions:Array,
 });
 
 
@@ -40,7 +41,8 @@ const form = useForm({
     name: user.name,
     avatar: user.avatar,
     email: user.email,
-    role: { name: user.roles[0] ? user.roles[0] : 'user' }
+    roles: user.roles,
+    permissions: user.permissions,
 });
 
 function update() {
@@ -98,9 +100,17 @@ function update() {
                     </div>
                     <div class="mt-4">
                         <InputLabel for="roles" value="Roles" />
-                        <VueMultiselect class="dark:bg-slate-600" id="roles" v-model="form.role" :options="roles"
-                            :close-on-select="true" placeholder="Select a role" label="name" track-by="name" />
-                        <InputError :message="form.errors.role" class="mt-2" />
+                        <VueMultiselect class="dark:bg-slate-600" id="roles" v-model="form.roles" :options="roles"
+                            :multiple="true" :close-on-select="true" placeholder="Select Roles" label="name"
+                            track-by="name" />
+                        <InputError :message="form.errors.roles" class="mt-2" />
+                    </div>
+                    <div class="mt-4">
+                        <InputLabel for="permissions" value="Permissions" />
+                        <VueMultiselect class="dark:bg-slate-600" id="permissions" v-model="form.permissions"
+                            :multiple="true" :options="permissions" :close-on-select="true"
+                            placeholder="Select Permissions" label="name" track-by="name" />
+                        <InputError :message="form.errors.permissions" class="mt-2" />
                     </div>
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center w-1/2">

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class ProfileController extends Controller
@@ -25,7 +26,6 @@ class ProfileController extends Controller
         if ($id === '') {
             $user = $request->user();
 
-            // Check if user is authenticated
             if (!$user) {
                 return redirect()->route('login');
             }
@@ -38,12 +38,14 @@ class ProfileController extends Controller
         }
 
         $user = User::findOrFail($id);
+        $user->load(['roles','permissions']);
 
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
             'status' => session('status'),
             'user' => new UserResource($user),
             'roles' => Role::all(),
+            'permissions' => Permission::all(),
         ]);
     }
 
@@ -68,8 +70,8 @@ class ProfileController extends Controller
 
         $user->fill($request->only(['name', 'email']));
 
-        $user->syncRoles($request->role['name']);
-
+        $user->syncRoles($request->input('roles.*.name'));
+        $user->syncPermissions($request->input('permissions.*.name'));
 
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
