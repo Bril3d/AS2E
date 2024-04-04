@@ -14,6 +14,13 @@ class AppointmentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
+        $startDateTime = new \DateTime($this->start);
+        $endDateTime = new \DateTime($this->end);
+
+        $isStartOfDay = $startDateTime->format('H:i:s') === '00:00:00';
+        $isEndOfDay = $endDateTime->format('H:i:s') === '00:00:00';
+
         return [
             'id' => $this->id,
             'title' => $this->title,
@@ -24,6 +31,7 @@ class AppointmentResource extends JsonResource
                 'name' => $this->user['name'],
                 'id' => $this->user['id']
             ],
+            'allDay' => $isStartOfDay && $isEndOfDay
         ];
     }
 }

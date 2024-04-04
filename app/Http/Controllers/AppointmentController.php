@@ -64,11 +64,18 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        $appointment->update($request->except('user_id'));
 
-        $appointment->user_id = $request->user['id'];
+        if ($request->has('resize')) {
+            $appointment->update($request->except('resize'));
+            
+            $appointment->save();
+        } else {
+            $appointment->update($request->except('user_id'));
 
-        $appointment->save();
+            $appointment->user_id = $request->user['id'];
+
+            $appointment->save();
+        }
 
         return back()->with('success', 'Appointment Updated Successfully');
     }

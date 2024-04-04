@@ -50,6 +50,7 @@
 @media (prefers-color-scheme: dark) {
   .multiselect__tags, .multiselect__input, .multiselect__single, .multiselect__content-wrapper {
     background-color: rgb(15 23 42)  !important;
+    color: white !important;
   }
 }
 

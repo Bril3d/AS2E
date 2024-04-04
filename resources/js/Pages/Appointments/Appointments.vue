@@ -51,7 +51,7 @@ const formatDate = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
 const handleEventDrop = (e) => {
   const updatedEventData = {
     start: formatDate(e.event.start),
-    end: formatDate(e.event.end)
+    end: formatDate(e.event.end),
   }
   router.put(`appointments/${e.event.id}`, updatedEventData)
 }
@@ -59,7 +59,8 @@ const handleEventDrop = (e) => {
 const eventResize = (e) => {
   const updatedEventData = {
     start: formatDate(e.event.start),
-    end: formatDate(e.event.end)
+    end: formatDate(e.event.end),
+    resize: true,
   }
   router.put(`/appointments/${e.event.id}`, updatedEventData)
 }
