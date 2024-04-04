@@ -105,8 +105,8 @@ const date = reactive({
                     </div>
                     <div class="mb-2">
                       <InputLabel value="Date" for="date" />
-                      <span id="date">{{ formatDate(date.start, 'YYYY/MM/DD') + ' - ' + formatDate(date.end,
-      'YYYY/MM/DD')
+                      <span id="date">{{ formatDate(date.start, 'YYYY/MM/DD HH:mm') + ' - ' + formatDate(date.end,
+      'YYYY/MM/DD HH:mm')
                         }}</span>
                     </div>
                     <div v-if="users.length > 0" class="mb-2">
