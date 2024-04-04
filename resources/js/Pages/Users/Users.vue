@@ -1,5 +1,5 @@
 <script setup>
-import UserCard from '@/Components/UserCard.vue';
+import UserCard from './Partials/UserCard.vue';
 import Pagination from '@/Components/Pagination.vue';
 import { Head, router, Link } from '@inertiajs/vue3';
 import { FaUsersSlash } from "@kalimahapps/vue-icons";
