@@ -1,12 +1,17 @@
 <script setup>
+import { computed } from "vue";
 import { Link } from "@inertiajs/vue3";
 import { AkEdit } from "@kalimahapps/vue-icons";
 
-defineProps({
+const props = defineProps({
   user: {
     type: Object,
     required: true
   }
+})
+
+const userRoles = computed(()=>{
+  return props.user.roles.length ? props.user.roles.map(role => role.name).join(', ') : 'User' 
 })
 
 </script>
@@ -26,7 +31,7 @@ defineProps({
           </Link>
         </div>
         <p class="text-xs uppercase text-gray-500">
-          {{ user.roles[0] ? user.roles[0] : 'User' }}
+          {{ userRoles }}
         </p>
       </div>
 
