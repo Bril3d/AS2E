@@ -1,9 +1,15 @@
-<template lang="">
+<script setup>
+import { usePage } from '@inertiajs/vue3';
+
+const appName = usePage().props.settings.app_name;
+</script>
+
+<template>
 <footer class="w-full max-w-[85rem] py-10 px-4 sm:px-6 lg:px-8 mx-auto border-t">
   <!-- Grid -->
   <div class="text-center">
     <div>
-      <a class="flex-none text-xl font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400" href="#" aria-label="Brand">AS2E</a>
+      <a class="flex-none text-xl font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400" href="#" aria-label="Brand">{{ appName }}</a>
     </div>
     <!-- End Col -->
 
