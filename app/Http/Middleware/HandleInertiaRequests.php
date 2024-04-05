@@ -37,7 +37,10 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn () => $request->session()->get('message'),
                 'success' => fn () => $request->session()->get('success'),
             ],
-            'date_format' => fn () => setting('date_format'),
+            'settings' => [
+                'app_name' => fn () => setting('app_name'),
+                'date_format' => fn () => setting('date_format'),
+            ],
             'auth.user' => fn () => $request->user()
                 ? new UserResource($request->user())
                 : null,

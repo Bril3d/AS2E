@@ -6,7 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { register } from 'swiper/element/bundle';
-import { router } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3'
 import "preline";
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
@@ -21,12 +21,11 @@ router.on('finish', (event) => {
 })
 
 register();
-const appName = import.meta.env.VITE_APP_NAME || 'AS2E';
 
 toastCall();
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+    title: (title) => `${title} - ${usePage().props?.settings.app_name}`,
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
