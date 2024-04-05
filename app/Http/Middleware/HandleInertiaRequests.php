@@ -40,6 +40,7 @@ class HandleInertiaRequests extends Middleware
             'settings' => [
                 'app_name' => fn () => setting('app_name'),
                 'date_format' => fn () => setting('date_format'),
+                'logo' => fn () => setting('logo'),
             ],
             'auth.user' => fn () => $request->user()->load(['roles','permissions'])
                 ? new UserResource($request->user())
