@@ -2,6 +2,7 @@
 import { Head, useForm } from '@inertiajs/vue3';
 import inputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
 import VueMultiselect from 'vue-multiselect'
 
 const props = defineProps({
@@ -20,7 +21,7 @@ const dateFormats = [
   'MM/DD/YY', // 04/05/24
   'YY/MM/DD' // 24/04/05
 ];
-console.log(dateFormats);
+
 
 const form = useForm({
   app_name: props.settings.app_name,
