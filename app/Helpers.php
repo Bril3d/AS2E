@@ -7,7 +7,7 @@ function setting($key)
 {
   $settings = Cache::rememberForever('settings', function () {
 
-    Setting::pluck('value','key')->all();
+    return Setting::pluck('value','key')->all();
 
   });
 
