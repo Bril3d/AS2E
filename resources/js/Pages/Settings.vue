@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <AuthenticatedLayout>
     
-  </div>
+  </AuthenticatedLayout>
 </template>
