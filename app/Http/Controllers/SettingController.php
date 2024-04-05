@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Setting;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SettingRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class SettingController extends Controller
@@ -14,7 +16,14 @@ class SettingController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Settings');
+
+        $settings = Setting::pluck('value','key')->toArray();
+
+        if(! $settings) {
+            $settings = config('settngs.default');
+        }
+
+        return Inertia::render('Settings', ['settings' => $settings]);
     }
 
     /**
@@ -52,9 +61,16 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Setting $setting)
+    public function update(SettingRequest $request, Setting $settings)
     {
-        //
+        foreach($settings as $key => $value){
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        Cache::flush('settings');
     }
 
     /**

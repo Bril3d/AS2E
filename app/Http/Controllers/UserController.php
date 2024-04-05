@@ -21,9 +21,9 @@ class UserController extends Controller
         $search = $request->search;
 
         if ($search) {
-            $users = User::where('name', 'like', '%' . $search . '%')->orderBy('name')->paginate(15);
+            $users = User::where('name', 'like', '%' . $search . '%')->orderBy('name')->paginate(setting('pagination_limit'));
         } else {
-            $users = User::orderBy("name")->paginate(15);
+            $users = User::orderBy("name")->paginate(setting('pagination_limit'));
         }
         
         $users->load(['roles','permissions']);
