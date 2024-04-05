@@ -17,9 +17,9 @@ class SettingController extends Controller
     public function index()
     {
 
-        $settings = Setting::pluck('value','key')->toArray();
+        $settings = Setting::pluck('value', 'key')->toArray();
 
-        if(! $settings) {
+        if (!$settings) {
             $settings = config('settngs.default');
         }
 
@@ -37,9 +37,18 @@ class SettingController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SettingRequest $request)
     {
-        //
+        foreach ($request->all() as $key => $value) {
+            Setting::updateOrCreate(
+                ['key' => $key],
+                ['value' => $value],
+            );
+        }
+
+        Cache::forget('settings');
+
+        return back()->with('success', 'Settings Updated Succussfully');
     }
 
     /**
@@ -61,16 +70,18 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SettingRequest $request, Setting $settings)
+    public function update(SettingRequest $request)
     {
-        foreach($settings as $key => $value){
+        foreach ($request->all() as $key => $value) {
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value],
             );
         }
 
-        Cache::flush('settings');
+        Cache::forget('settings');
+
+        return back()->with('success', 'Settings Updated Succussfully');
     }
 
     /**
