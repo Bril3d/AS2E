@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\SettingRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class SettingController extends Controller
@@ -39,7 +40,21 @@ class SettingController extends Controller
      */
     public function store(SettingRequest $request)
     {
-        foreach ($request->all() as $key => $value) {
+
+        $logo = Setting::where('key', 'logo')->first();
+
+        if ($request->hasFile('logo')) {
+            $logoName = 'as2e' . '.' . $request->file('logo')->getClientOriginalExtension();
+            $logoPath = $request->file('logo')->storeAs('', $logoName, 'public');
+
+            if ($logo->value) {
+                Storage::disk('public')->delete($logo->value);
+            }
+
+            $logo->update(['value' => $logoPath]);
+        }
+
+        foreach ($request->except('logo') as $key => $value) {
             Setting::updateOrCreate(
                 ['key' => $key],
                 ['value' => $value],

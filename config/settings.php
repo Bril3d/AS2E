@@ -3,7 +3,7 @@
 return [
   'default' => [
     'app_name' => 'AS2E',
-    'date_format' => 'm/dY',
+    'date_format' => 'MM/DD/YYYY',
     'pagination_limit' => 15,
   ]
 ];

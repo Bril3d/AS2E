@@ -26,6 +26,10 @@ class SettingsTableSeeder extends Seeder
                 'key' => 'pagination_limit',
                 'value' => 10
             ],
+            [
+                'key' => 'logo',
+                'value' => 'as2e.png',
+            ]
         ]);
     }
 }

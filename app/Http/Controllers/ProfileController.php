@@ -34,6 +34,7 @@ class ProfileController extends Controller
                 'mustVerifyEmail' => $user instanceof MustVerifyEmail,
                 'status' => session('status'),
                 'roles' => Role::all(),
+                'permissions' => Permission::all(),
             ]);
         }
 

@@ -21,10 +21,17 @@ class SettingRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+
+        $rules = [
             'app_name' => ['required', 'string'],
             'date_format' => ['required', 'string'],
             'pagination_limit' => ['required', 'int', 'min:1','max:100'],
         ];
+
+        if ($this->hasFile('logo')) {
+            $rules['logo'] = ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp', 'max:2048'];
+        }
+
+        return $rules;
     }
 }
