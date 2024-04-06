@@ -2,13 +2,43 @@
   <div class="relative h-screen">
     <div v-if="canLogin" class="absolute sm:top-0 sm:right-0 p-6 text-end z-10">
       <template v-if="$page.props.auth.user">
-        <!-- <Link v-if="hasRole('admin')" :href="route('dashboard')"
-          class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-        Dashboard</Link> -->
+        <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
+          <button id="hs-dropdown-with-header" type="button"
+            class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+            <img class="inline-block size-[38px] rounded-full ring-2 ring-white dark:ring-gray-800 object-cover"
+              :src="$page.props.auth.user.avatar" alt="My Avatar">
+          </button>
 
-        <Link :href="route('logout')" method="post" as="button"
-          class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">
-        Logout</Link>
+          <div
+            class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 dark:bg-gray-800 dark:border dark:border-gray-700"
+            aria-labelledby="hs-dropdown-with-header">
+            <div class="py-3 px-5 -m-2 bg-gray-100 rounded-t-lg dark:bg-gray-700 text-left">
+              <p class="text-sm text-gray-500 dark:text-gray-400">Signed in as</p>
+              <p class="text-sm font-medium text-gray-800 dark:text-gray-300">{{
+                $page.props.auth.user.name }}</p>
+            </div>
+            <div class="mt-2 py-2 first:pt-0 last:pb-0">
+              <Link
+                class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                :href="route('dashboard.index')">
+              <AnOutlinedDashboard />
+              Dashboard
+              </Link>
+              <Link
+                class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                :href="route('profile.edit')">
+              <AnOutlinedUser />
+              Profile
+              </Link>
+              <Link
+                class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300 w-full"
+                :href="route('logout')" method="post" as="button">
+              <BxLogOut class="size-4" />
+              Logout
+              </Link>
+            </div>
+          </div>
+        </div>
       </template>
 
 
@@ -51,6 +81,7 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { usePermission } from "@/Composables/permissions.js"
 import { EffectFade, Pagination } from 'swiper/modules';
+import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard  } from "@kalimahapps/vue-icons";
 
 const appName = usePage().props.settings.app_name;
 const modules = [EffectFade, Pagination]
