@@ -43,8 +43,10 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__ . '/auth.php';
 
+Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard.index');
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard.index');
+
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);

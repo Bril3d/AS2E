@@ -23,30 +23,21 @@ class ProfileController extends Controller
      */
     public function edit(Request $request, $id = ''): Response
     {
-        if ($id === '') {
-            $user = $request->user();
 
-            if (!$user) {
-                return redirect()->route('login');
-            }
+        $user = $id ? User::findOrFail($id) : $request->user();
 
-            return Inertia::render('Profile/Edit', [
-                'mustVerifyEmail' => $user instanceof MustVerifyEmail,
-                'status' => session('status'),
-                'roles' => Role::all(),
-                'permissions' => Permission::all(),
-            ]);
+        if (!$user) {
+            return redirect()->route('login');
         }
 
-        $user = User::findOrFail($id);
-        $user->load(['roles','permissions']);
 
         return Inertia::render('Profile/Edit', [
-            'mustVerifyEmail' => $request->user() instanceof MustVerifyEmail,
+            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
-            'user' => new UserResource($user),
+            'user' => $request->user()->isAdmin() ? $user : null,
             'roles' => Role::all(),
             'permissions' => Permission::all(),
+
         ]);
     }
 
