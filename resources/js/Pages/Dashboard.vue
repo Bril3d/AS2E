@@ -53,7 +53,7 @@ const props = defineProps({
                 <!-- End Card -->
             </div>
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
-                <h1 class="text-white font-semibold text-center text-2xl font-outline-1">Total Incomers Per Month</h1>
+                <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total Incomers Per Month</h1>
                 <NewUsersChart class="h-64" :chartData="usersByMonth" />
             </div>
         </div>
