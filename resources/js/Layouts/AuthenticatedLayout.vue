@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { AnOutlinedDashboard ,AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings } from "@kalimahapps/vue-icons";
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 
 function onPage(component) {
@@ -27,8 +27,8 @@ onMounted(() => {
             class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700">
             <nav class="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8" aria-label="Global">
                 <div class="me-5 lg:me-0 lg:hidden">
-                    <a class="flex-none text-xl font-semibold dark:text-white" href="/"
-                        aria-label="AS2E">{{ appName }}</a>
+                    <Link class="flex-none text-xl font-semibold dark:text-white" href="/" aria-label="AS2E">{{ appName
+                    }}</Link>
                 </div>
 
                 <div class="w-full flex items-center justify-end ms-auto sm:justify-between sm:gap-x-3 sm:order-3">
@@ -159,10 +159,11 @@ onMounted(() => {
         <div id="application-sidebar"
             class="hs-overlay hs-overlay-open:translate-x-0 -translate-x-full transition-all duration-300 transform hidden fixed top-0 start-0 bottom-0 z-[60] w-64 bg-white border-e border-gray-200 pt-7 pb-10 overflow-y-auto lg:block lg:translate-x-0 lg:end-auto lg:bottom-0 [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-slate-700 dark:[&::-webkit-scrollbar-thumb]:bg-slate-500 dark:bg-gray-800 dark:border-gray-700">
             <div class="px-6">
-                <a class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                <Link
+                    class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="/" aria-label="AS2E">
-                    <ApplicationLogo class="mx-auto" />
-                </a>
+                <ApplicationLogo class="mx-auto" />
+                </Link>
             </div>
 
             <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
@@ -172,7 +173,7 @@ onMounted(() => {
                             :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
                             href="/dashboard">
-                        <AnOutlinedDashboard  class="w-4 h-4" />
+                        <AnOutlinedDashboard class="w-4 h-4" />
                         Dashboard
                         </Link>
                     </li>
