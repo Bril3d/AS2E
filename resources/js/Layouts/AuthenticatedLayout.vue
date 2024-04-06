@@ -1,8 +1,12 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings } from "@kalimahapps/vue-icons";
+import { useDark, useToggle } from '@vueuse/core'
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, MdOutlinedDarkMode, CaLight } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
+
+let isDark = useDark();
+const toggleDark = useToggle(isDark);
 
 function onPage(component) {
     return usePage().component === component
@@ -62,6 +66,11 @@ onMounted(() => {
                     </div>
 
                     <div class="flex flex-row items-center justify-end gap-2">
+                        <button type="button" @click="toggleDark()"
+                            class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                            <MdOutlinedDarkMode v-if="isDark" class="flex-shrink-0 size-4" />
+                            <CaLight v-else class="flex-shrink-0 size-4" />
+                        </button>
                         <button type="button"
                             class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
