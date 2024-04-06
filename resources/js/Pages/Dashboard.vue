@@ -1,7 +1,8 @@
 <script setup>
-import StatsCard from '@/Components/StatsCard.vue';
-import { ClUsers, BxPackage, BsPostcardHeart, AkCalendar } from "@kalimahapps/vue-icons";
 import { Head } from '@inertiajs/vue3';
+import { ClUsers, BxPackage, BsPostcardHeart, AkCalendar } from "@kalimahapps/vue-icons";
+import StatsCard from '@/Components/StatsCard.vue';
+import NewUsersChart from '@/Components/NewUsersChart.vue'
 
 const props = defineProps({
     users: {
@@ -10,6 +11,10 @@ const props = defineProps({
     },
     dates: {
         type: Number,
+        required: true,
+    },
+    usersByMonth: {
+        type: Object,
         required: true,
     }
 })
@@ -20,31 +25,37 @@ const props = defineProps({
     <Head title="Dashboard" />
 
     <AuthenticatedLayout title="Stats">
-        <!-- Grid -->
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <!-- Card -->
-            <StatsCard header="Total Users" tooltip="The number of daily users" :number="users">
-                <ClUsers class="text-gray-600 dark:text-gray-400 size-5" />
-            </StatsCard>
-            <!-- End Card -->
+        <div class="space-y-7">
+            <!-- Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                <!-- Card -->
+                <StatsCard header="Total Users" tooltip="The number of daily users" :number="users">
+                    <ClUsers class="text-gray-600 dark:text-gray-400 size-5" />
+                </StatsCard>
+                <!-- End Card -->
 
-            <!-- Card -->
-            <StatsCard header="Total Projects" tooltip="The number of projects" :number="50">
-                <BxPackage class="text-gray-600 dark:text-gray-400 size-5" />
-            </StatsCard>
-            <!-- End Card -->
+                <!-- Card -->
+                <StatsCard header="Total Projects" tooltip="The number of projects" :number="50">
+                    <BxPackage class="text-gray-600 dark:text-gray-400 size-5" />
+                </StatsCard>
+                <!-- End Card -->
 
-            <!-- Card -->
-            <StatsCard header="Total Posts" tooltip="The number of posts" :number="5">
-                <BsPostcardHeart class="text-gray-600 dark:text-gray-400 size-5" />
-            </StatsCard>
-            <!-- End Card -->
+                <!-- Card -->
+                <StatsCard header="Total Posts" tooltip="The number of posts" :number="5">
+                    <BsPostcardHeart class="text-gray-600 dark:text-gray-400 size-5" />
+                </StatsCard>
+                <!-- End Card -->
 
-            <!-- Card -->
-            <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" :number="dates">
-                <AkCalendar class="text-gray-600 dark:text-gray-400 size-5" />
-            </StatsCard>
-            <!-- End Card -->
+                <!-- Card -->
+                <StatsCard header="Upcoming Dates" tooltip="The number of upcoming dates" :number="dates">
+                    <AkCalendar class="text-gray-600 dark:text-gray-400 size-5" />
+                </StatsCard>
+                <!-- End Card -->
+            </div>
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
+                <h1 class="text-white font-semibold text-center text-2xl font-outline-1">Total Incomers Per Month</h1>
+                <NewUsersChart class="h-64" :chartData="usersByMonth" />
+            </div>
         </div>
         <!-- End Grid -->
     </AuthenticatedLayout>
