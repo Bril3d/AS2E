@@ -45,11 +45,12 @@ class SettingController extends Controller
 
         if ($request->hasFile('logo')) {
             $logoName = 'as2e' . '.' . $request->file('logo')->getClientOriginalExtension();
-            $logoPath = $request->file('logo')->storeAs('', $logoName, 'public');
 
             if ($logo->value) {
                 Storage::disk('public')->delete($logo->value);
             }
+
+            $logoPath = $request->file('logo')->storeAs('', $logoName, 'public');
 
             $logo->update(['value' => $logoPath]);
         }
