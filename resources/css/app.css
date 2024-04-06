@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  .font-outline-1 {
+    -webkit-text-stroke: 0.1px aqua;
+  }
+
+}
+
 @layer components {
   .capsule {
     @apply rounded-lg px-2 py-1 whitespace-nowrap text-ellipsis max-w-full;
