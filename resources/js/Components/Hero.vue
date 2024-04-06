@@ -1,5 +1,6 @@
 <template>
   <div class="relative h-screen">
+    <DarkModeSwitcher class="absolute left-8 mt-6 z-10 bg-white hover:bg-gray-300 dark:text-slate-300 dark:bg-slate-600 " />
     <div v-if="canLogin" class="absolute top-0 right-8 pt-6 text-end z-10">
       <template v-if="$page.props.auth.user">
         <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
@@ -43,8 +44,7 @@
 
 
       <template v-else>
-        <Link :href="route('login')"
-          class="font-semibold  text-white hover:text-gray-300 focus:outline font-outline-1">
+        <Link :href="route('login')" class="font-semibold  text-white hover:text-gray-300 focus:outline font-outline-1">
         Log in</Link>
 
         <Link v-if="canRegister" :href="route('register')"
@@ -81,7 +81,8 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { usePermission } from "@/Composables/permissions.js"
 import { EffectFade, Pagination } from 'swiper/modules';
-import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard  } from "@kalimahapps/vue-icons";
+import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard } from "@kalimahapps/vue-icons";
+import DarkModeSwitcher from './DarkModeSwitcher.vue';
 
 const appName = usePage().props.settings.app_name;
 const modules = [EffectFade, Pagination]
