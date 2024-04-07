@@ -47,7 +47,7 @@ require __DIR__ . '/auth.php';
 Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('files', FileController::class);
+    Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::delete('/files', [FileController::class, 'delete'])->name('files.delete');
     Route::post('/files', [FileController::class, 'upload'])->name('files.upload');
     Route::resource('roles', RoleController::class);
