@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -46,7 +47,7 @@ require __DIR__ . '/auth.php';
 Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-
+    Route::resource('files', FileController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);
