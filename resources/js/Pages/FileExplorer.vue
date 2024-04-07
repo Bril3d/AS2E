@@ -12,7 +12,8 @@
           <a @click.prevent="navigateToFolder(folder)" class="ml-2 cursor-pointer">{{ folder }}</a>
           <button @click="deleteFolder(folder)">Delete</button>
         </div>
-        <div v-for="file in files" :key="file" class="p-4 bg-white rounded-md shadow flex items-center justify-between ">
+        <div v-for="file in files" :key="file"
+          class="p-4 bg-white rounded-md shadow flex items-center justify-between ">
           <template v-if="isImage(file)">
             <div class="flex gap-2 items-center">
               <img :src="`/storage/${file}`" class="w-24 h-24 object-cover" alt="Image">
@@ -27,12 +28,11 @@
         </div>
       </div>
 
-      <!-- File Upload Form -->
-      <form class="mt-4" @submit.prevent="uploadFile">
+      <div class="mt-4">
         <input type="file" class="p-2 border border-gray-300 rounded-md" @change="onFileChange">
-        <button type="submit"
+        <button @click="uploadFile"
           class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md ml-2">Upload</button>
-      </form>
+      </div>
     </div>
   </AuthenticatedLayout>
 </template>
@@ -51,7 +51,11 @@ const selectedFile = ref(null)
 const folderHistory = ref([])
 
 const uploadFile = () => {
-  // Implement file upload logic
+  if (selectedFile.value) {
+    const formData = new FormData()
+    formData.append('file', selectedFile.value)
+    router.post(route('files.upload'), formData)
+  }
 }
 
 const onFileChange = (event) => {

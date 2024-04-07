@@ -13,25 +13,25 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-        public function index(Request $request)
-        {
-            $folder = $request->folder ? '/' . $request->folder : '/';
+    public function index(Request $request)
+    {
+        $folder = $request->folder ? '/' . $request->folder : '/';
 
-            if ($folder === '/') {
-                $files = collect(Storage::disk('public')->files($folder))->filter(function ($file) {
-                    return !Str::startsWith(basename($file), '.');
-                })->values()->all();
-            } else {
-                $files = Storage::disk('public')->files('/' . $folder);
-            }
-    
-            $folders = Storage::disk('public')->directories('/' . $folder);
-    
-            return Inertia::render('FileExplorer', [
-                'files' => $files,
-                'folders' => $folders
-            ]);
+        if ($folder === '/') {
+            $files = collect(Storage::disk('public')->files($folder))->filter(function ($file) {
+                return !Str::startsWith(basename($file), '.');
+            })->values()->all();
+        } else {
+            $files = Storage::disk('public')->files('/' . $folder);
         }
+
+        $folders = Storage::disk('public')->directories('/' . $folder);
+
+        return Inertia::render('FileExplorer', [
+            'files' => $files,
+            'folders' => $folders
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -68,35 +68,59 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'file' => 'required|file|mimes:jpeg,png,gif,svg,pdf,docx,xlsx|max:2048', // Adjust allowed file types and size as needed
+        ]);
+
+        if ($request->hasFile('file')) {
+            $request->file('file')->store('uploads', 'public');
+            return back()->with('message', 'File uploaded successfully');
+        }
+
+        return back()->with('message', 'File upload failed');
     }
 
+    public function upload(Request $request)
+    {
+
+        // dd($request->file);
+        $request->validate([
+            'file' => 'required|file|mimes:jpeg,jpg,png,gif,svg,pdf,docx,xlsx|max:2048',
+        ]);
+
+        if ($request->hasFile('file')) {
+            $request->file('file')->store('uploads', 'public');
+            return back()->with('succuss', 'File uploaded successfully');
+        }
+
+        return back()->with('message', 'File upload failed');
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
     {
 
-        if ($request->file){
+        if ($request->file) {
             Storage::disk('public')->delete($request->file);
-        }else{
+        } else {
             Storage::disk('public')->deleteDirectory($request->folder);
         }
 
-        return back()->with('succuss','Deleted Succussfully');
+        return back()->with('succuss', 'Deleted Succussfully');
     }
 
     public function delete(Request $request)
     {
 
-        if ($request->file){
+        if ($request->file) {
             Storage::disk('public')->delete($request->file);
-        }else{
+        } else {
             Storage::disk('public')->deleteDirectory($request->folder);
         }
 
-        return back()->with('succuss','Deleted Succussfully');
+        return back()->with('succuss', 'Deleted Succussfully');
     }
 }
