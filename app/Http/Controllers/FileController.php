@@ -76,8 +76,27 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+
+        if ($request->file){
+            Storage::disk('public')->delete($request->file);
+        }else{
+            Storage::disk('public')->deleteDirectory($request->folder);
+        }
+
+        return back()->with('succuss','Deleted Succussfully');
+    }
+
+    public function delete(Request $request)
+    {
+
+        if ($request->file){
+            Storage::disk('public')->delete($request->file);
+        }else{
+            Storage::disk('public')->deleteDirectory($request->folder);
+        }
+
+        return back()->with('succuss','Deleted Succussfully');
     }
 }

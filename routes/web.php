@@ -48,6 +48,7 @@ Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('files', FileController::class);
+    Route::delete('/files', [FileController::class, 'delete'])->name('files.delete');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);

@@ -2,22 +2,27 @@
   <AuthenticatedLayout>
     <div class="bg-gray-100 p-4">
       <!-- Back Button -->
-      <button @click="goBack" class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md mb-4">Back</button>
+      <button @click="goBack"
+        class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md mb-4">Back</button>
 
       <!-- File List -->
       <div class="grid grid-cols-3 gap-4">
-        <div v-for="folder in folders" :key="folder" class="p-4 bg-white rounded-md shadow">
-          <i class="fas fa-folder text-yellow-600"></i>
-          <a @click.prevent="navigateToFolder(folder)" class="ml-2">{{ folder }}</a>
+        <div v-for="folder in folders" :key="folder"
+          class="p-4 bg-white rounded-md shadow flex justify-between items-center">
+          <a @click.prevent="navigateToFolder(folder)" class="ml-2 cursor-pointer">{{ folder }}</a>
+          <button @click="deleteFolder(folder)">Delete</button>
         </div>
-        <div v-for="file in files" :key="file" class="p-4 bg-white rounded-md shadow flex gap-2 items-center">
+        <div v-for="file in files" :key="file" class="p-4 bg-white rounded-md shadow flex items-center justify-between ">
           <template v-if="isImage(file)">
-            <img :src="`/storage/${file}`" class="w-24 h-24 object-cover" alt="Image">
-            <p class="text-gray-600 text-sm">{{ file }}</p>
+            <div class="flex gap-2 items-center">
+              <img :src="`/storage/${file}`" class="w-24 h-24 object-cover" alt="Image">
+              <p class="text-gray-600 text-sm">{{ file }}</p>
+            </div>
+            <button @click="deleteFile(file)">Delete</button>
           </template>
           <template v-else>
-            <i class="fas fa-file text-blue-600"></i>
             <span class="ml-2">{{ file }}</span>
+            <button @click="deleteFile(file)">Delete</button>
           </template>
         </div>
       </div>
@@ -25,7 +30,8 @@
       <!-- File Upload Form -->
       <form class="mt-4" @submit.prevent="uploadFile">
         <input type="file" class="p-2 border border-gray-300 rounded-md" @change="onFileChange">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md ml-2">Upload</button>
+        <button type="submit"
+          class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-md ml-2">Upload</button>
       </form>
     </div>
   </AuthenticatedLayout>
@@ -64,6 +70,18 @@ const goBack = () => {
     router.get(route('files.index', { folder: previousFolder }))
   } else {
     router.get(route('files.index'))
+  }
+}
+
+const deleteFile = (file) => {
+  if (confirm('Are you sure you want to delete this file?')) {
+    router.delete(route('files.delete', { file }))
+  }
+}
+
+const deleteFolder = (folder) => {
+  if (confirm('Are you sure you want to delete this folder and its contents?')) {
+    router.delete(route('folders.delete', { folder }))
   }
 }
 
