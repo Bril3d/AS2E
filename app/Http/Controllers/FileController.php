@@ -13,25 +13,43 @@ class FileController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $folder = $request->folder ? '/' . $request->folder : '/';
-
-        if ($folder === '/') {
-            $files = collect(Storage::disk('public')->files($folder))->filter(function ($file) {
-                return !Str::startsWith(basename($file), '.');
-            })->values()->all();
-        } else {
-            $files = Storage::disk('public')->files('/' . $folder);
-        }
-
-        $folders = Storage::disk('public')->directories('/' . $folder);
+        $contents = $this->getContents('/');
 
         return Inertia::render('FileExplorer', [
-            'files' => $files,
-            'folders' => $folders
+            'contents' => $contents,
         ]);
     }
+
+    private function getContents($folderPath)
+    {
+        $contents = [];
+    
+        // Get all files in the folder
+        $files = Storage::disk('public')->files($folderPath);
+        foreach ($files as $file) {
+            $contents[] = [
+                'type' => 'file',
+                'name' => basename($file),
+                'path' => $file,
+            ];
+        }
+    
+        // Get all subdirectories in the folder
+        $directories = Storage::disk('public')->directories($folderPath);
+        foreach ($directories as $directory) {
+            $contents[] = [
+                'type' => 'folder',
+                'name' => basename($directory),
+                'path' => $directory,
+                'contents' => $this->getContents($directory),
+            ];
+        }
+    
+        return $contents;
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -75,7 +93,7 @@ class FileController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
-            $request->file('file')->store('uploads', 'public');
+            $request->file('file')->store($request->path, 'public');
             return back()->with('message', 'File uploaded successfully');
         }
 
@@ -85,13 +103,12 @@ class FileController extends Controller
     public function upload(Request $request)
     {
 
-        // dd($request->file);
         $request->validate([
             'file' => 'required|file|mimes:jpeg,jpg,png,gif,svg,pdf,docx,xlsx|max:2048',
         ]);
-
+        dd($request);
         if ($request->hasFile('file')) {
-            $request->file('file')->store('uploads', 'public');
+            $request->file('file')->store($request->path, 'public');
             return back()->with('succuss', 'File uploaded successfully');
         }
 
