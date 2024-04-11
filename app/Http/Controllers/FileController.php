@@ -145,10 +145,11 @@ class FileController extends Controller
     public function destroy(Request $request)
     {
 
-        if ($request->file) {
-            Storage::disk('public')->delete($request->file);
+        $path = $request->path;
+        if (strpos($path, '.') !== false) {
+            Storage::disk('public')->delete($path);
         } else {
-            Storage::disk('public')->deleteDirectory($request->folder);
+            Storage::disk('public')->deleteDirectory($path);
         }
 
         return back()->with('succuss', 'Deleted Succussfully');
@@ -162,12 +163,7 @@ class FileController extends Controller
 
     public function delete(Request $request)
     {
-
-        if ($request->file) {
-            Storage::disk('public')->delete($request->file);
-        } else {
-            Storage::disk('public')->deleteDirectory($request->folder);
-        }
+        Storage::disk('public')->delete($request->path);
 
         return back()->with('succuss', 'Deleted Succussfully');
     }

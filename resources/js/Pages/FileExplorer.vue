@@ -93,10 +93,10 @@ const getCurrentFolderContents = () => {
 };
 
 
-const deleteItem = (itemPath) => {
+const deleteItem = (path) => {
   if (confirm('Are you sure you want to delete this item?')) {
     // Implement delete logic here
-    console.log('Delete item:', itemPath);
+    router.delete(`/files?path=${path}`);
   }
 }
 
