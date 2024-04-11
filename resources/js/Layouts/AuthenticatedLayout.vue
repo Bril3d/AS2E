@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted } from 'vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, usePage, Head } from '@inertiajs/vue3';
 import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
@@ -23,6 +23,10 @@ onMounted(() => {
 </script>
 
 <template>
+
+    <Head>
+        <meta name="description" content="Admin Dashboard to access and analyze all data around the as2e website">
+    </Head>
     <div class="bg-gray-50 dark:bg-slate-900">
         <!-- ========== HEADER ========== -->
         <header
