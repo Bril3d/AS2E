@@ -7,7 +7,7 @@
       <!-- Folders -->
       <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
         class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer"
-        @click="item.type === 'folder' || item.type === 'parentFolder' ? navigateToFolder(item.path) : null">
+        @click="item.type === 'folder' || item.type === 'parentFolder' ? navigateToFolder(item.path) : openFile(item.path)">
         <div class="flex items-center w-2/3">
           <AkFolder v-if="item.type === 'folder'" class="w-8 h-8" />
           <AkFile v-else class="w-8 h-8" />
@@ -60,6 +60,10 @@ const currentFolder = ref('/');
 
 const navigateToFolder = (folderPath) => {
   folderHistory.value.push(folderPath)
+}
+
+const openFile = (filePath) => {
+  window.open(`/storage/${filePath}`);
 }
 
 const goBack = () => {
