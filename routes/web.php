@@ -49,7 +49,9 @@ Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::delete('/files', [FileController::class, 'delete'])->name('files.delete');
+    Route::delete('/files/revert/{file}', [FileController::class, 'revert'])->name('files.revert');
     Route::post('/files', [FileController::class, 'upload'])->name('files.upload');
+    Route::post('/files/process', [FileController::class, 'process'])->name('files.process');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);

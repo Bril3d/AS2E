@@ -25,7 +25,7 @@ class FileController extends Controller
     private function getContents($folderPath)
     {
         $contents = [];
-    
+
         // Get all files in the folder
         $files = Storage::disk('public')->files($folderPath);
         foreach ($files as $file) {
@@ -35,7 +35,7 @@ class FileController extends Controller
                 'path' => $file,
             ];
         }
-    
+
         // Get all subdirectories in the folder
         $directories = Storage::disk('public')->directories($folderPath);
         foreach ($directories as $directory) {
@@ -46,10 +46,10 @@ class FileController extends Controller
                 'contents' => $this->getContents($directory),
             ];
         }
-    
+
         return $contents;
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -100,13 +100,39 @@ class FileController extends Controller
         return back()->with('message', 'File upload failed');
     }
 
+    public function process(Request $request)
+    {
+
+        $files = $request->allFiles();
+
+        if (empty($files)) {
+            return back()->with('message', 'No files were uploaded.');
+        }
+
+        if (count($files) > 1) {
+            return back()->with('message', 'Only 1 file can be uploaded at a time.');
+        }
+
+        $requestKey = array_key_first($files);
+
+        $file = is_array($request->input($requestKey))
+            ? $request->file($requestKey)[0]
+            : $request->file($requestKey);
+
+        $file =  $file->store(
+            $request->folder,
+            'public'
+        );
+
+        $parts = explode('/', $file);
+        $part = $parts[1];
+
+        return $part;
+    }
+
     public function upload(Request $request)
     {
 
-        $request->validate([
-            'file' => 'required|file|mimes:jpeg,jpg,png,gif,svg,pdf,docx,xlsx|max:2048',
-        ]);
-        dd($request);
         if ($request->hasFile('file')) {
             $request->file('file')->store($request->path, 'public');
             return back()->with('succuss', 'File uploaded successfully');
@@ -127,6 +153,12 @@ class FileController extends Controller
         }
 
         return back()->with('succuss', 'Deleted Succussfully');
+    }
+
+    public function revert(Request $request, $file)
+    {
+        Storage::delete($request->folder . $file);
+        return '';
     }
 
     public function delete(Request $request)
