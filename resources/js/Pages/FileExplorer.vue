@@ -1,4 +1,6 @@
 <template>
+
+  <Head title="File Explorer" />
   <AuthenticatedLayout>
     <button @click="goBack" v-if="folderHistory.length > 0"
       class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md mb-4">Back</button>
@@ -32,7 +34,7 @@
 <script setup>
 import { ref } from 'vue'
 import { AkFolder, AkFile } from "@kalimahapps/vue-icons";
-import { useForm, router } from "@inertiajs/vue3";
+import { useForm, router, Head } from "@inertiajs/vue3";
 import vueFilePond from 'vue-filepond';
 
 
