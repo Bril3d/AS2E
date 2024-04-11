@@ -107,7 +107,7 @@ const handleFilePondLoad = (response) => {
 
 const handleFilePondRevert = (uniqueId, load, error) => {
   form.files = form.files.filter((image) => image !== uniqueId);
-  router.delete(`/files/revert/${uniqueId}?folder=${currentFolder}`);
+  router.delete(`/files/revert/${uniqueId}?folder=${currentFolder.value}`);
   load();
 }
 </script>

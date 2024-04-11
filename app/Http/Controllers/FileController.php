@@ -119,15 +119,14 @@ class FileController extends Controller
             ? $request->file($requestKey)[0]
             : $request->file($requestKey);
 
-        $file =  $file->store(
+        $filePath = $file->store(
             $request->folder,
             'public'
         );
 
-        $parts = explode('/', $file);
-        $part = $parts[1];
+        $fileName = basename($filePath);
 
-        return $part;
+        return $fileName;
     }
 
     public function upload(Request $request)
@@ -157,7 +156,7 @@ class FileController extends Controller
 
     public function revert(Request $request, $file)
     {
-        Storage::delete($request->folder . $file);
+        Storage::delete('public/' . $request->folder . '/' . $file);
         return '';
     }
 
