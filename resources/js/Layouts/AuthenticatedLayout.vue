@@ -1,8 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
-import { useDark, useToggle } from '@vueuse/core'
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings } from "@kalimahapps/vue-icons";
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
 
@@ -220,6 +219,14 @@ onMounted(() => {
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <AkCalendar class="w-4 h-4" />
                         Calendar
+                        </Link>
+                    </li>
+                    <li>
+                        <Link as="button" href="/files"
+                            :class="onPage('FileExplorer') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <IcMediaImageFolder class="w-4 h-4" />
+                        File Explorer
                         </Link>
                     </li>
                     <li>
