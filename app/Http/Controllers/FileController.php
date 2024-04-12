@@ -68,11 +68,13 @@ class FileController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Create New Folder
      */
-    public function show(string $id)
+    public function folderCreate(Request $request, $folder)
     {
-        //
+        Storage::makeDirectory('public/' . $request->path . '/' . $folder);
+
+        return back()->with('success', 'Folder Created!');
     }
 
     /**

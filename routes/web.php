@@ -52,6 +52,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::delete('/files/revert/{file}', [FileController::class, 'revert'])->name('files.revert');
     Route::post('/files', [FileController::class, 'upload'])->name('files.upload');
     Route::post('/files/process', [FileController::class, 'process'])->name('files.process');
+    Route::post('/files/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);

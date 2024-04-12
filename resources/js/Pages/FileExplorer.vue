@@ -2,9 +2,19 @@
 
   <Head title="File Explorer" />
   <AuthenticatedLayout>
-    <button @click="goBack" v-if="folderHistory.length > 0"
-      class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-md mb-4">Back</button>
+    <Modal :show="show" @close="show = false">
+      <div class="p-6 space-y-3">
+        <inputLabel for="name" value="Insert Folder Name" />
+        <TextInput id="name" v-model="folderName" placeholder="Folder Name" class="mt-1 block w-full" />
+        <PrimaryButton @click="createFolder">Create</PrimaryButton>
+      </div>
+    </Modal>
+    <div class="space-x-6 mb-5">
+      <SecondaryButton @click="goBack" v-if="folderHistory.length > 0">Back</SecondaryButton>
 
+      <PrimaryButton @click="show = true">Create
+        Folder</PrimaryButton>
+    </div>
     <div class="grid grid-cols-3 gap-4">
       <!-- Folders -->
       <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
@@ -36,6 +46,10 @@ import { ref } from 'vue'
 import { AkFolder, AkFile } from "@kalimahapps/vue-icons";
 import { useForm, router, Head } from "@inertiajs/vue3";
 import vueFilePond from 'vue-filepond';
+import Modal from '@/Components/Modal.vue';
+import inputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 
 
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js';
@@ -59,6 +73,8 @@ const props = defineProps({
 
 const folderHistory = ref([])
 const currentFolder = ref('/');
+const folderName = ref('');
+const show = ref(false);
 
 const navigateToFolder = (folderPath) => {
   folderHistory.value.push(folderPath)
@@ -115,5 +131,13 @@ const handleFilePondRevert = (uniqueId, load, error) => {
   form.files = form.files.filter((image) => image !== uniqueId);
   router.delete(`/files/revert/${uniqueId}?folder=${currentFolder.value}`);
   load();
+}
+
+const createFolder = () => {
+  router.post(`/files/${folderName.value}`, { path: currentFolder.value }, {
+    onSuccess: () => {
+      show.value = false
+    }
+  })
 }
 </script>
