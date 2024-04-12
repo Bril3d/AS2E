@@ -31,7 +31,7 @@
     </div>
     <div class="mt-2">
       <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..." allow-multiple="true"
-        accepted-file-types="image/jpeg, image/png" :server="{
+        accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
           url: '', process: {
             url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:
               handleFilePondLoad
@@ -51,14 +51,14 @@ import inputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 
-
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
 import FilePondPluginImagePreview from 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.esm.js';
 
 import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Create FilePond component
-const FilePond = vueFilePond(FilePondPluginImagePreview);
+const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
 
 const form = useForm({
   files: [],
