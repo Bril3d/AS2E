@@ -34,10 +34,9 @@ class ProfileController extends Controller
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
-            'user' => $request->user()->isAdmin() ? $user : null,
+            'user' => $request->user()->isAdmin() ? new UserResource($user->load(['roles', 'permissions'])) : null,
             'roles' => Role::all(),
             'permissions' => Permission::all(),
-
         ]);
     }
 
