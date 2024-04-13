@@ -28,7 +28,7 @@
       <div class="grid grid-cols-3 gap-4">
         <!-- Folders -->
         <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
-          class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer"
+          class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
           @click="item.type === 'folder' || item.type === 'parentFolder' ? navigateToFolder(item.path) : openFile(item.path)">
           <div class="flex items-center w-2/3">
             <AkFolder v-if="item.type === 'folder'" class="w-8 h-8" />
@@ -39,9 +39,10 @@
             class="text-red-500">Delete</button>
         </div>
       </div>
-      <div class="mt-2">
-        <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..." allow-multiple="true"
-          accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
+      <div class="mt-4">
+        <file-pond class="dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+          :credits="false" name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..."
+          allow-multiple="true" accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
             url: '', process: {
               url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:
                 handleFilePondLoad
