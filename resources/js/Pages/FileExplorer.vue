@@ -15,35 +15,46 @@
       <PrimaryButton @click="show = true">Create
         Folder</PrimaryButton>
     </div>
-    <div class="grid grid-cols-3 gap-4">
-      <!-- Folders -->
-      <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
-        class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer"
-        @click="item.type === 'folder' || item.type === 'parentFolder' ? navigateToFolder(item.path) : openFile(item.path)">
-        <div class="flex items-center w-2/3">
-          <AkFolder v-if="item.type === 'folder'" class="w-8 h-8" />
-          <AkFile v-else class="w-8 h-8" />
-          <span class="w-1/2 ml-2 flex-grow overflow-hidden whitespace-nowrap text-ellipsis">{{ item.name }}</span>
-        </div>
-        <button v-if="item.type !== 'parentFolder'" @click.stop="deleteItem(item.path)"
-          class="text-red-500">Delete</button>
+    <div class="p-4 md:p-6 bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+      <div class="flex gap-2 items-center mb-5">
+        <BxHomeAlt class="size-6 cursor-pointer dark:text-white" @click="navigateToFolder('/')" />
+        <span v-if="currentFolder != '/'" class="dark:text-white cursor-pointer"
+          @click="navigateToFolder(folderHistory[index])" v-for="(folder, index) in currentFolder.split('/')"
+          :key="index">
+          {{ index > 0 ? '/' : '' }} {{ folder }}
+        </span>
+
       </div>
-    </div>
-    <div class="mt-2">
-      <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..." allow-multiple="true"
-        accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
-          url: '', process: {
-            url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:
-              handleFilePondLoad
-          }, revert: handleFilePondRevert, headers: { 'X-CSRF-TOKEN': $page.props.csrf_token }
-        }" />
+      <div class="grid grid-cols-3 gap-4">
+        <!-- Folders -->
+        <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
+          class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer"
+          @click="item.type === 'folder' || item.type === 'parentFolder' ? navigateToFolder(item.path) : openFile(item.path)">
+          <div class="flex items-center w-2/3">
+            <AkFolder v-if="item.type === 'folder'" class="w-8 h-8" />
+            <AkFile v-else class="w-8 h-8" />
+            <span class="w-1/2 ml-2 flex-grow overflow-hidden whitespace-nowrap text-ellipsis">{{ item.name }}</span>
+          </div>
+          <button v-if="item.type !== 'parentFolder'" @click.stop="deleteItem(item.path)"
+            class="text-red-500">Delete</button>
+        </div>
+      </div>
+      <div class="mt-2">
+        <file-pond name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..." allow-multiple="true"
+          accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
+            url: '', process: {
+              url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:
+                handleFilePondLoad
+            }, revert: handleFilePondRevert, headers: { 'X-CSRF-TOKEN': $page.props.csrf_token }
+          }" />
+      </div>
     </div>
   </AuthenticatedLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { AkFolder, AkFile } from "@kalimahapps/vue-icons";
+import { AkFolder, AkFile, BxHomeAlt } from "@kalimahapps/vue-icons";
 import { useForm, router, Head } from "@inertiajs/vue3";
 import vueFilePond from 'vue-filepond';
 import Modal from '@/Components/Modal.vue';
@@ -58,7 +69,7 @@ import 'filepond/dist/filepond.min.css';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css';
 
 // Create FilePond component
-const FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
+const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
 const form = useForm({
   files: [],

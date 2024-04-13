@@ -31,7 +31,7 @@ onMounted(() => {
 <template>
     <Head title="Welcome" />
     <div>
-        <AnnouncementBanner content="This website still under development." />
+        <!-- <AnnouncementBanner content="This website still under development." /> -->
         <SideNavigator :sections="sections" />
         <Hero :canLogin="canLogin" :canRegister="canRegister" id="Hero" />
         <Features id="Features" />
