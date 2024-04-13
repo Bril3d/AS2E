@@ -9,7 +9,7 @@
         <PrimaryButton @click="createFolder">Create</PrimaryButton>
       </div>
     </Modal>
-    <div class="space-x-6 mb-5">
+    <div class="sm:space-x-6 space-x-3 mb-5">
       <SecondaryButton @click="goBack" v-if="folderHistory.length > 0">Back</SecondaryButton>
 
       <PrimaryButton @click="show = true">Create
@@ -25,7 +25,7 @@
         </span>
 
       </div>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-3 grid-cols-1 gap-4">
         <!-- Folders -->
         <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
           class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
@@ -41,7 +41,7 @@
       </div>
       <div class="mt-4">
         <file-pond class="dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
-          :credits="false" name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..."
+          credits="false" name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..."
           allow-multiple="true" accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
             url: '', process: {
               url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:

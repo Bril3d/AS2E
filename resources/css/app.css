@@ -63,7 +63,7 @@
     .dark .multiselect__input,
     .dark .multiselect__single,
     .dark .multiselect__content-wrapper,
-    .dark .filepond--drop-label {
+    .dark .filepond--panel-root {
         background-color: rgb(15 23 42) !important;
         color: white !important;
     }
