@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\User;
+use Carbon\Carbon;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
@@ -36,8 +37,10 @@ class DashboardController extends Controller
 
     public function stats()
     {
+        $today = Carbon::now();
+
         $totalUsers = User::count();
-        $totalDates = Appointment::count();
+        $totalDates = Appointment::where('start', '>=', $today)->count();
         $newUsersByMonth = $this->getNewUsersByMonth();
 
         return Inertia::render('Dashboard', ['users' => $totalUsers, 'dates' => $totalDates, 'usersByMonth' => $newUsersByMonth]);
