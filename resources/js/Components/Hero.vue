@@ -1,6 +1,7 @@
 <template>
   <div class="relative h-screen">
-    <DarkModeSwitcher class="absolute left-8 mt-6 z-10 bg-white hover:bg-gray-300 dark:text-slate-300 dark:bg-slate-600 " />
+    <DarkModeSwitcher
+      class="absolute left-8 mt-6 z-10 bg-white hover:bg-gray-300 dark:text-slate-300 dark:bg-slate-600 " />
     <div v-if="canLogin" class="absolute top-0 right-8 pt-6 text-end z-10">
       <template v-if="$page.props.auth.user">
         <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
@@ -59,9 +60,9 @@
     }" :pagination="{
       clickable: true,
     }" :modules="modules">
-      <swiper-slide v-for="(image, index) in swiperImages" :key="index">
+      <swiper-slide v-for="(image, index) in carousel" :key="index">
         <div class="swiper-image-overlay"></div>
-        <img :src="image.src" :alt="image.alt" class="h-screen object-cover w-full" />
+        <img :src="`storage/${image}`" :alt="image.alt" class="h-screen object-cover w-full" />
       </swiper-slide>
     </swiper-container>
 
@@ -87,20 +88,6 @@ import DarkModeSwitcher from './DarkModeSwitcher.vue';
 const appName = usePage().props.settings.app_name;
 const modules = [EffectFade, Pagination]
 const { hasRole } = usePermission();
-const swiperImages = [
-  {
-    src: new URL('../../assets/swiper/img1.jpg', import.meta.url), alt: 'Image 1'
-  },
-  {
-    src: new URL('../../assets/swiper/img2.jpg', import.meta.url), alt: 'Image 2'
-  },
-  {
-    src: new URL('../../assets/swiper/img3.jpg', import.meta.url), alt: 'Image 3'
-  },
-  {
-    src: new URL('../../assets/swiper/img4.jpg', import.meta.url), alt: 'Image 4'
-  }
-];
 
 defineProps({
   canLogin: {
@@ -109,6 +96,7 @@ defineProps({
   canRegister: {
     type: Boolean,
   },
+  carousel: Array
 });
 </script>
 <style scoped>

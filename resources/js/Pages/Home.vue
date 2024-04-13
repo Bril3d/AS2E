@@ -21,19 +21,21 @@ defineProps({
     canRegister: {
         type: Boolean,
     },
+    carousel: Array
 });
 
 onMounted(() => {
-   window.HSStaticMethods.autoInit()
+    window.HSStaticMethods.autoInit()
 });
 </script>
 
 <template>
+
     <Head title="Welcome" />
     <div>
         <!-- <AnnouncementBanner content="This website still under development." /> -->
         <SideNavigator :sections="sections" />
-        <Hero :canLogin="canLogin" :canRegister="canRegister" id="Hero" />
+        <Hero :canLogin="canLogin" :canRegister="canRegister" :carousel="carousel" id="Hero" />
         <Features id="Features" />
         <Services id="Services" />
         <Stats id="Stats" />
@@ -42,4 +44,3 @@ onMounted(() => {
         <Footer />
     </div>
 </template>
-
