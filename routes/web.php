@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
@@ -58,6 +60,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);
+    Route::resource('posts', PostController::class);
+    Route::resource('comments', CommentController::class);
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
