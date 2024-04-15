@@ -33,7 +33,7 @@ class SocialController extends Controller
                     'email' => $socialUser->getEmail(),
                     'password' => Hash::make(Str::random(7)),
                     'avatar' => $socialUser->getAvatar(),
-                ]);
+                ])->assignRole('user');
 
                 $user->socials()->create([
                     'provider_id' => $socialUser->getId(),
