@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     submitForm() {
-      this.$inertia.post(route('comments.store'), this.form);
+      form.post(route('comments.store'));
     },
   },
 };

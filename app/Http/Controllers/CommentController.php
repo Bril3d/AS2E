@@ -19,12 +19,13 @@ class CommentController extends Controller
             'post_id' => 'required|exists:posts,id'
         ]);
 
-        $comment = Comment::create([
+        Comment::create([
             'content' => $request->input('content'),
-            'post_id' => $request->input('post_id')
+            'post_id' => $request->input('post_id'),
+            'user_id' => auth()->id(),
         ]);
 
-        return Redirect::route('posts.show', $comment->post_id);
+        return back();
     }
 
     /**
@@ -41,5 +42,12 @@ class CommentController extends Controller
         ]);
 
         return Redirect::route('posts.show', $comment->post_id);
+    }
+
+    public function destroy(Comment $comment)
+    {
+        $comment->delete();
+
+        return back();
     }
 }
