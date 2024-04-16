@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -24,7 +26,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Posts/Create');
+        return Inertia::render('Posts/Create', [
+            'users' => User::all()
+        ]);
     }
 
     /**
@@ -40,10 +44,12 @@ class PostController extends Controller
         $post = Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
-            'user_id' => $request->user()->id,
+            'image' => $request->input('image'),
+            'slug' => Str::slug($request->title),
+            'user_id' => $request->user_id ? $request->user_id['id'] : $request->user()->id,
         ]);
 
-        return Redirect::route('posts.show', $post->id);
+        return Redirect::route('posts.index')->with('success', 'Post Created!');
     }
 
     /**

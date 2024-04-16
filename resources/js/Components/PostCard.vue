@@ -29,7 +29,7 @@
 
 
       <div v-if="post?.image" class="sm:col-span-2 w-full flex justify-center align-center overflow-hidden rounded-sm">
-        <img :src="post?.image" />
+        <img class="h-64 w-auto object-cover" :src="post?.image" :alt="post.title" />
       </div>
     </div>
 
