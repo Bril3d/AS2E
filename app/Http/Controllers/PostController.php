@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -15,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
-        return Inertia::render('Posts/Index', ['posts' => $posts]);
+        return Inertia::render('Posts/Index', ['posts' => PostResource::collection($posts)]);
     }
 
     /**

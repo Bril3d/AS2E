@@ -3,6 +3,7 @@
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\LikedPostsController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
@@ -61,6 +62,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);
     Route::resource('posts', PostController::class);
+    Route::post('post/{id}', [LikedPostsController::class, 'toggle'])->name('posts.toggle');
     Route::resource('comments', CommentController::class);
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/new', [UserController::class, 'create'])->name('users.create');

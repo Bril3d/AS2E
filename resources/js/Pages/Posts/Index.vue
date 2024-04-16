@@ -1,18 +1,21 @@
 <template>
-  <div>
-    <h1>Posts</h1>
-    <ul>
+  <AuthenticatedLayout title="Feed">
+    <ul class="space-y-4">
       <li v-for="post in posts" :key="post.id">
-        <inertia-link :href="route('posts.show', post.id)">{{ post.title }}</inertia-link>
+        <PostCard :post="post" />
       </li>
     </ul>
-  </div>
+  </AuthenticatedLayout>
 </template>
 
-<script>
-export default {
-  props: {
-    posts: Array,
-  },
-};
+<script setup>
+import { Link } from '@inertiajs/vue3'
+import PostCard from '@/Components/PostCard.vue'
+
+const props = defineProps({
+  posts: {
+    type: Array,
+    required: true
+  }
+})
 </script>

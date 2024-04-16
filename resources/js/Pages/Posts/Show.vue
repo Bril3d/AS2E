@@ -8,14 +8,19 @@
         {{ comment.content }}
       </li>
     </ul>
-    <inertia-link :href="route('comments.create')">Add Comment</inertia-link>
+    <Link :href="route('comments.create')">Add Comment</Link>
   </div>
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3';
+
 export default {
   props: {
     post: Object,
   },
+  components:{
+    Link
+  }
 };
 </script>
