@@ -25,7 +25,7 @@
     </div>
 
     <div>
-      <p class="text-sm text-gray-900 dark:text-white break-words">{{ post.content }}</p>
+      <p class="text-sm text-gray-900 dark:text-gray-400 break-words">{{ post.content }}</p>
 
 
       <div v-if="post?.image" class="sm:col-span-2 w-full flex justify-center align-center overflow-hidden rounded-sm">

@@ -7,13 +7,13 @@
       <ul v-if="post?.comments?.length > 0" class="space-y-4 py-2 overflow-auto">
         <li v-for="comment in post.comments" :key="comment.id">
           <div class="flex space-x-3">
-            <Link :href="`/profile/${comment.user_id}`" class="flex-shrink-0">
-            <img class="size-6" :src="comment.user.avatar" />
+            <Link :href="`/profile/${comment.user.id}`" class="flex-shrink-0">
+            <img class="size-6 rounded-full" :src="comment.user.avatar" />
             </Link>
             <div class="flex-shrink overflow-hidden flex-1">
               <div class="w-full flex">
                 <div>
-                  <Link :href="`/profile/${comment.user_id}`" class="text-sm font-medium text-gray-900 dark:text-white">
+                  <Link :href="`/profile/${comment.user.id}`" class="text-sm font-medium text-gray-900 dark:text-white">
                   <p class="font-medium text-gray-900 dark:text-white">
                     {{ comment.user.name }}
                   </p>
