@@ -3,7 +3,7 @@
     <div class="min-w-0 flex-1 mx-1">
       <form method="POST" @submit.prevent="submit">
         <textarea id="comment" name="comment" v-model="form.content"
-          class="shadow-sm block w-full focus:ring-rose-500 focus:border-rose-500 sm:text-sm border border-gray-300 rounded-md"
+          class="shadow-sm block w-full focus:ring-rose-500 focus:border-rose-500 sm:text-sm border border-gray-300 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 rounded-md"
           placeholder="Leave a comment..." />
         <div class="mt-2 flex items-center justify-end">
           <button :disabled="form.content.length == 0" type="submit"
