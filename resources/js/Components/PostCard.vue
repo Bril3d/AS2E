@@ -11,7 +11,7 @@
           {{ post?.user?.name }}
           </Link>
 
-          <p class="text-xs text-gray-500 dark:text-white cursor-default">
+          <p class="text-xs text-gray-500 dark:text-gray-400 cursor-default">
             <time :datetime="post.created_at">{{ post.created_at }}</time>
           </p>
         </div>

@@ -18,6 +18,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'content' => $this->content,
+            'slug' => $this->slug,
             'image' => $this->image ? '/storage/feed/' .  $this->image : null,
             'created_at' => $this->created_at->format('d/m/Y'),
             'user' => $this->user,
