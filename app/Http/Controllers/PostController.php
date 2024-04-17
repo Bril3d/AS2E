@@ -83,7 +83,7 @@ class PostController extends Controller
             'content' => 'required|string',
         ]);
 
-        $request->merge(['user_id' => $request->user()->id]);
+        $request->merge(['user_id' => $request->user_id['id']]);
 
         $post->update($request->only(['title', 'content', 'image', 'user_id']));
 
