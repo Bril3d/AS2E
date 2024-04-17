@@ -20,7 +20,10 @@ class UserResource extends JsonResource
             'avatar' => $this->avatar,
             'email' => $this->email,
             'roles' => RoleResource::collection($this->whenLoaded('roles')),
-            'permissions' => PermissionResource::collection($this->whenLoaded('permissions')),
+            'permissions' => $this->whenLoaded('permissions', function () {
+                return $this->getPermissionsViaRoles()->pluck('name');
+            }),
+
         ];
     }
 }

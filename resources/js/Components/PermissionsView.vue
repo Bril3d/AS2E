@@ -10,7 +10,7 @@ const props = defineProps({
     <template v-if="permissions.length > 0">
       <span v-for="permission in permissions" :key="permission.id"
         class="bg-emerald-500 dark:bg-emerald-600 capsule">
-        {{ permission.name }}
+        {{ permission }}
       </span>
     </template>
     <span v-else class="dark:bg-rose-600 bg-rose-500 capsule">
