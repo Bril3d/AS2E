@@ -5,20 +5,30 @@ import InputLabel from '@/Components/InputLabel.vue';
 import Modal from '@/Components/Modal.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { useForm } from '@inertiajs/vue3';
+import { useForm, usePage } from '@inertiajs/vue3';
 import { nextTick, ref } from 'vue';
 
 const confirmingUserDeletion = ref(false);
 const passwordInput = ref(null);
 
+const props = defineProps({
+    id: {
+        type: Number
+    }
+})
 
 const form = useForm({
-    password: ''
+    password: '',
+    id: props.id
 });
 
 const confirmUserDeletion = () => {
-    confirmingUserDeletion.value = true;
-    nextTick(() => passwordInput.value.focus());
+    if (usePage().props.auth.user.id == props.id) {
+        confirmingUserDeletion.value = true;
+        nextTick(() => passwordInput.value.focus());
+    } else {
+        deleteUser()
+    }
 };
 
 const deleteUser = () => {

@@ -11,11 +11,6 @@ defineProps({
     status: {
         type: String,
     },
-    user: {
-        type: Object
-    },
-    roles: Array,
-    permissions:Array
 });
 </script>
 
@@ -27,16 +22,15 @@ defineProps({
         <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" :user="user"
-                        :roles="roles" :permissions="permissions" />
+                    <UpdateProfileInformationForm :must-verify-email="mustVerifyEmail" :status="status" />
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <UpdatePasswordForm class="max-w-xl" :id="user?.id" />
+                    <UpdatePasswordForm class="max-w-xl" />
                 </div>
 
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <DeleteUserForm class="max-w-xl" :id="user?.id" />
+                    <DeleteUserForm class="max-w-xl" />
                 </div>
             </div>
         </div>

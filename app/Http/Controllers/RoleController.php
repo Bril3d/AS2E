@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateRoleRequest;
+use App\Http\Resources\PermissionResource;
 use App\Http\Resources\RoleResource;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -63,7 +64,7 @@ class RoleController extends Controller
 
         return Inertia::render('Roles/Edit', [
             'role' => new RoleResource($role),
-            'permissions' => Permission::all()
+            'permissions' => PermissionResource::collection(Permission::all())
         ]);
     }
 

@@ -46,9 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth', 'role:admin'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/files', [FileController::class, 'index'])->name('files.index');

@@ -3,7 +3,8 @@ import { ref, computed } from 'vue';
 import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Link, useForm, usePage } from '@inertiajs/vue3';
+import VueMultiselect from 'vue-multiselect'
+import { Link, useForm } from '@inertiajs/vue3';
 
 
 const url = ref(null);
@@ -25,16 +26,21 @@ const props = defineProps({
     status: {
         type: String,
     },
+    user: {
+        type: Object
+    },
+    roles: Array,
 });
 
 
-const user = usePage().props.auth.user;
+const user = props.user;
 
 const form = useForm({
     id: user.id,
     name: user.name,
     avatar: user.avatar,
     email: user.email,
+    roles: user.roles,
 });
 
 function update() {
@@ -90,6 +96,13 @@ function update() {
                             A new verification link has been sent to your email address.
                         </div>
                     </div>
+                    <div class="mt-4">
+                        <InputLabel for="roles" value="Roles" />
+                        <VueMultiselect class="dark:bg-slate-600" id="roles" v-model="form.roles" :options="roles"
+                            :multiple="true" :close-on-select="true" placeholder="Select Roles" label="name"
+                            track-by="name" />
+                        <InputError :message="form.errors.roles" class="mt-2" />
+                    </div>
                 </div>
                 <div class="flex flex-col gap-4 justify-center items-center md:w-1/2 order-1 md:order-2">
                     <input type="file" @input="onFileChange" class="hidden" ref="file" />
@@ -111,3 +124,5 @@ function update() {
         </form>
     </section>
 </template>
+
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

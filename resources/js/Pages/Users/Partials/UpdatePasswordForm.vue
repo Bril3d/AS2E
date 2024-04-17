@@ -5,15 +5,27 @@ import TextInput from '@/Components/TextInput.vue';
 import { useForm, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
+const props = defineProps({
+    id: {
+        type: Number,
+        required: false
+    }
+})
 
 const passwordInput = ref(null);
 const currentPasswordInput = ref(null);
 
 const form = useForm({
+    id: props.id ? props.id : usePage().props.auth.user.id,
     current_password: '',
     password: '',
     password_confirmation: '',
 });
+
+
+const isMyAccount = computed(() => {
+    return props.id ? usePage().props.auth.user.id === props.id : true
+})
 
 const updatePassword = () => {
     form.put(route('password.update'), {
@@ -44,7 +56,7 @@ const updatePassword = () => {
         </header>
 
         <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
-            <div>
+            <div v-if="isMyAccount">
                 <InputLabel for="current_password" value="Current Password" />
 
                 <TextInput id="current_password" ref="currentPasswordInput" v-model="form.current_password"

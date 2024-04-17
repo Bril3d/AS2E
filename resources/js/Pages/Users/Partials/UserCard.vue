@@ -11,8 +11,8 @@ const props = defineProps({
   }
 })
 
-const userRoles = computed(()=>{
-  return props.user.roles.length ? props.user.roles.map(role => role.name).join(', ') : 'User' 
+const userRoles = computed(() => {
+  return props.user.roles.length ? props.user.roles.map(role => role.name).join(', ') : 'User'
 })
 
 </script>
@@ -27,7 +27,7 @@ const userRoles = computed(()=>{
           <h3 class="font-medium text-gray-800 dark:text-gray-200">
             {{ user.name }}
           </h3>
-          <Link :href="`profile/${user.id}`">
+          <Link :href="route('users.edit', user.id)">
           <AkEdit class="text-main hover:text-main-dark transition-colors ease-in duration-200 size-6 cursor-pointer" />
           </Link>
         </div>
@@ -35,14 +35,13 @@ const userRoles = computed(()=>{
           {{ userRoles }}
         </p>
       </div>
-
     </div>
 
     <p class="mt-3 text-gray-500">
       {{ user.email }}
     </p>
 
-    <PermissionsView class="mt-3" :permissions="user.permissions" /> 
+    <PermissionsView class="mt-3" :permissions="user.permissions" />
   </div>
   <!-- End Col -->
 </template>

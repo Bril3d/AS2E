@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
@@ -13,18 +12,16 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 class ProfileController extends Controller
 {
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request, $id = ''): Response
+    public function edit(Request $request): Response
     {
 
-        $user = $id ? User::findOrFail($id) : $request->user();
+        $user = $request->user();
 
         if (!$user) {
             return redirect()->route('login');
@@ -34,9 +31,6 @@ class ProfileController extends Controller
         return Inertia::render('Profile/Edit', [
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
-            'user' => $request->user()->isAdmin() ? new UserResource($user->load(['roles', 'permissions'])) : null,
-            'roles' => Role::all(),
-            'permissions' => Permission::all(),
         ]);
     }
 
