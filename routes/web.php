@@ -37,19 +37,18 @@ Route::get('/', function () {
 });
 
 
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{id?}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__ . '/auth.php';
-require __DIR__ . '/posts.php';
-
-Route::get('/dashboard', [DashboardController::class, 'stats'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth','role:admin'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::delete('/files', [FileController::class, 'destroy'])->name('files.destroy');
     Route::delete('/files/revert/{file}', [FileController::class, 'revert'])->name('files.revert');
@@ -59,8 +58,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('/settings', SettingController::class);
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
-    Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    require __DIR__ . '/appointment.php';
 });
+
+
+require __DIR__ . '/auth.php';
+require __DIR__ . '/posts.php';
+require __DIR__ . '/appointment.php';

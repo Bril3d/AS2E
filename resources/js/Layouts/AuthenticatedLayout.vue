@@ -4,7 +4,11 @@ import { Link, usePage, Head } from '@inertiajs/vue3';
 import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
+import { usePermission } from '@/Composables/permissions'
 
+const { hasRole, hasRoles } = usePermission();
+
+console.log(hasRole('admin'))
 
 function onPage(component) {
     return usePage().component === component
@@ -175,7 +179,7 @@ onMounted(() => {
 
             <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                 <ul class="space-y-1.5">
-                    <li>
+                    <li v-if="hasRole('admin')">
                         <Link
                             :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
@@ -185,7 +189,7 @@ onMounted(() => {
                         </Link>
                     </li>
 
-                    <li class="hs-accordion" id="users-accordion">
+                    <li v-if="hasRole('admin')">
                         <Link as="button" href="/users"
                             :class="onPage('Users/Users') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -193,7 +197,7 @@ onMounted(() => {
                         Users
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRole('admin')">
                         <Link as="button" href="/roles"
                             :class="onPage('Roles/Roles') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -201,7 +205,7 @@ onMounted(() => {
                         Roles
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRole('admin')">
                         <Link as="button" href="/permissions"
                             :class="onPage('Permissions/Permissions') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -217,7 +221,7 @@ onMounted(() => {
                         Posts
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRoles(['admin', 'moderator'])">
                         <Link as="button" href="#"
                             :class="onPage('Projects') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -225,7 +229,7 @@ onMounted(() => {
                         Projects
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRoles(['admin', 'moderator'])">
                         <Link as="button" href="/appointments"
                             :class="onPage('Appointments/Appointments') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -233,7 +237,7 @@ onMounted(() => {
                         Calendar
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRole('admin')">
                         <Link as="button" href="/files"
                             :class="onPage('FileExplorer') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
@@ -241,7 +245,7 @@ onMounted(() => {
                         File Explorer
                         </Link>
                     </li>
-                    <li>
+                    <li v-if="hasRole('admin')">
                         <Link as="button" href="/settings"
                             :class="onPage('Settings') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
