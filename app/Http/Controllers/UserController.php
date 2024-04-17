@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Resources\RoleResource;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Http\Resources\UserResource;
@@ -11,6 +12,8 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 use Spatie\Permission\Models\Permission;
@@ -51,6 +54,37 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * Update the user's profile information.
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        $user = User::findOrFail($request->id);
+
+        if ($request->hasFile('avatar')) {
+
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+
+            if ($user->avatar) {
+                Storage::disk('public')->delete($user->avatar);
+            }
+
+            $user->avatar = $avatarPath;
+        }
+
+        $user->fill($request->only(['name', 'email']));
+
+        $user->syncRoles($request->input('roles.*.name'));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        $user->save();
+
+        return Redirect::route('users.index')->with('success', 'Profile updated successfully.');
+    }
+
     public function create(): Response
     {
         return Inertia::render('Users/Create', ['roles' => Role::all(), 'permissions' => Permission::all()]);
@@ -82,8 +116,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        $role = Role::findById($id);
-        $role->delete();
+        $user = User::findById($id);
+        $user->delete();
         return back();
     }
 }

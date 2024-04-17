@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import TextInput from '@/Components/TextInput.vue';
 import VueMultiselect from 'vue-multiselect'
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, useForm, router } from '@inertiajs/vue3';
 
 
 const url = ref(null);
@@ -44,10 +44,11 @@ const form = useForm({
 });
 
 function update() {
-    form.post('/profile', {
+    form.post('/users', {
         _method: 'put',
     })
 }
+
 
 </script>
 

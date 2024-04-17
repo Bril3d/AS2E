@@ -38,7 +38,7 @@ Route::get('/', function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/{id?}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
@@ -47,6 +47,7 @@ Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['au
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
+    Route::post('/users', [UserController::class, 'update'])->name('users.update');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/files', [FileController::class, 'index'])->name('files.index');

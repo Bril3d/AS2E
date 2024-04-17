@@ -8,8 +8,6 @@ import { usePermission } from '@/Composables/permissions'
 
 const { hasRole, hasRoles } = usePermission();
 
-console.log(hasRole('admin'))
-
 function onPage(component) {
     return usePage().component === component
 }

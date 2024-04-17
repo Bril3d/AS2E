@@ -41,7 +41,8 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
 
-        $user = User::find($request->id);
+        $user = $request->user();
+
         if ($request->hasFile('avatar')) {
 
             $avatarPath = $request->file('avatar')->store('avatars', 'public');
@@ -55,40 +56,30 @@ class ProfileController extends Controller
 
         $user->fill($request->only(['name', 'email']));
 
-        $user->syncRoles($request->input('roles.*.name'));
-        $user->syncPermissions($request->input('permissions.*.name'));
-
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
         }
 
         $user->save();
 
-        return Redirect::route('profile.edit', $user->id)->with('success', 'Profile updated successfully.');
+        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully.');
     }
     /**
      * Delete the user's account.
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $user = User::find($request->id);
 
-        $isAuth = $user === $request->user();
+        $user = $request->user();
 
-        if ($isAuth) {
+        $request->validate([
+            'password' => ['required', 'current_password'],
+        ]);
 
-            $request->validate([
-                'password' => ['required', 'current_password'],
-            ]);
-
-            Auth::logout();
-            $user->delete();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            return Redirect::to('/')->with('success', 'User Deleted Successfully');
-        }
-
+        Auth::logout();
         $user->delete();
-        return Redirect::to('/users')->with('success', 'User Deleted Successfully');
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return Redirect::to('/')->with('success', 'User Deleted Successfully');
     }
 }

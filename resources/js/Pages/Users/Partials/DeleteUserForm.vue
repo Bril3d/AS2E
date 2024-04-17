@@ -23,16 +23,12 @@ const form = useForm({
 });
 
 const confirmUserDeletion = () => {
-    if (usePage().props.auth.user.id == props.id) {
-        confirmingUserDeletion.value = true;
-        nextTick(() => passwordInput.value.focus());
-    } else {
-        deleteUser()
-    }
+    confirmingUserDeletion.value = true;
+    nextTick(() => passwordInput.value.focus());
 };
 
 const deleteUser = () => {
-    form.delete(route('profile.destroy'), {
+    form.delete(route('users.destroy'), {
         preserveScroll: true,
         onSuccess: () => closeModal(),
         onError: () => passwordInput.value.focus(),
@@ -71,15 +67,6 @@ const closeModal = () => {
                     Once your account is deleted, all of its resources and data will be permanently deleted. Please
                     enter your password to confirm you would like to permanently delete your account.
                 </p>
-
-                <div class="mt-6">
-                    <InputLabel for="password" value="Password" class="sr-only" />
-
-                    <TextInput id="password" ref="passwordInput" v-model="form.password" type="password"
-                        class="mt-1 block w-3/4" placeholder="Password" @keyup.enter="deleteUser" />
-
-                    <InputError :message="form.errors.password" class="mt-2" />
-                </div>
 
                 <div class="mt-6 flex justify-end">
                     <SecondaryButton @click="closeModal"> Cancel </SecondaryButton>

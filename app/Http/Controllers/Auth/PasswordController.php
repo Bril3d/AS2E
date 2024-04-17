@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
 class PasswordController extends Controller
 {
@@ -19,16 +18,25 @@ class PasswordController extends Controller
     public function update(Request $request): RedirectResponse
     {
 
+        $authId = Auth::id();
+
         $validationRules = [
-            'current_password' => ['required', 'current_password'],
             'password' => ['required', Password::defaults(), 'confirmed'],
         ];
 
-        $validatedData = $request->validate($validationRules);
-        $request->user()->update([
-            'password' => Hash::make($validatedData['password']),
-        ]);
-
+        if ($authId === $request->id) {
+            $validationRules['current_password'] = ['required', 'current_password'];
+            $validatedData = $request->validate($validationRules);
+            $request->user()->update([
+                'password' => Hash::make($validatedData['password']),
+            ]);
+        } else {
+            $user = User::findOrFail($request->id);
+            $validatedData = $request->validate($validationRules);
+            $user->update([
+                'password' => Hash::make($validatedData['password']),
+            ]);
+        }
 
         return back()->with('success', 'Password Updated Successfully');
     }

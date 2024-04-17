@@ -15,6 +15,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+
         $userId = $this->id;
 
         $rules = [
