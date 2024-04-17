@@ -43,20 +43,16 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth','role:admin'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth', 'role:admin'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/new', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-    Route::get('/files', [FileController::class, 'index'])->name('files.index');
-    Route::delete('/files', [FileController::class, 'destroy'])->name('files.destroy');
-    Route::delete('/files/revert/{file}', [FileController::class, 'revert'])->name('files.revert');
-    Route::post('/files', [FileController::class, 'upload'])->name('files.upload');
-    Route::post('/files/process', [FileController::class, 'process'])->name('files.process');
-    Route::post('/files/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
+    Route::get('/files', [FileController::class, 'index'])->name('files.index');
+    Route::post('/files/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
     Route::resource('/settings', SettingController::class);
 });
 
@@ -64,3 +60,4 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/posts.php';
 require __DIR__ . '/appointment.php';
+require __DIR__ . '/files.php';
