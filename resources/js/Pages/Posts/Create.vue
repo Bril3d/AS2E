@@ -53,13 +53,13 @@ const handleFilePondLoad = (response) => {
 }
 
 const handleFilePondRevert = (uniqueId, load, error) => {
-  form.files = '';
+  form.image = '';
   router.delete(`/files/revert/${uniqueId}?folder=feed`);
   load();
 }
 
 const submit = () => {
-  form.post(route('posts.store'));
+  form.post('/posts');
 }
 </script>
 

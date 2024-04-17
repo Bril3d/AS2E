@@ -44,7 +44,7 @@ const form = useForm({
 });
 
 function update() {
-    form.post('/users', {
+    form.post('/user', {
         _method: 'put',
     })
 }

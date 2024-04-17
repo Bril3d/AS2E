@@ -10,6 +10,7 @@ Route::get('/list/posts', PostListController::class)->name('posts.list');
 
 Route::middleware(['auth', 'role:admin|writer|moderator|user'])->group(function () {
   Route::resource('posts', PostController::class);
+  Route::post('/update/post', [PostController::class, 'update'])->name('posts.update');
   Route::post('/post/{id}', [LikedPostsController::class, 'toggle'])->name('posts.toggle');
   Route::resource('comments', CommentController::class);
 });

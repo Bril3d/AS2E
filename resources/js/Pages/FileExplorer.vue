@@ -72,6 +72,8 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 // Create FilePond component
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
 
+const pond = ref(null);
+
 const form = useForm({
   files: [],
 })
@@ -89,6 +91,7 @@ const folderName = ref('');
 const show = ref(false);
 
 const navigateToFolder = (folderPath) => {
+  pond.value.removeFiles();
   folderHistory.value.push(folderPath)
 }
 
@@ -146,7 +149,7 @@ const handleFilePondRevert = (uniqueId, load, error) => {
 }
 
 const createFolder = () => {
-  router.post(`/files/${folderName.value}`, { path: currentFolder.value }, {
+  router.post(`/folder/${folderName.value}`, { path: currentFolder.value }, {
     onSuccess: () => {
       show.value = false
     }

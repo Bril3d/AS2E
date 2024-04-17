@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\PostResource;
+use App\Http\Resources\UserResource;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Redirect;
@@ -66,22 +68,26 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return Inertia::render('Posts/Edit', ['post' => $post]);
+        return Inertia::render('Posts/Edit', ['post' => new PostResource($post), 'users' => UserResource::collection(User::all())]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request): RedirectResponse
     {
+        $post = Post::findOrFail($request->id);
+
         $request->validate([
             'title' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
-        $post->update($request->only(['title', 'content']));
+        $request->merge(['user_id' => $request->user()->id]);
 
-        return Redirect::route('posts.show', $post->id);
+        $post->update($request->only(['title', 'content', 'image', 'user_id']));
+
+        return Redirect::route('posts.index');
     }
 
     /**

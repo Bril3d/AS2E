@@ -47,11 +47,11 @@ Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['au
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
-    Route::post('/users', [UserController::class, 'update'])->name('users.update');
+    Route::post('/user', [UserController::class, 'update'])->name('users.update');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
-    Route::post('/files/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
+    Route::post('/folder/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
     Route::resource('/settings', SettingController::class);
 });
 
