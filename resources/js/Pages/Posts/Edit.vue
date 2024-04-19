@@ -1,5 +1,7 @@
 <template>
-  <AuthenticatedLayout title="Create Post">
+
+  <Head title="Post Update" />
+  <AuthenticatedLayout title="Edit Post">
     <form @submit.prevent="submit" class="space-y-3 px-20">
       <TextInput v-model="form.title" type="text" placeholder="Title" required class="block w-full" />
       <textarea v-model="form.content" placeholder="Content"
@@ -15,14 +17,14 @@
         }" />
       <VueMultiselect id="date" v-model="form.user_id" :options="users" :close-on-select="true" label="name"
         track-by="name" placeholder="Select a user" class="mt-1 w-full" />
-      <PrimaryButton type="submit">Create Post</PrimaryButton>
+      <PrimaryButton type="submit">Update Post</PrimaryButton>
     </form>
   </AuthenticatedLayout>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useForm, router, usePage } from '@inertiajs/vue3';
+import { useForm, router, Head } from '@inertiajs/vue3';
 import VueMultiselect from 'vue-multiselect'
 import vueFilePond from 'vue-filepond';
 

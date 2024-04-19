@@ -19,8 +19,8 @@ const form = useForm({
 
 <template>
 
-  <Head title="Permission Update" />
-  <AuthenticatedLayout title="Update Permission">
+  <Head title="Comment Update" />
+  <AuthenticatedLayout title="Update Comment">
     <Link as="button" :href="route('comments.index')"
       class="inline-flex cursor-pointer items-center px-4 py-2 bg-main border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-main-dark focus:bg-main-dark active:bg-main-dark focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2 transition ease-in-out duration-150">
     Back</Link>
