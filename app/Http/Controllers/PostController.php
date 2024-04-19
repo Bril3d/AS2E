@@ -17,10 +17,14 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-        return Inertia::render('Posts/Index', ['posts' => PostResource::collection($posts)]);
+        if ($request->user()->isAdmin()) {
+            $posts = Post::orderBy('created_at', 'desc')->get();
+        } else {
+            $posts = Post::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+        }
+        return Inertia::render('Posts/Posts', ['posts' => PostResource::collection($posts)]);
     }
 
     /**

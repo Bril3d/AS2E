@@ -181,14 +181,14 @@ onMounted(() => {
                         <Link
                             :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
-                            href="/dashboard">
+                            :href="route('dashboard.index')">
                         <AnOutlinedDashboard class="w-4 h-4" />
                         Dashboard
                         </Link>
                     </li>
 
                     <li v-if="hasRole('admin')">
-                        <Link as="button" href="/users"
+                        <Link as="button" :href="route('users.index')"
                             :class="onPage('Users/Users') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <ClUsers class="w-4 h-4" />
@@ -196,7 +196,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li v-if="hasRole('admin')">
-                        <Link as="button" href="/roles"
+                        <Link as="button" :href="route('roles.index')"
                             :class="onPage('Roles/Roles') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <CgUserAdd class="w-4 h-4" />
@@ -204,7 +204,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li v-if="hasRole('admin')">
-                        <Link as="button" href="/permissions"
+                        <Link as="button" :href="route('permissions.index')"
                             :class="onPage('Permissions/Permissions') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <CgUserList class="w-4 h-4" />
@@ -212,7 +212,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li>
-                        <Link as="button" href="/list/posts"
+                        <Link as="button" :href="route('posts.index')"
                             :class="onPage('Posts/Posts') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <ByFeed class="w-4 h-4" />
@@ -228,7 +228,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li v-if="hasRoles(['admin', 'moderator'])">
-                        <Link as="button" href="/appointments"
+                        <Link as="button" :href="route('appointments.index')"
                             :class="onPage('Appointments/Appointments') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <AkCalendar class="w-4 h-4" />
@@ -236,7 +236,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li v-if="hasRole('admin')">
-                        <Link as="button" href="/files"
+                        <Link as="button" :href="route('files.index')"
                             :class="onPage('FileExplorer') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <IcMediaImageFolder class="w-4 h-4" />
@@ -244,7 +244,7 @@ onMounted(() => {
                         </Link>
                     </li>
                     <li v-if="hasRole('admin')">
-                        <Link as="button" href="/settings"
+                        <Link as="button" :href="route('settings.index')"
                             :class="onPage('Settings') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <CaSettings class="w-4 h-4" />

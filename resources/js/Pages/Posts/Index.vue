@@ -1,11 +1,9 @@
 <template>
-  <AuthenticatedLayout title="Feed">
-    <ul class="space-y-4">
-      <li v-for="post in posts" :key="post.id">
-        <PostCard :post="post" />
-      </li>
-    </ul>
-  </AuthenticatedLayout>
+  <ul class="space-y-4">
+    <li v-for="post in posts" :key="post.id">
+      <PostCard :post="post" />
+    </li>
+  </ul>
 </template>
 
 <script setup>

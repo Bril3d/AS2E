@@ -6,7 +6,7 @@ use App\Http\Controllers\PostListController;
 use App\Http\Controllers\LikedPostsController;
 use App\Http\Controllers\CommentController;
 
-Route::get('/list/posts', PostListController::class)->name('posts.list');
+Route::get('/feed', PostListController::class)->name('feed.list');
 
 Route::middleware(['auth', 'role:admin|writer|moderator|user'])->group(function () {
   Route::resource('posts', PostController::class);
