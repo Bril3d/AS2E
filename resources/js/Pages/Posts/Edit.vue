@@ -60,7 +60,6 @@ const form = useForm({
 })
 
 const handleFilePondLoad = (response) => {
-  console.log(response)
   form.image = response;
   return response;
 }

@@ -18,8 +18,7 @@ const form = useForm({
   name: props.role.name,
   permissions: props.role.permissions
 })
-console.log(form.permissions)
-console.log(props.permissions)
+
 
 onMounted(() => {
   form.permissions = props.role?.permissions
