@@ -32,8 +32,9 @@
                 </p>
 
                 <span class="text-xs text-gray-400">
-                  <Link v-if="comment?.user?.id === $page.props.auth.user.id"
-                    :href="route('comments.destroy', comment.id)" method="delete" as="button" type="button" preserve-scroll>
+                  <Link v-if="comment?.user?.id === $page.props.auth.user?.id"
+                    :href="route('comments.destroy', comment.id)" method="delete" as="button" type="button"
+                    preserve-scroll>
                   Delete
                   </Link>
                 </span>
