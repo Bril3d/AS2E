@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth', 'role:admin|moderator'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth'])->name('dashboard.index');
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);

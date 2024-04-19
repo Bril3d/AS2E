@@ -88,6 +88,16 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Get all of the posts for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
 
     /**
      * Get all of the socials for the User
@@ -113,5 +123,10 @@ class User extends Authenticatable
     public function isAdmin()
     {
         return $this->hasRole('admin');
+    }
+
+    public function isLeader()
+    {
+        return $this->hasRole(['admin', 'moderator']);
     }
 }
