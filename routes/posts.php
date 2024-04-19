@@ -8,7 +8,7 @@ use App\Http\Controllers\CommentController;
 
 Route::get('/feed', PostListController::class)->name('feed.list');
 
-Route::middleware(['auth', 'role:admin|writer|moderator|user'])->group(function () {
+Route::middleware(['auth'])->group(function () {
   Route::resource('posts', PostController::class);
   Route::post('/update/post', [PostController::class, 'update'])->name('posts.update');
   Route::post('/post/{id}', [LikedPostsController::class, 'toggle'])->name('posts.toggle');

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage, Head } from '@inertiajs/vue3';
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed } from "@kalimahapps/vue-icons";
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
 import { usePermission } from '@/Composables/permissions'
@@ -177,7 +177,7 @@ onMounted(() => {
 
             <nav class="hs-accordion-group p-6 w-full flex flex-col flex-wrap" data-hs-accordion-always-open>
                 <ul class="space-y-1.5">
-                    <li v-if="hasRoles(['admin','moderator'])">
+                    <li v-if="hasRoles(['admin', 'moderator'])">
                         <Link
                             :class="onPage('Dashboard') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 "
@@ -217,6 +217,14 @@ onMounted(() => {
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <ByFeed class="w-4 h-4" />
                         Posts
+                        </Link>
+                    </li>
+                    <li>
+                        <Link as="button" :href="route('comments.index')"
+                            :class="onPage('Comments/Comments') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <FaRegComments class="w-4 h-4" />
+                        Comments
                         </Link>
                     </li>
                     <li v-if="hasRoles(['admin', 'moderator'])">
