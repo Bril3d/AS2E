@@ -15,7 +15,7 @@
               handleFilePondLoad
           }, revert: handleFilePondRevert, headers: { 'X-CSRF-TOKEN': $page.props.csrf_token }
         }" />
-      <VueMultiselect id="date" v-model="form.user_id" :options="users" :close-on-select="true" label="name"
+      <VueMultiselect v-if="hasRole('admin')" id="date" v-model="form.user_id" :options="users" :close-on-select="true" label="name"
         track-by="name" placeholder="Select a user" class="mt-1 w-full" />
       <PrimaryButton type="submit">Update Post</PrimaryButton>
     </form>
@@ -27,6 +27,7 @@ import { ref } from 'vue'
 import { useForm, router, Head } from '@inertiajs/vue3';
 import VueMultiselect from 'vue-multiselect'
 import vueFilePond from 'vue-filepond';
+import { usePermission } from '@/Composables/permissions';
 
 
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
@@ -42,6 +43,7 @@ const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImage
 
 const pond = ref(null);
 
+const { hasRole } = usePermission();
 
 const props = defineProps({
   users: Array,
