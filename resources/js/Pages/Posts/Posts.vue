@@ -4,6 +4,7 @@ import AuthanticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
+import EmptyTable from '@/Components/EmptyTable.vue';
 
 const props = defineProps({
   posts: {
@@ -62,6 +63,7 @@ const openFile = (file) => {
               </Link>
             </TableDataCell>
           </tr>
+          <EmptyTable v-if="posts.length < 1" section="posts" />
         </template>
       </Table>
     </div>

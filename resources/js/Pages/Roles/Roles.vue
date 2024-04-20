@@ -5,6 +5,7 @@ import AuthanticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
+import EmptyTable from '@/Components/EmptyTable.vue';
 
 const props = defineProps({
   roles: {
@@ -55,6 +56,7 @@ function search() {
               </Link>
             </TableDataCell>
           </tr>
+          <EmptyTable v-if="roles.length < 1" section="roles" />
         </template>
       </Table>
     </div>

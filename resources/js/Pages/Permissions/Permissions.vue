@@ -4,6 +4,7 @@ import AuthanticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
+import EmptyTable from '@/Components/EmptyTable.vue';
 
 const props = defineProps({
   permissions: {
@@ -46,6 +47,7 @@ const props = defineProps({
               </Link>
             </TableDataCell>
           </tr>
+          <EmptyTable v-if="permissions.length < 1" section="permissions" />
         </template>
       </Table>
     </div>

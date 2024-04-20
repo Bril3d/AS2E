@@ -5,6 +5,7 @@ import AuthanticatedLayout from '../../Layouts/AuthenticatedLayout.vue';
 import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
+import EmptyTable from '@/Components/EmptyTable.vue';
 
 
 const { hasRole } = usePermission()
@@ -52,6 +53,7 @@ const props = defineProps({
               </Link>
             </TableDataCell>
           </tr>
+          <EmptyTable v-if="comments.length < 1" section="comments" />
         </template>
       </Table>
     </div>

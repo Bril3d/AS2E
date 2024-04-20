@@ -25,7 +25,7 @@
         </span>
 
       </div>
-      <div class="grid sm:grid-cols-3 grid-cols-1 gap-4">
+      <div class="grid sm:grid-cols-3 grid-cols-1 gap-4" v-if="getCurrentFolderContents().length > 0">
         <!-- Folders -->
         <div v-for="(item, index) in getCurrentFolderContents()" :key="index"
           class="p-4 bg-white rounded-md shadow flex justify-between items-center cursor-pointer dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
@@ -38,6 +38,10 @@
           <button v-if="item.type !== 'parentFolder'" @click.stop="deleteItem(item.path)"
             class="text-red-500">Delete</button>
         </div>
+      </div>
+      <div class="text-center w-full text-2xl dark:text-gray-400 py-3" v-else>
+        <CaFolderOff class="mx-auto size-12 mb-4" />
+        Folder is empty!
       </div>
       <div class="mt-4">
         <file-pond class="dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
@@ -55,7 +59,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { AkFolder, AkFile, BxHomeAlt } from "@kalimahapps/vue-icons";
+import { AkFolder, AkFile, BxHomeAlt, CaFolderOff } from "@kalimahapps/vue-icons";
 import { useForm, router, Head } from "@inertiajs/vue3";
 import vueFilePond from 'vue-filepond';
 import Modal from '@/Components/Modal.vue';
