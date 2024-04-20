@@ -54,7 +54,7 @@
     </div>
   </div>
 
-  <div class="py-2 sticky bottom-0 bg-white dark:bg-slate-800 border-t border-gray-200">
+  <div class="py-2 sticky bottom-0 bg-white dark:bg-slate-800 border-t border-gray-200" v-if="$page.props.auth.user">
     <add-comment-component :post_id="post.id" />
   </div>
   <!-- Component End  -->
