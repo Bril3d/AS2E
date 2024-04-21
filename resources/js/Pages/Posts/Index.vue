@@ -1,4 +1,6 @@
 <template>
+
+  <Head title="Feed" />
   <NavBar :canLogin="canLogin" :canRegister="canRegister">
     <div class="py-20 sm:max-w-2xl mx-auto ">
       <div class="text-2xl dark:text-white text-center">Feed</div>
@@ -59,8 +61,9 @@ const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
   if (!isIntersecting) {
     return
   }
-
-  loadMorePosts()
+  if (props.posts.meta.next_cursor) {
+    loadMorePosts()
+  }
 })
 
 onMounted(() => {

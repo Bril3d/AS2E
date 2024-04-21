@@ -1,6 +1,4 @@
 <template>
-  <Head title="Feed" />
-
   <div class="relative h-screen">
     <DarkModeSwitcher
       class="shadow absolute left-8 mt-6 z-10 bg-white hover:bg-gray-300 dark:text-slate-300 dark:bg-slate-600 " />
