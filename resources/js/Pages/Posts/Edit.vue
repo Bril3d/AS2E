@@ -15,8 +15,8 @@
               handleFilePondLoad
           }, revert: handleFilePondRevert, headers: { 'X-CSRF-TOKEN': $page.props.csrf_token }
         }" />
-      <VueMultiselect v-if="hasRole('admin')" id="date" v-model="form.user_id" :options="users" :close-on-select="true" label="name"
-        track-by="name" placeholder="Select a user" class="mt-1 w-full" />
+      <VueMultiselect v-if="hasRole('admin')" id="date" v-model="form.user_id" :options="users" :close-on-select="true"
+        label="name" track-by="name" placeholder="Select a user" class="mt-1 w-full" />
       <PrimaryButton type="submit">Update Post</PrimaryButton>
     </form>
   </AuthenticatedLayout>
@@ -51,7 +51,9 @@ const props = defineProps({
 })
 
 function init() {
-  pond.value.addFile(props.post.image);
+  if (props.post.image) {
+    pond.value.addFile(props.post.image);
+  }
 }
 
 const form = useForm({

@@ -5,6 +5,7 @@ import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
 import EmptyTable from '@/Components/EmptyTable.vue';
+import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps({
   posts: {
@@ -42,11 +43,11 @@ const openFile = (file) => {
           </tr>
         </template>
         <template #default>
-          <tr v-for="post in posts" :key="post.id">
+          <tr v-for="post in posts.data" :key="post.id">
             <TableDataCell>{{ post.id }}</TableDataCell>
-            <TableDataCell>{{ post.title }}</TableDataCell>
+            <TableDataCell class="text-ellipsis overflow-hidden max-w-64">{{ post.title }}</TableDataCell>
             <TableDataCell>{{ post.user?.name }}</TableDataCell>
-            <TableDataCell>{{ post.content }}</TableDataCell>
+            <TableDataCell class="text-ellipsis overflow-hidden max-w-64">{{ post.content }}</TableDataCell>
             <TableDataCell><img v-if="post.image" class="h-16 object-cover cursor-pointer" :src="post.image"
                 :alt="post.title" @click="openFile(post.image)" /><span v-else>--</span>
             </TableDataCell>
@@ -66,6 +67,7 @@ const openFile = (file) => {
           <EmptyTable v-if="posts.length < 1" section="posts" />
         </template>
       </Table>
+      <Pagination :links="posts.meta.links" />
     </div>
   </AuthanticatedLayout>
 </template>

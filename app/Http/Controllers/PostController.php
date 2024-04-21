@@ -20,9 +20,9 @@ class PostController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->isAdmin()) {
-            $posts = Post::orderBy('created_at', 'desc')->get();
+            $posts = Post::latest()->paginate(setting('pagination_limit'));
         } else {
-            $posts = Post::where('user_id', auth()->id())->orderBy('created_at', 'desc')->get();
+            $posts = Post::where('user_id', auth()->id())->latest()->paginate(setting('pagination_limit'));
         }
         return Inertia::render('Posts/Posts', ['posts' => PostResource::collection($posts)]);
     }
