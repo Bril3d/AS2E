@@ -103,7 +103,7 @@ class DashboardController extends Controller
 
             $totalUsers = User::count();
             $totalPosts = Post::count();
-            $totalDates = Appointment::where('start', '>=', $today)->count();
+            $totalDates = Appointment::where('end', '<=', $today)->count();
 
             $newUsersByMonth = $this->getNewUsersByMonth();
 
