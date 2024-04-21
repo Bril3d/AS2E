@@ -72,7 +72,7 @@ const openFile = (file) => {
               </Link>
             </TableDataCell>
           </tr>
-          <EmptyTable v-if="posts.length < 1" section="posts" />
+          <EmptyTable v-if="posts.data.length < 1" section="posts" />
         </template>
       </Table>
       <Pagination :links="posts.meta.links" />

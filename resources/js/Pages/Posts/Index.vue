@@ -17,6 +17,7 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
+import { Head } from '@inertiajs/vue3';
 import PostCard from '@/Components/PostCard.vue'
 import NavBar from '@/Components/Navbar.vue'
 import { useIntersectionObserver } from '@vueuse/core';
@@ -46,7 +47,7 @@ const loadMorePosts = () => {
 
     allPosts.value.data = [...allPosts.value.data, ...response.data.data]
     allPosts.value.meta = response.data.meta
-
+    console.log(allPosts.value.data)
 
     if (!response.data.meta.next_cursor) {
       stop()
