@@ -22,6 +22,12 @@
             <div class="mt-2 py-2 first:pt-0 last:pb-0">
               <Link
                 class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                :href="route('feed.list')">
+              <CgFeed />
+              Feed
+              </Link>
+              <Link
+                class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
                 :href="route('dashboard.index')">
               <AnOutlinedDashboard />
               Dashboard
@@ -45,11 +51,16 @@
 
 
       <template v-else>
-        <Link :href="route('login')" class="font-semibold  dark:text-white hover:text-gray-700 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+        <Link :href="route('feed.list')"
+          class="font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+        Feed</Link>
+
+        <Link :href="route('login')"
+          class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
         Log in</Link>
 
         <Link v-if="canRegister" :href="route('register')"
-          class="ms-4 font-semibold  dark:text-white hover:text-gray-700 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+          class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
         Register</Link>
       </template>
     </div>
@@ -60,8 +71,8 @@
 
 
 <script setup>
-import { Link, usePage } from '@inertiajs/vue3';
-import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard } from "@kalimahapps/vue-icons";
+import { Link } from '@inertiajs/vue3';
+import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard, CgFeed } from "@kalimahapps/vue-icons";
 import DarkModeSwitcher from './DarkModeSwitcher.vue';
 
 defineProps({
