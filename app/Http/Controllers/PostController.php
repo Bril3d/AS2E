@@ -104,4 +104,16 @@ class PostController extends Controller
 
         return back();
     }
+
+    /**
+     * Publish the specified resource from storage.
+     */
+    public function publish($slug)
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+
+        $post->update(['published' => !$post->published]);
+
+        return back();
+    }
 }
