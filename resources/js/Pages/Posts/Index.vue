@@ -1,26 +1,29 @@
 <template>
   <NavBar :canLogin="canLogin" :canRegister="canRegister">
-    <div class="py-20 sm:max-w-lg mx-auto ">
+    <div class="py-20 sm:max-w-2xl mx-auto ">
       <div class="text-2xl dark:text-white text-center">Feed</div>
-      <ul class="space-y-4" v-if="posts.length > 0">
-        <li v-for="post in posts" :key="post.id">
+      <ul class="space-y-4" v-if="allPosts.data.length > 0">
+        <li v-for="post in allPosts.data" :key="post.id">
           <PostCard :post="post" />
         </li>
       </ul>
       <div v-else class="text-center dark:text-gray-400 text-lg">No posts found!</div>
     </div>
+    <div ref="last" class="-translate-y-32" />
   </NavBar>
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import PostCard from '@/Components/PostCard.vue'
-import GuestLayout from '@/Layouts/GuestLayout.vue'
 import NavBar from '@/Components/Navbar.vue'
+import { useIntersectionObserver } from '@vueuse/core';
+import axios from 'axios';
+
 
 const props = defineProps({
   posts: {
-    type: Array,
+    type: Object,
     required: true
   },
   canLogin: {
@@ -29,6 +32,35 @@ const props = defineProps({
   canRegister: {
     type: Boolean,
   },
+})
+
+const last = ref(null);
+
+const allPosts = ref(JSON.parse(JSON.stringify(props.posts)))
+
+const loadMorePosts = () => {
+
+  axios.get(`${allPosts.value.meta.path}?cursor=${allPosts.value.meta.next_cursor}`).then((response) => {
+
+    allPosts.value.data = [...allPosts.value.data, ...response.data.data]
+    allPosts.value.meta = response.data.meta
+
+
+    if (!response.data.meta.next_cursor) {
+      stop()
+    }
+
+  })
+
+
+}
+
+const { stop } = useIntersectionObserver(last, ([{ isIntersecting }]) => {
+  if (!isIntersecting) {
+    return
+  }
+
+  loadMorePosts()
 })
 
 onMounted(() => {

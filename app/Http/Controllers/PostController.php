@@ -53,6 +53,7 @@ class PostController extends Controller
             'image' => $request->input('image'),
             'slug' => Str::slug($request->title),
             'user_id' => $request->user_id ? $request->user_id['id'] : $request->user()->id,
+            'published' => $request->user()->isAdmin() ? true : false,
         ]);
 
         return Redirect::route('posts.index')->with('success', 'Post Created!');

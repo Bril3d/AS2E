@@ -16,7 +16,13 @@ class PostListController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+
+        $posts = Post::where('published', true)->latest()->cursorPaginate(15);
+
+        if($request->wantsJson()){
+            return PostResource::collection($posts);
+        }
+
         return Inertia::render('Posts/Index', [
             'posts' => PostResource::collection($posts),
             'canLogin' => Route::has('login'),

@@ -24,6 +24,7 @@ class PostResource extends JsonResource
             'user' => $this->user,
             'liked' => $this->isAuthUserLikedPost(),
             'likes' => $this->likes->count(),
+            'published' => $this->published,
             'comments' => CommentResource::collection($this->comments),
         ];
     }
