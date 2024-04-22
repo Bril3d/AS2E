@@ -3,7 +3,11 @@
   <Head title="Feed" />
   <NavBar :canLogin="canLogin" :canRegister="canRegister">
     <div class="py-20 sm:max-w-2xl mx-auto ">
-      <div class="text-2xl dark:text-white text-center">Feed</div>
+      <div class="text-2xl dark:text-white flex justify-between my-3"><span>Feed</span>
+        <Link :href="route('posts.create')" as="button" type="button">
+        <AkEdit class="text-main hover:text-main-dark transition-colors ease-in duration-200 size-6 cursor-pointer" />
+        </Link>
+      </div>
       <ul class="space-y-4" v-if="allPosts.data.length > 0">
         <li v-for="post in allPosts.data" :key="post.id">
           <PostCard :post="post" />
@@ -17,8 +21,9 @@
 
 <script setup>
 import { onMounted, ref } from 'vue'
-import { Head } from '@inertiajs/vue3';
+import { Head ,Link} from '@inertiajs/vue3';
 import PostCard from '@/Components/PostCard.vue'
+import { AkEdit } from "@kalimahapps/vue-icons";
 import NavBar from '@/Components/Navbar.vue'
 import { useIntersectionObserver } from '@vueuse/core';
 import axios from 'axios';
