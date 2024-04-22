@@ -6,6 +6,7 @@ import Table from '../../Components/Table.vue';
 import TableDataCell from '../../Components/TableDataCell.vue';
 import TableHeaderCell from '../../Components/TableHeaderCell.vue';
 import EmptyTable from '@/Components/EmptyTable.vue';
+import Pagination from '@/Components/Pagination.vue';
 
 
 const { hasRole } = usePermission()
@@ -16,6 +17,8 @@ const props = defineProps({
     required: true
   }
 })
+
+console.log(props.comments)
 </script>
 
 <template>
@@ -35,7 +38,7 @@ const props = defineProps({
           </tr>
         </template>
         <template #default>
-          <tr v-for="comment in comments" :key="comment.id">
+          <tr v-for="comment in comments.data" :key="comment.id">
             <TableDataCell>{{ comment.id }}</TableDataCell>
             <TableDataCell v-if="hasRole('admin')">{{ comment.user.name }}</TableDataCell>
             <TableDataCell>
@@ -53,9 +56,10 @@ const props = defineProps({
               </Link>
             </TableDataCell>
           </tr>
-          <EmptyTable v-if="comments.length < 1" section="comments" />
+          <EmptyTable v-if="comments.data.length < 1" section="comments" />
         </template>
       </Table>
+      <Pagination :links="comments.meta.links" />
     </div>
   </AuthanticatedLayout>
 </template>

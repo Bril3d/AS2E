@@ -14,10 +14,10 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         if ($request->user()->isAdmin()) {
-            $comments = Comment::orderBy('created_at', 'desc')->get();
+            $comments = Comment::orderBy('created_at', 'desc')->paginate(setting('pagination_limit'));
             return Inertia::render('Comments/Comments', ['comments' => CommentResource::collection($comments)]);
         } else {
-            $comments = Comment::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
+            $comments = Comment::where('user_id', $request->user()->id)->orderBy('created_at', 'desc')->paginate(setting('pagination_limit'));
             return Inertia::render('Comments/Comments', ['comments' => CommentResource::collection($comments)]);
         }
     }
