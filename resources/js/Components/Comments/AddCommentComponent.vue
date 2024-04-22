@@ -35,7 +35,6 @@ const form = useForm({
 
 const submit = () => {
   axios.post('/comments', form).then((response) => {
-console.log(response)
     emit('add', response.data)
     form.content = ''
   })

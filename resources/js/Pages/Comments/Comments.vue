@@ -18,7 +18,6 @@ const props = defineProps({
   }
 })
 
-console.log(props.comments)
 </script>
 
 <template>
