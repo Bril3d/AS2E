@@ -1,9 +1,9 @@
 <template>
   <!-- Component Start -->
   <div class="flex flex-col flex-grow bg-white dark:bg-slate-800 rounded-lg overflow-hidden">
-    <div class="border-t border-gray-200 my-1 overflow-auto" />
+    <div class="border-t border-gray-200 dark:border-gray-500 my-1 overflow-auto" />
     <div class="text-sm flex items-center font-medium cursor-default text-gray-600 dark:text-white p-2">Comments</div>
-    <div class="flex flex-col flex-grow mt-1 pb-4 overflow-auto border-t border-gray-200">
+    <div class="flex flex-col flex-grow mt-1 pb-4 overflow-auto border-t dark:border-gray-500 border-gray-200">
       <ul v-if="post?.comments?.length > 0" class="space-y-4 py-2 overflow-auto">
         <li v-for="comment in post.comments" :key="comment.id">
           <div class="flex space-x-3">
@@ -53,7 +53,7 @@
     </div>
   </div>
 
-  <div class="py-2 sticky bottom-0 bg-white dark:bg-slate-800 border-t border-gray-200" v-if="$page.props.auth.user">
+  <div class="py-2 sticky bottom-0 bg-white dark:bg-slate-800 border-t dark:border-gray-500 border-gray-200" v-if="$page.props.auth.user">
     <add-comment-component :post_id="post.id" @add="addComment" />
   </div>
   <!-- Component End  -->

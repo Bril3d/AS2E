@@ -17,7 +17,7 @@
         </div>
       </div>
 
-      <div class="border-t border-gray-200 mt-2" />
+      <div class="border-t border-gray-200 dark:border-gray-500 mt-2" />
 
       <h2 class="py-2 text-lg leading-6 font-medium text-gray-900 dark:text-white cursor-default">
         {{ post.title }}
