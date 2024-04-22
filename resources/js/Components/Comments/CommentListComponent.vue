@@ -32,11 +32,10 @@
                 </p>
 
                 <span class="text-xs text-gray-400">
-                  <Link v-if="comment?.user?.id === $page.props.auth.user?.id"
-                    :href="route('comments.destroy', comment.id)" method="delete" as="button" type="button"
+                  <button v-if="comment?.user?.id === $page.props.auth.user?.id" type="button"
                     @click="deleteComment(comment.id)" preserve-scroll>
-                  Delete
-                  </Link>
+                    Delete
+                  </button>
                 </span>
               </div>
             </div>
@@ -62,7 +61,7 @@
 
 <script setup>
 // import CommentItemComponent from './CommentItemComponent.vue'
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import AddCommentComponent from './AddCommentComponent.vue'
 
 const props = defineProps({
@@ -74,7 +73,11 @@ const addComment = (comment) => {
 }
 
 const deleteComment = (commentId) => {
-  props.post.comments = props.post.comments.filter((comment) => comment.id != commentId)
+  router.delete('/comments', commentId, {
+    onSuccess: () => {
+      props.post.comments = props.post.comments.filter((comment) => comment.id != commentId)
+    }
+  })
 }
 
 </script>

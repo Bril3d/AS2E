@@ -7,14 +7,14 @@
         required></textarea>
       <file-pond class="dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
         credits="false" name="test" ref="pond" class-name="my-pond" label-idle="Drop an Image here..."
-        allow-multiple="false" accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
+        :allow-multiple="false" accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="true" :server="{
           url: '', process: {
             url: `/files/process?folder=feed`, method: 'POST', onload:
               handleFilePondLoad
           }, revert: handleFilePondRevert, headers: { 'X-CSRF-TOKEN': $page.props.csrf_token }
         }" />
-      <VueMultiselect id="date" v-model="form.user_id" :options="users" :close-on-select="true" label="name"
-        track-by="name" placeholder="Select a user" class="mt-1 w-full" />
+      <VueMultiselect v-if="hasRole('admin')" id="date" v-model="form.user_id" :options="users" :close-on-select="true"
+        label="name" track-by="name" placeholder="Select a user" class="mt-1 w-full" />
       <PrimaryButton type="submit">Create Post</PrimaryButton>
     </form>
   </AuthenticatedLayout>
@@ -24,6 +24,7 @@
 import { useForm, router, usePage } from '@inertiajs/vue3';
 import VueMultiselect from 'vue-multiselect'
 import vueFilePond from 'vue-filepond';
+import { usePermission } from '@/Composables/permissions';
 
 
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.esm.js';
@@ -35,6 +36,9 @@ import TextInput from '@/Components/TextInput.vue';
 
 // Create FilePond component
 const FilePond = vueFilePond(FilePondPluginFileValidateType, FilePondPluginImagePreview);
+
+
+const { hasRole } = usePermission();
 
 const props = defineProps({
   users: Array

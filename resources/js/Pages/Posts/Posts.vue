@@ -56,20 +56,22 @@ const openFile = (file) => {
             </TableDataCell>
             <TableDataCell>{{ post.likes }}</TableDataCell>
             <TableDataCell>{{ post.comments.length }}</TableDataCell>
-            <TableDataCell class="space-x-4">
-              <Link as="button" :href="route('posts.publish', post.slug)" method="post" preserve-scroll
-                v-if="hasRole('admin')"
-                class="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-250">
-              {{ post.published ? 'Unpublish' : 'Publish' }}
-              </Link>
-              <Link as="button" :href="route('posts.edit', post.slug)"
-                class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-250">
-              Edit
-              </Link>
-              <Link as="button" :href="route('posts.destroy', post.slug)" method="delete" preserve-scroll
-                class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-250">
-              Delete
-              </Link>
+            <TableDataCell>
+              <div class="flex items-center gap-4 justify-end">
+                <Link as="button" :href="route('posts.publish', post.slug)" method="post" preserve-scroll
+                  v-if="hasRole('admin')"
+                  class="inline-flex items-center px-4 py-2 bg-emerald-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest shadow-sm hover:bg-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-250">
+                {{ post.published ? 'Unpublish' : 'Publish' }}
+                </Link>
+                <Link as="button" :href="route('posts.edit', post.slug)"
+                  class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-250">
+                Edit
+                </Link>
+                <Link as="button" :href="route('posts.destroy', post.slug)" method="delete" preserve-scroll
+                  class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500 active:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-250">
+                Delete
+                </Link>
+              </div>
             </TableDataCell>
           </tr>
           <EmptyTable v-if="posts.data.length < 1" section="posts" />

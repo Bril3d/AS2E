@@ -46,7 +46,7 @@
       <div class="mt-4">
         <file-pond class="dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
           credits="false" name="test" ref="pond" class-name="my-pond" label-idle="Drop files here..."
-          allow-multiple="true" accepted-file-types="image/jpeg, image/png" :allowFileTypeValidation="false" :server="{
+          allow-multiple="true" :server="{
             url: '', process: {
               url: `/files/process?folder=${currentFolder}`, method: 'POST', onload:
                 handleFilePondLoad
