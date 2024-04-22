@@ -55,7 +55,7 @@
   </div>
 
   <div class="py-2 sticky bottom-0 bg-white dark:bg-slate-800 border-t border-gray-200" v-if="$page.props.auth.user">
-    <add-comment-component :post_id="post.id" />
+    <add-comment-component :post_id="post.id" @add="addComment" />
   </div>
   <!-- Component End  -->
 </template>
@@ -68,6 +68,10 @@ import AddCommentComponent from './AddCommentComponent.vue'
 const props = defineProps({
   post: Object
 })
+
+const addComment = (content) => {
+  props.post.comments.push(content)
+}
 
 </script>
 

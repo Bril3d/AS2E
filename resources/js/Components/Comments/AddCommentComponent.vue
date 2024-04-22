@@ -18,7 +18,10 @@
 
 <script setup>
 import { useForm } from '@inertiajs/vue3'
+import axios from 'axios';
 
+
+const emit = defineEmits(['add'])
 
 const props = defineProps({
   post_id: Number
@@ -31,8 +34,13 @@ const form = useForm({
 
 
 const submit = () => {
-  form.post(route('comments.store'))
-  form.content = ''
+  axios.post('/comments', form).then((response) => {
+console.log(response)
+    emit('add', response.data)
+    form.content = ''
+  })
+
+
 }
 </script>
 

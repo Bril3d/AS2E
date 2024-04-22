@@ -39,12 +39,14 @@ class CommentController extends Controller
             'post_id' => 'required|exists:posts,id'
         ]);
 
-        Comment::create([
+        $comment = Comment::create([
             'content' => $request->input('content'),
             'post_id' => $request->input('post_id'),
             'user_id' => auth()->id(),
         ]);
-
+        if ($request->wantsJson()) {
+            return new CommentResource($comment);
+        }
         return back();
     }
 
