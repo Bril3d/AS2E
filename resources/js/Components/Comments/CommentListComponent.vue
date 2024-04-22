@@ -34,7 +34,7 @@
                 <span class="text-xs text-gray-400">
                   <Link v-if="comment?.user?.id === $page.props.auth.user?.id"
                     :href="route('comments.destroy', comment.id)" method="delete" as="button" type="button"
-                    preserve-scroll>
+                    @click="deleteComment(comment.id)" preserve-scroll>
                   Delete
                   </Link>
                 </span>
@@ -69,8 +69,12 @@ const props = defineProps({
   post: Object
 })
 
-const addComment = (content) => {
-  props.post.comments.push(content)
+const addComment = (comment) => {
+  props.post.comments.push(comment)
+}
+
+const deleteComment = (commentId) => {
+  props.post.comments = props.post.comments.filter((comment) => comment.id != commentId)
 }
 
 </script>
