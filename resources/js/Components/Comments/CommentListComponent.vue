@@ -73,11 +73,13 @@ const addComment = (comment) => {
 }
 
 const deleteComment = (commentId) => {
-  router.delete('/comments', commentId, {
+  router.delete(route('comments.destroy', commentId), {
+    preserveScroll: true,
     onSuccess: () => {
       props.post.comments = props.post.comments.filter((comment) => comment.id != commentId)
     }
   })
+
 }
 
 </script>
