@@ -5,9 +5,9 @@
     <!-- Grid -->
     <div class="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
       <div>
-        <img class="rounded-xl"
+        <img class="rounded-xl w-full h-full"
           src="../../assets/features.jpg"
-          alt="Image Description">
+          alt="Features">
       </div>
       <!-- End Col -->
 

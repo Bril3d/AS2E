@@ -8,7 +8,7 @@
         <li v-for="comment in post.comments" :key="comment.id">
           <div class="flex space-x-3">
             <Link :href="`/profile/${comment.user.id}`" class="flex-shrink-0">
-            <img class="size-6 rounded-full" :src="comment.user.avatar" />
+            <img class="size-6 rounded-full" alt="Avatar" :src="comment.user.avatar" />
             </Link>
             <div class="flex-shrink overflow-hidden flex-1">
               <div class="w-full flex">

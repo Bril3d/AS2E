@@ -1,7 +1,7 @@
 <template>
   <div class="flex space-x-3">
     <div class="flex-shrink-0">
-      <img :src="comment.user.avatar" class="h-8 w-8 object-cover" />
+      <img :src="comment.user.avatar" alt="Avatar" class="h-8 w-8 object-cover" />
       />
     </div>
     <div>

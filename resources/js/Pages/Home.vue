@@ -31,7 +31,10 @@ onMounted(() => {
 
 <template>
 
-    <Head title="Welcome" />
+    <Head>
+        <title>Welcome</title>
+        <meta name="description" content="You Partner For Smart Automation You Partner For Smart Automation">
+    </Head> 
     <div>
         <!-- <AnnouncementBanner content="This website still under development." /> -->
         <SideNavigator :sections="sections" />

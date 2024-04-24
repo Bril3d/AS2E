@@ -25,7 +25,7 @@
       }" :modules="modules">
           <swiper-slide v-for="(image, index) in carousel" :key="index">
             <div class="swiper-image-overlay"></div>
-            <img :src="`storage/${image}`" :alt="image.alt" class="h-screen object-cover w-full" />
+            <img :src="`storage/${image}`" :alt="image" class="h-screen object-cover w-full"  />
           </swiper-slide>
         </swiper-container>
 

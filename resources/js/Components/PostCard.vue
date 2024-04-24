@@ -3,7 +3,7 @@
     <div>
       <div class="flex space-x-3 pt-2">
         <Link :href="route('profile.edit', { id: post.user.id })" class="flex-shrink-0">
-        <img class="h-8 w-8 object-cover rounded-full" :src="post?.user?.avatar" />
+        <img class="h-8 w-8 object-cover rounded-full" alt="Avatar" :src="post?.user?.avatar" />
         </Link>
 
         <div class="min-w-0 h-10 flex-1 flex flex-col justify-center">
