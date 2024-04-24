@@ -1,7 +1,21 @@
 <template>
   <NavBar :canRegister="canRegister" :canLogin="canLogin">
-    <div>
-      <!-- Background Images -->
+
+    <template #links>
+      <Link :href="route('feed.list')"
+        class="font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+      Feed</Link>
+
+      <Link :href="route('login')"
+        class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+      Log in</Link>
+
+      <Link v-if="canRegister" :href="route('register')"
+        class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
+      Register</Link>
+    </template>
+    <!-- Background Images -->
+    <template #default>
       <div>
         <swiper-container slides-per-view="1" speed="500" loop="true" :spaceBetween="30" :effect="'fade'" :autoplay="{
           delay: 2500,
@@ -24,12 +38,13 @@
             Energy Efficiency</div>
         </div>
       </div>
-    </div>
+    </template>
+
   </NavBar>
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/vue3';
+import { usePage, Link } from '@inertiajs/vue3';
 import { EffectFade, Pagination } from 'swiper/modules';
 import NavBar from '@/Components/Navbar.vue';
 

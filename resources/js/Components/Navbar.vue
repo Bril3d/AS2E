@@ -51,17 +51,8 @@
 
 
       <template v-else>
-        <Link :href="route('feed.list')"
-          class="font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
-        Feed</Link>
+        <slot name="links" />
 
-        <Link :href="route('login')"
-          class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
-        Log in</Link>
-
-        <Link v-if="canRegister" :href="route('register')"
-          class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
-        Register</Link>
       </template>
     </div>
     <slot />
