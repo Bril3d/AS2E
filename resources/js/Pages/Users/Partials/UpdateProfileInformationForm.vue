@@ -15,7 +15,7 @@ function onFileChange($e) {
 }
 
 const avatar = computed(() => {
-    const avatar = user.avatar ? user.avatar : `https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80`
+    const avatar = user.avatar ? user.avatar : `/storage/guest.png`
     return url.value ? url.value : avatar
 })
 

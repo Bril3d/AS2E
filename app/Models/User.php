@@ -58,7 +58,7 @@ class User extends Authenticatable
     {
         // Check if $value is null or empty
         if (!$value) {
-            return 'https://lh3.googleusercontent.com/a/ACg8ocJHYACBftndGFKQK84XnhqFrsyBQ598CXJbKj4PJ4yBvw=s96-c';
+            return '/storage/guest.png';
         }
 
         // Check if the avatar is synced from Provider
