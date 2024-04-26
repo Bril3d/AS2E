@@ -62,7 +62,7 @@ class SettingController extends Controller
             );
         }
 
-        Cache::forget('settings');
+        Cache::flush();
 
         return back()->with('success', 'Settings Updated Succussfully');
     }
@@ -95,7 +95,7 @@ class SettingController extends Controller
             );
         }
 
-        Cache::forget('settings');
+        Cache::flush();
 
         return back()->with('success', 'Settings Updated Succussfully');
     }
