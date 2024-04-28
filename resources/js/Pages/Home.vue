@@ -9,6 +9,7 @@ import Footer from '@/Components/Footer.vue'
 import Stats from '@/Components/Stats.vue'
 import Contact from '@/Components/Contact.vue';
 import SideNavigator from '@/Components/SideNavigator.vue';
+import HomeNavBar from '@/Components/HomeNavbar.vue'
 import { onMounted } from 'vue';
 import { HSCopyMarkup as HSStaticMethods } from "preline";
 
@@ -36,6 +37,7 @@ onMounted(() => {
         <meta name="description" content="You Partner For Smart Automation You Partner For Smart Automation">
     </Head> 
     <div>
+        <HomeNavBar />
         <!-- <AnnouncementBanner content="This website still under development." /> -->
         <SideNavigator :sections="sections" />
         <Hero :canLogin="canLogin" :canRegister="canRegister" :carousel="carousel" id="Hero" />
