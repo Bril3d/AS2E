@@ -27,6 +27,7 @@ export default {
 
     plugins: [
         forms,
-        require('preline/plugin')
+        require('preline/plugin'),
+        require('@tailwindcss/typography'),
     ],
 };
