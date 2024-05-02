@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'permissions' => $this->whenLoaded('permissions', function () {
                 return $this->getPermissionsViaRoles()->pluck('name');
             }),
-
+            'posts' => $this->savedPosts->pluck('id')
         ];
     }
 }

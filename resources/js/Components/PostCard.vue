@@ -7,7 +7,8 @@
         </Link>
 
         <div class="min-w-0 h-10 flex-1 flex flex-col justify-center">
-          <Link :href="route('profile.edit', { id: post.user.id })" class="text-sm font-medium dark:text-white text-gray-900">
+          <Link :href="route('profile.edit', { id: post.user.id })"
+            class="text-sm font-medium dark:text-white text-gray-900">
           {{ post?.user?.name }}
           </Link>
 
@@ -15,6 +16,11 @@
             <time :datetime="post.created_at">{{ post.created_at }}</time>
           </p>
         </div>
+        <Link class="text-sm font-medium text-main hover:text-main-dark " as="button"
+          :method="postSaved ? 'delete' : 'post'"
+          :href="postSaved ? route('posts.unsave', post) : route('posts.save', post)" preserve-scroll>{{ postSaved ? 'Unsave' : 'Save'
+        }}
+        </Link>
       </div>
 
       <div class="border-t border-gray-200 dark:border-gray-500 mt-2" />
@@ -65,7 +71,8 @@
 </template>
 
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { computed } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
 import CommentListComponent from './Comments/CommentListComponent.vue';
 import { AnOutlinedHeart, AnFilledHeart, FaRegComments } from "@kalimahapps/vue-icons";
 
@@ -75,6 +82,10 @@ const props = defineProps({
     required: true
   }
 })
+
+const page = usePage()
+
+const postSaved = computed(() => { return page.props.auth.user.posts.includes(props.post.id) });
 
 </script>
 

@@ -120,6 +120,12 @@ class User extends Authenticatable
         return $this->hasMany(Appointment::class);
     }
 
+    public function savedPosts()
+    {
+        return $this->belongsToMany(Post::class, 'saved_posts', 'user_id', 'post_id');
+    }
+
+
     public function isAdmin()
     {
         return $this->hasRole('admin');

@@ -116,4 +116,22 @@ class PostController extends Controller
 
         return back();
     }
+
+    public function save(Request $request, Post $post)
+    {
+        $user = $request->user();
+
+        $user->savedPosts()->syncWithoutDetaching([$post->id]);
+
+        return back()->with('message', 'Post saved successfully');
+    }
+
+    public function unsave(Request $request, Post $post)
+    {
+        $user = $request->user();
+
+        $user->savedPosts()->detach($post->id);
+
+        return back()->with('message', 'Post unsaved successfully');
+    }
 }

@@ -13,5 +13,7 @@ Route::middleware(['auth'])->group(function () {
   Route::post('/publish/{slug}', [PostController::class, 'publish'])->name('posts.publish');
   Route::post('/update/post', [PostController::class, 'update'])->name('posts.update');
   Route::post('/post/{id}', [LikedPostsController::class, 'toggle'])->name('posts.toggle');
+  Route::post('/posts/{post}/save', [PostController::class, 'save'])->name('posts.save');
+  Route::delete('/posts/{post}/unsave', [PostController::class, 'unsave'])->name('posts.unsave');
   Route::resource('comments', CommentController::class);
 });
