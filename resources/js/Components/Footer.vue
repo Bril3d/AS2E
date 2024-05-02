@@ -9,7 +9,7 @@ const appName = usePage().props.settings.app_name;
   <!-- Grid -->
   <div class="text-center">
     <div>
-      <a class="flex-none text-xl font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400" href="#" aria-label="Brand">{{ appName }}</a>
+      <a class="flex-none text-xl font-semibold text-main hover:text-blue-700 dark:text-blue-500 dark:hover:text-blue-400" href="#" aria-label="Brand">{{ appName }}</a>
     </div>
     <!-- End Col -->
 

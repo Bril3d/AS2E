@@ -7,7 +7,7 @@
     <!-- Stats -->
     <div>
       <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">Accuracy rate</h4>
-      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">99.95%</p>
+      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-main">99.95%</p>
       <p class="mt-1 text-gray-500">in fulfilling orders</p>
     </div>
     <!-- End Stats -->
@@ -15,7 +15,7 @@
     <!-- Stats -->
     <div>
       <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">Team Members</h4>
-      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">50+</p>
+      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-main">50+</p>
       <p class="mt-1 text-gray-500">dedicated team members</p>
     </div>
     <!-- End Stats -->
@@ -23,7 +23,7 @@
     <!-- Stats -->
     <div>
       <h4 class="text-lg sm:text-xl font-semibold text-gray-800 dark:text-gray-200">Happy customer</h4>
-      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-blue-600">85%</p>
+      <p class="mt-2 sm:mt-3 text-4xl sm:text-6xl font-bold text-main">85%</p>
       <p class="mt-1 text-gray-500">this year alone</p>
     </div>
     <!-- End Stats -->

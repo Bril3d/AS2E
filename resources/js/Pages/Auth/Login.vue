@@ -38,7 +38,7 @@ const submit = () => {
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                 Don't have an account yet?
                 <Link
-                    class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                    class="text-main decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="/register">
                 Sign up here
                 </Link>
@@ -91,7 +91,7 @@ const submit = () => {
 
             <div class="flex items-center justify-end mt-4">
                 <Link v-if="canResetPassword" :href="route('password.request')"
-                    class="hover:underline text-sm text-gray-600 hover:text-gray-900 dark:text-blue-600 dark:hover:text-blue-600  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                    class="hover:underline text-sm text-gray-600 hover:text-gray-900 dark:text-main dark:hover:text-main  rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                 Forgot your password?
                 </Link>
 
