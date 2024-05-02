@@ -42,42 +42,40 @@ class DashboardController extends Controller
 
     public function getLikesByMonth(Request $request)
 {
-    // Get the authenticated user
+
     $user = $request->user();
 
-    // Get the posts created by the authenticated user
     $userPosts = $user->posts();
 
-    // Get the IDs of the user's posts
+
     $userPostIds = $userPosts->pluck('id');
 
-    // Query the liked posts table and count likes on the user's posts
     $newLikesByMonth = LikedPost::whereIn('post_id', $userPostIds)
         ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
         ->groupBy('month')
         ->orderBy('month')
         ->get();
 
-    // Initialize an array to hold the counts for each month, starting with zeros
+
     $monthCounts = array_fill(1, 12, 0);
 
-    // Populate the $monthCounts array with actual counts
+
     foreach ($newLikesByMonth as $like) {
         $monthCounts[$like->month] = $like->total;
     }
 
-    // Get the names of all months
+
     $labels = [
         'January', 'February', 'March', 'April', 'May', 'June',
         'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
-    // Initialize an array to hold the data for each month
+
     $data = [];
 
-    // Fill in the data array with actual counts or zeros for each month
+
     foreach ($labels as $index => $monthName) {
-        $data[] = $monthCounts[$index + 1]; // Adding 1 because months are 1-indexed in MySQL
+        $data[] = $monthCounts[$index + 1];
     }
 
     return [
@@ -96,6 +94,7 @@ class DashboardController extends Controller
 
     public function stats(Request $request)
     {
+        $newLikesByMonth = $this->getLikesByMonth($request);
 
         if ($request->user()->isLeader()) {
 
@@ -107,14 +106,12 @@ class DashboardController extends Controller
 
             $newUsersByMonth = $this->getNewUsersByMonth();
 
-            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth]);
+            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'likes' => $newLikesByMonth]);
         } else {
             $user = $request->user();
 
             $totalPosts = Post::where('user_id', $user->id)->count();
             $totalComments = Comment::where('user_id', $user->id)->count();
-
-            $newLikesByMonth = $this->getLikesByMonth($request);
 
             return Inertia::render('Dashboard/Users', ['stats' => ['comments' => $totalComments, 'posts' => $totalPosts], 'likes' => $newLikesByMonth]);
         }

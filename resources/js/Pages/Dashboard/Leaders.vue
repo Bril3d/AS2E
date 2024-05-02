@@ -3,15 +3,20 @@ import { Head } from '@inertiajs/vue3';
 import { ClUsers, BxPackage, BsPostcardHeart, AkCalendar } from "@kalimahapps/vue-icons";
 import StatsCard from '@/Components/StatsCard.vue';
 import NewUsersChart from '@/Components/NewUsersChart.vue'
+import NewLikesChart from '@/Components/NewLikesChart.vue';
 
 const props = defineProps({
     stats: {
-        type:   Object,
+        type: Object,
         required: true,
     },
     usersByMonth: {
         type: Object,
         required: true,
+    },
+    likes: {
+        type: Object,
+        required: true
     }
 })
 </script>
@@ -48,10 +53,20 @@ const props = defineProps({
                 </StatsCard>
                 <!-- End Card -->
             </div>
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
-                <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total Incomers
-                    Per Month</h1>
-                <NewUsersChart class="h-64" :chartData="usersByMonth" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
+                    <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total
+                        Incomers
+                        Per Month</h1>
+                    <NewUsersChart class="h-64" :chartData="usersByMonth" />
+                </div>
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
+                    <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">New Likes
+                        Per
+                        Month
+                    </h1>
+                    <NewLikesChart class="h-64" :chartData="likes" />
+                </div>
             </div>
         </div>
         <!-- End Grid -->
