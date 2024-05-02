@@ -37,7 +37,7 @@ import { Link } from '@inertiajs/vue3';
         <div
           class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
           <Link :href="route('feed.list')"
-          class="font-medium  dark:text-white/80 dark:hover:text-white  sm:py-6">
+          class="font-medium  dark:text-white/80 relative inline-block dark:hover:text-white before:absolute before:top-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-main sm:py-6">
           Feed</Link>
           <Link :href="route('feed.list')" class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6" href="#">Process Control</Link>
           <Link :href="route('feed.list')" class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6" href="#">Process Improvement</Link>

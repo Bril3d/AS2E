@@ -38,7 +38,6 @@ onMounted(() => {
     </Head> 
     <div>
         <HomeNavBar />
-        <!-- <AnnouncementBanner content="This website still under development." /> -->
         <SideNavigator :sections="sections" />
         <Hero :canLogin="canLogin" :canRegister="canRegister" :carousel="carousel" id="Hero" />
         <Features id="Features" />
