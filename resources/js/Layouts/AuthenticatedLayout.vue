@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage, Head } from '@inertiajs/vue3';
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed } from "@kalimahapps/vue-icons";
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed,CaSaveModel } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue"
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
 import { usePermission } from '@/Composables/permissions'
@@ -83,6 +83,12 @@ onMounted(() => {
                                         :href="route('feed.list')">
                                     <CgFeed />
                                     Feed
+                                    </Link>
+                                    <Link
+                                        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
+                                        :href="route('posts.saved')">
+                                    <CaSaveModel  />
+                                    Saved Posts
                                     </Link>
                                     <Link
                                         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
