@@ -15,6 +15,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
 import SectionHeader from './Components/SectionHeader.vue'
 import PrimaryButton from './Components/PrimaryButton.vue'
 import DangerButton from './Components/DangerButton.vue'
+import CKEditor from '@ckeditor/ckeditor5-vue';
 
 router.on('finish', (event) => {
     window.HSStaticMethods.autoInit();
@@ -35,6 +36,7 @@ createInertiaApp({
             .use(Toast, {
                 position: POSITION.BOTTOM_RIGHT
             })
+            .use(CKEditor)
             .mount(el);
     },
     progress: {

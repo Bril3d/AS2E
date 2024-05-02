@@ -36,6 +36,10 @@ Route::get('/', function () {
     ]);
 });
 
+Route::get('/projects', function () {
+    return Inertia::render('Projects/Create');
+});
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
