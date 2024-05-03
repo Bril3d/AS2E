@@ -78,7 +78,7 @@
 <script setup>
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import { ref, shallowRef } from "vue";
-import {useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -88,26 +88,32 @@ import PrimaryButton from "@/Components/PrimaryButton.vue";
 const textEditor = shallowRef({
   editor: ClassicEditor,
   editorConfig: {
+    extraPlugins: [uploadAdapterPlugin],
     toolbar: {
-      items: [
+      items:  [
         "heading",
         "|",
         "bold",
         "italic",
-        "underline",
-        "fontColor",
         "strikethrough",
+        "underline",
+        "link",
+        "bulletedList",
+        "numberedList",
         "|",
         "alignment",
+        "outdent",
+        "indent",
         "|",
-        "numberedList",
-        "bulletedList",
-        "|",
-        "link",
+        "htmlEmbed",
+        "imageUpload",
         "blockQuote",
         "insertTable",
+        "mediaEmbed",
+        "|",
+        "removeFormat",
         "undo",
-        "redo"
+        "redo",
       ],
     },
     language: "en",
@@ -140,6 +146,31 @@ function imageField() {
       form.reset("image");
       urlImage.value = null;
     },
+  };
+}
+function uploadAdapterPlugin(editor) {
+  editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+    return {
+      upload: async () => {
+        try {
+          const file = await loader.file;
+
+          const formData = new FormData();
+          formData.append('image', file);
+
+          const response = await axios.post('/upload-image', formData);
+
+          const imageUrl = response.data;
+
+          return {
+            default: imageUrl
+          };
+        } catch (error) {
+          console.error('Upload error:', error);
+          throw error;
+        }
+      },
+    };
   };
 }
 
