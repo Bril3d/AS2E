@@ -38,15 +38,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/projects', function () {
-    return Inertia::render('Projects/Create');
-});
-
-Route::get('/projects/{slug}', function ($slug) {
-    return Inertia::render('Projects/Show', [
-        'project' => Project::where('slug', $slug)->first()
-    ]);
-});
+Route::resource('projects', ProjectController::class)->middleware(['auth']);
 
 Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
 

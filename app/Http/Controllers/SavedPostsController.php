@@ -17,7 +17,7 @@ class SavedPostsController extends Controller
     {
         $auth = $request->user();
 
-        $posts = $auth->savedPosts()->latest()->paginate(15);
+        $posts = $auth->savedPosts()->latest()->paginate(setting('pagination_limit'));
 
         if ($request->wantsJson()) {
             return PostResource::collection($posts);

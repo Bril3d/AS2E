@@ -17,7 +17,7 @@ class PostListController extends Controller
     public function __invoke(Request $request)
     {
 
-        $posts = Post::where('published', true)->latest()->cursorPaginate(15);
+        $posts = Post::where('published', true)->latest()->cursorPaginate(setting('pagination_limit'));
 
         if($request->wantsJson()){
             return PostResource::collection($posts);

@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProjectResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ProjectController extends Controller
 {
@@ -14,7 +18,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::latest()->paginate(setting('pagination_limit'));
+
+        return Inertia::render('Projects/Index', ['projects' => ProjectResource::collection($projects)]);
     }
 
     /**
@@ -22,7 +28,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Projects/Create');
     }
 
     /**
@@ -38,7 +44,7 @@ class ProjectController extends Controller
         $projectImage = '';
         if ($request->hasFile('image')) {
             $request->validate([
-                'image' => ['image', 'max:1024', 'mimes:jpg,jpeg,png'],
+                'image' => ['required', 'image', 'max:1024', 'mimes:jpg,jpeg,png'],
             ]);
             $projectImage = $request->file('image')->store('project-images', 'public');
         }
@@ -53,10 +59,10 @@ class ProjectController extends Controller
         ]);
 
         if ($project) {
-            return back()->with('success', 'project created successfully.');
+            return back()->with('success', 'Project created successfully.');
         }
 
-        return back()->with('message', 'project could not be created.');
+        return back()->with('message', 'Project could not be created.');
     }
 
     /**
@@ -64,7 +70,9 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        return Inertia::render('Projects/Show', [
+            'project' => new ProjectResource($project)
+        ]);
     }
 
     /**
@@ -72,7 +80,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return Inertia::render('Projects/Edit', ['project' => new ProjectResource($project)]);
     }
 
     /**
@@ -80,7 +88,33 @@ class ProjectController extends Controller
      */
     public function update(Request $request, Project $project)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'body' => 'required|string',
+        ]);
+
+        $postImage = '';
+        if ($request->file('image')) {
+            $request->validate([
+                'image' => ['image', 'max:1024', 'mimes:jpg,jpeg,png'],
+            ]);
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+            $postImage = $request->file('image')->store('project-images', 'public');
+        }
+
+        $project->update([
+            'title' => $request->title,
+            'image' => $postImage,
+            'body' => $request->body,
+        ]);
+
+        if ($project->wasChanged()) {
+            return to_route('projects.index')->with('success', 'Post updated successfully.');
+        }
+
+        return to_route('projects.index')->with('message', 'Something went wrong, please try again.');
     }
 
     /**
@@ -88,6 +122,8 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return back();
     }
 }
