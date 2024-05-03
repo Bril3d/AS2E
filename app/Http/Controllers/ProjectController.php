@@ -106,7 +106,7 @@ class ProjectController extends Controller
 
         $project->update([
             'title' => $request->title,
-            'image' => $postImage,
+            'image' => $postImage ? $postImage : $project->image,
             'body' => $request->body,
         ]);
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\ImageUploaderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -42,6 +43,7 @@ Route::resource('projects', ProjectController::class)->middleware(['auth']);
 
 Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
 
+Route::post('/upload-image', ImageUploaderController::class)->name('upload-image');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
