@@ -1,16 +1,23 @@
 <script setup>
 import ApplicationLogo from './ApplicationLogo.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
+
+const page = usePage();
+
+const onPage = (component) => {
+  return page.component === component
+}
+
 </script>
 
 <template>
   <!-- ========== HEADER ========== -->
-  <header class="flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-3 sm:py-0">
+  <header class="flex flex-wrap sm:justify-start sm:flex-nowrap shadow-md z-50 w-full text-sm py-3 sm:py-0">
     <nav class="relative  w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:pr-8" aria-label="Global">
       <div class="flex items-center justify-between">
-        <a class="flex-none text-xl font-semibold text-white" href="#" aria-label="Brand">
-          <ApplicationLogo class="w-20" />
-        </a>
+        <Link class="flex-none text-xl font-semibold text-white" href="/" aria-label="Brand">
+        <ApplicationLogo class="w-20" />
+        </Link>
         <div class="sm:hidden">
           <button type="button"
             class="hs-collapse-toggle size-9 flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-white/20 text-white hover:border-white/40 disabled:opacity-50 disabled:pointer-events-none"
@@ -37,10 +44,14 @@ import { Link } from '@inertiajs/vue3';
         <div
           class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:ps-7">
           <Link :href="route('feed.list')"
-          class="font-medium  dark:text-white/80 relative inline-block dark:hover:text-white before:absolute before:top-0.5 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-main sm:py-6">
+            :class="onPage('Posts/Index') ? 'before:absolute before:top-0 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-main' : null"
+            class="font-medium  dark:text-white/80 relative inline-block dark:hover:text-white sm:py-6">
           Feed</Link>
-          <Link :href="route('feed.list')" class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6" href="#">Process Control</Link>
-          <Link :href="route('feed.list')" class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6" href="#">Process Improvement</Link>
+          <Link :href="route('feed.list')"
+            :class="onPage('Posts/Index') ? 'before:absolute before:top-0 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-main' : null"
+            class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6" href="#">Process Control</Link>
+          <Link :href="route('feed.list')" class="font-medium  dark:text-white/80 dark:hover:text-white sm:py-6"
+            href="#">Process Improvement</Link>
         </div>
       </div>
     </nav>
