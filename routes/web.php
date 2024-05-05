@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageUploaderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -10,9 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
-use App\Models\Project;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -31,13 +30,7 @@ Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->
 
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->where('provider', 'google');
 
-Route::get('/', function () {
-    return Inertia::render('Home', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'carousel' => Storage::disk('public')->allFiles('carousel')
-    ]);
-});
+Route::get('/', HomeController::class);
 
 Route::resource('projects', ProjectController::class)->middleware(['auth']);
 
