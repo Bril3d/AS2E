@@ -85,7 +85,7 @@ const props = defineProps({
 
 const page = usePage()
 
-const postSaved = computed(() => { return page.props.auth.user.posts.includes(props.post.id) });
+const postSaved = computed(() => { return page.props.auth.user?.posts?.includes(props.post.id) });
 
 </script>
 
