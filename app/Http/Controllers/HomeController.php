@@ -23,7 +23,7 @@ class HomeController extends Controller
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
             'carousel' => Storage::disk('public')->allFiles('carousel'),
-            'projects' => new ProjectResource($projects)
+            'projects' => ProjectResource::collection($projects)
         ]);
     }
 }
