@@ -108,7 +108,7 @@ class ProjectController extends Controller
             'body' => 'required|string',
         ]);
 
-        $postImage = '';
+        $projectImage = '';
         if ($request->file('image')) {
             $request->validate([
                 'image' => ['image', 'max:1024', 'mimes:jpg,jpeg,png'],
@@ -116,18 +116,18 @@ class ProjectController extends Controller
             if ($project->image) {
                 Storage::delete($project->image);
             }
-            $postImage = $request->file('image')->store('project-images', 'public');
+            $projectImage = $request->file('image')->store('project-images', 'public');
         }
 
         $project->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $postImage ? $postImage : $project->image,
+            'image' => $projectImage ? $projectImage : $project->image,
             'body' => $request->body,
         ]);
 
         if ($project->wasChanged()) {
-            return to_route('projects.index')->with('success', 'Post updated successfully.');
+            return to_route('projects.index')->with('success', 'Project updated successfully.');
         }
 
         return to_route('projects.index')->with('message', 'Something went wrong, please try again.');
