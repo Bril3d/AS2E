@@ -1,4 +1,5 @@
 <template>
+  <Head title="Project Creation" /> 
   <AuthenticatedLayout>
     <div class="py-12">
       <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
@@ -84,6 +85,7 @@
   </AuthenticatedLayout>
 </template>
 <script setup>
+import {Head} from "@inertiajs/vue3"
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
 import { ref, shallowRef } from "vue";
 import { useForm } from "@inertiajs/vue3";

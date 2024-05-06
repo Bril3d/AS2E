@@ -122,6 +122,7 @@
 
 .ck-content > table {
     border-collapse: revert;
+    border:revert;
 }
 
 .ck-content > h1,
@@ -134,9 +135,4 @@
     font-weight: revert;
 }
 
-table,
-tr,
-td,
-th {
-    border: 1px black solid;
-}
+

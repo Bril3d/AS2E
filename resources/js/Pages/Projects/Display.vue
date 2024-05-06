@@ -86,7 +86,7 @@ onMounted(() => {
                   <!-- End Col -->
                 </div>
                 <!-- End Grid -->
-                <div class="py-10" v-html="project.body" />
+                <div class="py-10 w-full prose prose-dark dark:prose-invert lg:prose-lg prose-table:border prose-th:border prose-td:border prose-tr:border" v-html="project.body" />
               </div>
             </div>
             <!-- End Hero -->

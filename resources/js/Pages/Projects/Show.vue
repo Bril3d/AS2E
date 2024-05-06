@@ -62,7 +62,7 @@ const project = computed(() => usePage().props.project);
                             Content
                         </div>
                         <div class="flex justify-center mt-5">
-                            <div class="w-full prose prose-dark dark:prose-invert lg:prose-lg" v-html="project.body" />
+                            <div class="w-full prose prose-dark dark:prose-invert lg:prose-lg prose-table:border prose-th:border prose-td:border prose-tr:border" v-html="project.body" />
                         </div>
                     </div>
                 </div>
