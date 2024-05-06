@@ -16,13 +16,14 @@ import SectionHeader from './Components/SectionHeader.vue'
 import PrimaryButton from './Components/PrimaryButton.vue'
 import DangerButton from './Components/DangerButton.vue'
 import CKEditor from '@ckeditor/ckeditor5-vue';
+import { useDark } from '@vueuse/core'
 
 router.on('finish', (event) => {
     window.HSStaticMethods.autoInit();
 })
 
 register();
-
+useDark();
 toastCall();
 
 createInertiaApp({
