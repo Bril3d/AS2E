@@ -3,7 +3,6 @@ import { onMounted } from 'vue';
 import NavBar from '@/Components/Navbar.vue'
 import HomeNavbar from '@/Components/HomeNavbar.vue';
 import { Link, Head } from "@inertiajs/vue3"
-import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 
 
@@ -86,7 +85,9 @@ onMounted(() => {
                   <!-- End Col -->
                 </div>
                 <!-- End Grid -->
-                <div class="py-10 w-full prose prose-dark dark:prose-invert lg:prose-lg prose-table:border prose-th:border prose-td:border prose-tr:border" v-html="project.body" />
+                <div
+                  class="py-10 w-full prose prose-dark dark:prose-invert lg:prose-lg prose-table:border prose-th:border prose-td:border prose-tr:border"
+                  v-html="project.body" />
               </div>
             </div>
             <!-- End Hero -->
