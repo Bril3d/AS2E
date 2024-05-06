@@ -110,18 +110,18 @@
 .ck-content > figure,
 .ck-content > p,
 .ck-content > pre {
-  margin: revert;
+    margin: revert;
 }
 
 .ck-content > ol,
 .ck-content > ul {
-  list-style: revert;
-  margin: revert;
-  padding: revert;
+    list-style: revert;
+    margin: revert;
+    padding: revert;
 }
 
 .ck-content > table {
-  border-collapse: revert;
+    border-collapse: revert;
 }
 
 .ck-content > h1,
@@ -130,6 +130,13 @@
 .ck-content > h4,
 .ck-content > h5,
 .ck-content > h6 {
-  font-size: revert;
-  font-weight: revert;
+    font-size: revert;
+    font-weight: revert;
+}
+
+table,
+tr,
+td,
+th {
+    border: 1px black solid;
 }
