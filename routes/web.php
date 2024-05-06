@@ -12,7 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +32,13 @@ Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->
 
 Route::get('/', HomeController::class);
 
-Route::resource('projects', ProjectController::class)->middleware(['auth']);
+Route::get('/project/{slug}', [ProjectController::class, "display"])->name('project.display');
 
-Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
+Route::middleware(['auth', 'role:admin|moderator'])->group(function () {
+    Route::resource('projects', ProjectController::class)->middleware(['auth']);
+    Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
+});
+
 
 Route::post('/upload-image', ImageUploaderController::class)->name('upload-image');
 

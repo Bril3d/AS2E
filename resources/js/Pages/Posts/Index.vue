@@ -4,7 +4,7 @@
   <div>
 
     <HomeNavbar />
-    <NavBar :canLogin="canLogin" :canRegister="canRegister">
+    <NavBar>
       <template #links>
         <Link href="/"
           class="font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
@@ -14,7 +14,7 @@
           class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
         Log in</Link>
 
-        <Link v-if="canRegister" :href="route('register')"
+        <Link :href="route('register')"
           class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
         Register</Link>
       </template>
@@ -54,12 +54,6 @@ const props = defineProps({
   posts: {
     type: Object,
     required: true
-  },
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
   },
 })
 

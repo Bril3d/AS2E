@@ -25,8 +25,6 @@ class PostListController extends Controller
 
         return Inertia::render('Posts/Index', [
             'posts' => PostResource::collection($posts),
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
         ]);
     }
 }

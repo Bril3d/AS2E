@@ -1,5 +1,5 @@
 <template>
-  <NavBar :canRegister="canRegister" :canLogin="canLogin">
+  <NavBar>
 
     <template #links>
 
@@ -7,7 +7,7 @@
         class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
       Log in</Link>
 
-      <Link v-if="canRegister" :href="route('register')"
+      <Link :href="route('register')"
         class="ms-4 font-semibold  dark:text-white hover:text-white text-gray-400 dark:hover:text-gray-300 focus:outline dark:font-outline-1">
       Register</Link>
     </template>
@@ -49,12 +49,6 @@ const appName = usePage().props.settings.app_name;
 const modules = [EffectFade, Pagination]
 
 defineProps({
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
-  },
   carousel: Array
 });
 </script>

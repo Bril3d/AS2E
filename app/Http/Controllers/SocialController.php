@@ -22,40 +22,39 @@ class SocialController extends Controller
     {
         try {
             $socialUser = Socialite::driver($provider)->user();
-        }catch (Throwable $th){
-            return redirect(route('login'));
+        } catch (Throwable $th) {
+            return redirect(route('login'))->with('message', 'Error! Please Try Again!');
         }
-            $user = User::where('email', $socialUser->getEmail())->first();
-            $name = $socialUser->getNickname() ?? $socialUser->getName();
-            if (!$user) {
-                $user = User::create([
-                    'name' => $name,
-                    'email' => $socialUser->getEmail(),
-                    'password' => Hash::make(Str::random(7)),
-                    'avatar' => $socialUser->getAvatar(),
-                ])->assignRole('user');
+        $user = User::where('email', $socialUser->getEmail())->first();
+        $name = $socialUser->getNickname() ?? $socialUser->getName();
+        if (!$user) {
+            $user = User::create([
+                'name' => $name,
+                'email' => $socialUser->getEmail(),
+                'password' => Hash::make(Str::random(7)),
+                'avatar' => $socialUser->getAvatar(),
+            ])->assignRole('user');
 
-                $user->socials()->create([
-                    'provider_id' => $socialUser->getId(),
-                    'provder' => $provider,
-                    'provider_token' => $socialUser->token,
-                    'provider_refresh_token' => $socialUser->refreshToken
-                ]);
-            }
+            $user->socials()->create([
+                'provider_id' => $socialUser->getId(),
+                'provder' => $provider,
+                'provider_token' => $socialUser->token,
+                'provider_refresh_token' => $socialUser->refreshToken
+            ]);
+        }
 
-            $socials = Social::where('provider', $provider)->where('user_id', $user->id)->first();
-            if (!$socials) {
-                $user->socials()->create([
-                    'provider_id' => $socialUser->getId(),
-                    'provder' => $provider,
-                    'provider_token' => $socialUser->token,
-                    'provider_refresh_token' => $socialUser->refreshToken
-                ]);
-            }
+        $socials = Social::where('provider', $provider)->where('user_id', $user->id)->first();
+        if (!$socials) {
+            $user->socials()->create([
+                'provider_id' => $socialUser->getId(),
+                'provder' => $provider,
+                'provider_token' => $socialUser->token,
+                'provider_refresh_token' => $socialUser->refreshToken
+            ]);
+        }
 
-            auth()->login($user);
+        auth()->login($user);
 
-            return redirect('/dashboard');
-       
+        return redirect('/dashboard');
     }
 }

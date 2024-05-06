@@ -7,21 +7,13 @@ import Services from '@/Components/Services.vue'
 import Faq from '@/Components/Faq.vue';
 import Footer from '@/Components/Footer.vue'
 import Stats from '@/Components/Stats.vue'
-import Contact from '@/Components/Contact.vue';
 import SideNavigator from '@/Components/SideNavigator.vue';
 import HomeNavBar from '@/Components/HomeNavbar.vue'
 import { onMounted } from 'vue';
-import { HSCopyMarkup as HSStaticMethods } from "preline";
 
-const sections = ['Hero', 'Features', 'Services', 'Projects','Stats', 'Faq', 'Contact']
+const sections = ['Hero', 'Features', 'Services', 'Projects','Stats', 'Faq']
 
 defineProps({
-    canLogin: {
-        type: Boolean,
-    },
-    canRegister: {
-        type: Boolean,
-    },
     carousel: Array,
     projects: Array,
 });
@@ -40,13 +32,12 @@ onMounted(() => {
     <div>
         <HomeNavBar />
         <SideNavigator :sections="sections" />
-        <Hero :canLogin="canLogin" :canRegister="canRegister" :carousel="carousel" id="Hero" />
+        <Hero :carousel="carousel" id="Hero" />
         <Features id="Features" />
         <Services id="Services" />
         <LatestProjects id="Projects" :projects="projects" />
         <Stats id="Stats" />
         <Faq id="Faq" />
-        <Contact id="Contact" />
         <Footer />
     </div>
 </template>

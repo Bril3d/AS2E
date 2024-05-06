@@ -20,8 +20,6 @@ class HomeController extends Controller
         $projects = Project::latest()->limit(3)->get();
 
         return Inertia::render('Home', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
             'carousel' => Storage::disk('public')->allFiles('carousel'),
             'projects' => ProjectResource::collection($projects)
         ]);

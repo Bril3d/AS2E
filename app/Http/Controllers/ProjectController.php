@@ -76,6 +76,18 @@ class ProjectController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function display($slug)
+    {
+        $project = Project::where('slug', $slug)->firstOrFail();
+
+        return Inertia::render('Projects/Display', [
+            'project' => new ProjectResource($project)
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Project $project)
