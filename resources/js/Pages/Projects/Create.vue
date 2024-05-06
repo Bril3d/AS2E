@@ -15,6 +15,14 @@
                       " v-model="form.title" placeholder="Title" autofocus required />
                   <InputError class="mt-2" :message="form.errors.title" />
                 </div>
+                <div class="w-full col-span-2 mb-3">
+                  <InputLabel for="description" value="Description"
+                    class="text-base text-gray-700 dark:text-gray-200" />
+                  <textarea id="description" v-model="form.description" placeholder="Description"
+                    class="w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    required></textarea>
+                  <InputError class="mt-2" :message="form.errors.description" />
+                </div>
 
                 <!-- IMAGE -->
                 <div class="w-full col-span-2 mb-3 md:col-span-1">
@@ -90,7 +98,7 @@ const textEditor = shallowRef({
   editorConfig: {
     extraPlugins: [uploadAdapterPlugin],
     toolbar: {
-      items:  [
+      items: [
         "heading",
         "|",
         "bold",
@@ -120,6 +128,7 @@ const textEditor = shallowRef({
 
 const form = useForm({
   title: "",
+  description: "",
   image: "",
   body: "",
 });

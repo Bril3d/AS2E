@@ -38,6 +38,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => ['required', 'max:255'],
+            'description' => ['required', 'min:10'],
             'body' => ['required', 'min:10'],
         ]);
 
@@ -51,6 +52,7 @@ class ProjectController extends Controller
 
         $project = Project::create([
             'title' => $request->title,
+            'description' => $request->description,
             'slug' => Str::slug($request->title),
             'category_id' => $request->category_id,
             'image' => $projectImage,
@@ -102,6 +104,7 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'description' => ['required', 'min:10'],
             'body' => 'required|string',
         ]);
 
@@ -118,6 +121,7 @@ class ProjectController extends Controller
 
         $project->update([
             'title' => $request->title,
+            'description' => $request->description,
             'image' => $postImage ? $postImage : $project->image,
             'body' => $request->body,
         ]);
