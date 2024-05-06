@@ -15,6 +15,7 @@ const props = defineProps({
 const form = useForm({
   _method: "PUT",
   title: props.project.title,
+  description: props.project.description,
   slug: props.project.slug,
   image: props.project.image,
   body: props.project.body,
@@ -136,7 +137,7 @@ const updateProject = () => {
             <form @submit.prevent="updateProject">
               <div class="grid grid-cols-2 gap-3 mb-3">
                 <!-- TITLE -->
-                <div class="w-full col-span-2 mb-3 md:col-span-1">
+                <div class="w-full col-span-2 mb-3">
                   <InputLabel for="title" value="Title" class="text-base text-gray-700 dark:text-gray-200" />
                   <TextInput id="title" type="text"
                     class="block w-full mt-1 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-800" :class="'ring-red-500' +
@@ -146,14 +147,13 @@ const updateProject = () => {
                 </div>
 
                 <!-- SLUG -->
-                <div class="w-full col-span-2 mb-3 md:col-span-1">
-                  <InputLabel for="slug" value="Slug" class="text-base text-gray-700 dark:text-gray-200" />
-                  <TextInput id="slug" type="text"
-                    class="block w-full mt-1 placeholder-gray-400 bg-gray-200 dark:bg-gray-700 dark:text-gray-200 dark:border-gray-800"
-                    :class="'ring-red-500' +
-                      (form.errors.slug ? ' ring-2' : '')
-                      " v-model="form.slug" placeholder="Slug" disabled="" required />
-                  <InputError class="mt-2" :message="form.errors.slug" />
+                <div class="w-full col-span-2 mb-3">
+                  <InputLabel for="description" value="Description"
+                    class="text-base text-gray-700 dark:text-gray-200" />
+                  <textarea id="description" v-model="form.description" placeholder="Description"
+                    class="w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+                    required></textarea>
+                  <InputError class="mt-2" :message="form.errors.description" />
                 </div>
 
                 <!-- IMAGE -->
