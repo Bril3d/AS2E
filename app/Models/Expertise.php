@@ -26,4 +26,9 @@ class Expertise extends Model
     {
         return 'slug';
     }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class, 'expertise_projects', 'expertise_id', 'project_id');
+    }
 }
