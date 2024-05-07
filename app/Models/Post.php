@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     /**
      * Get the route key for the model.

@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LikedPost extends Model
+class Expertise extends Model
 {
     use HasFactory;
-
-    protected $table = 'liked_posts';
 
     protected $guarded = ['id'];
 
@@ -18,8 +16,14 @@ class LikedPost extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function post()
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
     {
-        return $this->belongsTo(Post::class);
+        return 'slug';
     }
 }

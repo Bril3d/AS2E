@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Project;
+use App\Models\Expertise;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\ProjectResource;
+use App\Http\Resources\ExpertiseResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 
-class ProjectController extends Controller
+class ExpertiseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::latest()->paginate(setting('pagination_limit'));
+        $expertises = Expertise::latest()->paginate(setting('pagination_limit'));
 
-        return Inertia::render('Projects/Index', ['projects' => ProjectResource::collection($projects)]);
+        return Inertia::render('Expertises/Index', ['expertises' => ExpertiseResource::collection($expertises)]);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Projects/Create');
+        return Inertia::render('Expertises/Create');
     }
 
     /**
@@ -41,37 +41,37 @@ class ProjectController extends Controller
             'body' => ['required', 'min:10'],
         ]);
 
-        $projectImage = '';
+        $expertiseImage = '';
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => ['required', 'image', 'max:1024', 'mimes:jpg,jpeg,png'],
             ]);
-            $projectImage = $request->file('image')->store('project-images', 'public');
+            $expertiseImage = $request->file('image')->store('expertise-images', 'public');
         }
 
-        $project = Project::create([
+        $expertise = Expertise::create([
             'title' => $request->title,
             'description' => $request->description,
             'slug' => Str::slug($request->title),
-            'image' => $projectImage,
+            'image' => $expertiseImage,
             'body' => $request->body,
             'user_id' => auth()->user()->id,
         ]);
 
-        if ($project) {
-            return back()->with('success', 'Project created successfully.');
+        if ($expertise) {
+            return back()->with('success', 'Expertise created successfully.');
         }
 
-        return back()->with('message', 'Project could not be created.');
+        return back()->with('message', 'Expertise could not be created.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(Expertise $expertise)
     {
-        return Inertia::render('Projects/Show', [
-            'project' => new ProjectResource($project)
+        return Inertia::render('Expertises/Show', [
+            'expertise' => new ExpertiseResource($expertise)
         ]);
     }
 
@@ -80,25 +80,25 @@ class ProjectController extends Controller
      */
     public function display($slug)
     {
-        $project = Project::where('slug', $slug)->firstOrFail();
+        $expertise = Expertise::where('slug', $slug)->firstOrFail();
 
-        return Inertia::render('Projects/Display', [
-            'project' => new ProjectResource($project)
+        return Inertia::render('Expertises/Display', [
+            'expertise' => new ExpertiseResource($expertise)
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Project $project)
+    public function edit(Expertise $expertise)
     {
-        return Inertia::render('Projects/Edit', ['project' => new ProjectResource($project)]);
+        return Inertia::render('Expertises/Edit', ['expertise' => new ExpertiseResource($expertise)]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Expertise $expertise)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -106,37 +106,37 @@ class ProjectController extends Controller
             'body' => 'required|string',
         ]);
 
-        $projectImage = '';
+        $expertiseImage = '';
         if ($request->file('image')) {
             $request->validate([
                 'image' => ['image', 'max:1024', 'mimes:jpg,jpeg,png'],
             ]);
-            if ($project->image) {
-                Storage::delete($project->image);
+            if ($expertise->image) {
+                Storage::delete($expertise->image);
             }
-            $projectImage = $request->file('image')->store('project-images', 'public');
+            $expertiseImage = $request->file('image')->store('expertise-images', 'public');
         }
 
-        $project->update([
+        $expertise->update([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $projectImage ? $projectImage : $project->image,
+            'image' => $expertiseImage ? $expertiseImage : $expertise->image,
             'body' => $request->body,
         ]);
 
-        if ($project->wasChanged()) {
-            return to_route('projects.index')->with('success', 'Project updated successfully.');
+        if ($expertise->wasChanged()) {
+            return to_route('expertises.index')->with('success', 'Expertise updated successfully.');
         }
 
-        return to_route('projects.index')->with('message', 'Something went wrong, please try again.');
+        return to_route('expertises.index')->with('message', 'Something went wrong, please try again.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Expertise $expertise)
     {
-        $project->delete();
+        $expertise->delete();
 
         return back();
     }

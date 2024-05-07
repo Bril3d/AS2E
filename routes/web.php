@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageUploaderController;
@@ -33,10 +34,14 @@ Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->
 Route::get('/', HomeController::class);
 
 Route::get('/project/{slug}', [ProjectController::class, "display"])->name('project.display');
+Route::get('/expertise/{slug}', [ExpertiseController::class, "display"])->name('expertise.display');
 
 Route::middleware(['auth', 'role:admin|moderator'])->group(function () {
-    Route::resource('projects', ProjectController::class)->middleware(['auth']);
+    Route::resource('projects', ProjectController::class);
     Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
+
+    Route::resource('/expertises', ExpertiseController::class);
+    Route::post('/projects', [ExpertiseController::class, 'store'])->name('expertise.store');
 });
 
 
