@@ -56,8 +56,8 @@ const onPage = (component) => {
                 Expertises
               </div>
             </template>
-            <template #content>
-              <div class="px-5 flex flex-col gap-5 text-center">
+            <template #content >
+              <div class="px-6 flex flex-col gap-5 py-3">
                 <Link v-for="expertise in $page.props.expertises" :key="expertise.slug"
                   :href="route('expertise.display', expertise.slug)"
                   class=" font-medium  dark:text-white/80 relative inline-block dark:hover:text-white py-2">
