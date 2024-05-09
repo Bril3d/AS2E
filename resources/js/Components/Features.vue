@@ -1,13 +1,12 @@
 <template>
   <!-- Features -->
   <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-    <SectionHeader title="Advanced Features" caption="Driving Efficiency in Automation Systems and Energy Performance" />
+    <SectionHeader title="Advanced Features"
+      caption="Driving Efficiency in Automation Systems and Energy Performance" />
     <!-- Grid -->
     <div class="md:grid md:grid-cols-2 md:items-center md:gap-12 xl:gap-32">
       <div>
-        <img class="rounded-xl w-full h-full"
-          src="../../assets/features.jpg"
-          alt="Features">
+        <img class="rounded-xl w-full h-full" src="../../assets/features.jpg" alt="Features">
       </div>
       <!-- End Col -->
 
@@ -19,9 +18,10 @@
               Advanced Features: <p>Elevating Automation Systems and Energy Performance</p>
             </h2>
             <p class="text-gray-500">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Earum nobis commodi, dolorum similique quisquam
-              eius itaque repellat maxime, sequi suscipit ratione explicabo vitae harum cum ea! Alias, dolor vero!
-              Deserunt!
+              This could involve implementing sophisticated control systems that optimize energy usage in buildings or
+              industrial processes, potentially integrating smart sensors, AI algorithms, and IoT devices. The aim is to
+              elevate automation systems beyond basic functionalities, enabling them to dynamically adapt to
+              environmental conditions and user preferences while maximizing energy performance.
             </p>
           </div>
           <!-- End Title -->
@@ -86,5 +86,5 @@
 
 </script>
 <style lang="">
-  
+
 </style>
