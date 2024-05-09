@@ -1,5 +1,5 @@
 <script setup>
-import {Link } from "@inertiajs/vue3"
+import { Link } from "@inertiajs/vue3";
 const props = defineProps({
   projects: Array,
 })
@@ -19,7 +19,7 @@ const props = defineProps({
       <!-- Card -->
       <template v-for="project in projects" :key="project.id">
         <Link class="group hover:bg-gray-100 rounded-xl p-5 transition-all dark:hover:bg-white/10 shadow"
-          :href="route('projects.show', project.slug)">
+          :href="route('project.display', project.slug)">
         <div class="aspect-w-16 aspect-h-10">
           <img class="w-full object-cover rounded-xl" :src="project.image" :alt="project.title">
         </div>

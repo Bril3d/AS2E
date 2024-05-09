@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted } from 'vue';
-import NavBar from '@/Components/Navbar.vue'
+import NavBar from '@/Components/Navbar.vue';
 import HomeNavbar from '@/Components/HomeNavbar.vue';
-import { Link, Head } from "@inertiajs/vue3"
+import { Link, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
   expertise: Object,
@@ -83,6 +83,55 @@ onMounted(() => {
                   <!-- End Col -->
                 </div>
                 <!-- End Grid -->
+
+                <div class="mt-20 flex flex-col gap-3" v-show="expertise.projects.length > 0">
+                  <div
+                  class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
+                  Content</div>
+                  <div class="md:w-1/2">
+                    <h3 class="uppercase font-bold text-lg text-main">PROJECTS & REFERENCES</h3>
+                    <h1 class="uppercase font-bold text-2xl dark:text-white">AS2E employs
+                      a wide range of technologies in various business sectors</h1>
+                    <p class="text-gray-800 dark:text-neutral-400">Over the course of numerous projects, we have
+                      acquired
+                      skills to operate major automation
+                      equipment
+                      in various demanding sectors. Some sample references</p>
+                  </div>
+                  <!-- Card Blog -->
+                  <div class="py-10 lg:py-14">
+                    <!-- Grid -->
+                    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      <!-- Card -->
+                      <template v-for="project in expertise.projects" :key="project.id">
+                        <Link
+                          class="group hover:bg-gray-100 rounded-xl p-5 transition-all dark:hover:bg-white/10 shadow"
+                          :href="route('project.display', project.slug)">
+                        <div class="aspect-w-16 aspect-h-10">
+                          <img class="w-full object-cover rounded-xl" :src="`/storage/${project.image}`"
+                            :alt="project.title">
+                        </div>
+                        <h3 class="mt-5 text-xl text-gray-800 dark:text-neutral-300 dark:hover:text-white">
+                          {{ project.title }}
+                        </h3>
+                        <p
+                          class="mt-3 inline-flex items-center gap-x-1 text-sm font-semibold text-gray-800 dark:text-neutral-200">
+                          Learn more
+                          <svg class="flex-shrink-0 size-4 transition ease-in-out group-hover:translate-x-1"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m9 18 6-6-6-6" />
+                          </svg>
+                        </p>
+                        </Link>
+                      </template>
+                      <!-- End Card -->
+                    </div>
+                    <!-- End Grid -->
+                  </div>
+                  <!-- End Card Blog -->
+                </div>
+
                 <div
                   class="py-10 w-full prose prose-dark dark:prose-invert lg:prose-lg prose-table:border prose-th:border prose-td:border prose-tr:border"
                   v-html="expertise.body" />

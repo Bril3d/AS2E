@@ -4,8 +4,6 @@ import NavBar from '@/Components/Navbar.vue'
 import HomeNavbar from '@/Components/HomeNavbar.vue';
 import { Link, Head } from "@inertiajs/vue3"
 
-
-
 const props = defineProps({
   project: Object,
 })
