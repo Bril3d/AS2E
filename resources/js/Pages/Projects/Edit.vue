@@ -1,8 +1,8 @@
 <script setup>
 import { ref, reactive } from "vue";
-import { Head, Link, router, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
@@ -146,7 +146,7 @@ const updateProject = () => {
                   <InputError class="mt-2" :message="form.errors.title" />
                 </div>
 
-                <!-- SLUG -->
+                <!-- DESCRIPTION -->
                 <div class="w-full col-span-2 mb-3">
                   <InputLabel for="description" value="Description"
                     class="text-base text-gray-700 dark:text-gray-200" />

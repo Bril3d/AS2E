@@ -17,6 +17,7 @@
                       " v-model="form.title" placeholder="Title" autofocus required />
                   <InputError class="mt-2" :message="form.errors.title" />
                 </div>
+                <!-- DESCRIPTION -->
                 <div class="w-full col-span-2 mb-3">
                   <InputLabel for="description" value="Description"
                     class="text-base text-gray-700 dark:text-gray-200" />
@@ -24,6 +25,15 @@
                     class="w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                     required></textarea>
                   <InputError class="mt-2" :message="form.errors.description" />
+                </div>
+                <!-- PROJECTS -->
+                <div class="w-full col-span-2 mb-3">
+                  <div v-if="projects.length > 0" class="mb-2">
+                    <InputLabel value="Projects" for="Projects" />
+                    <VueMultiselect class="dark:bg-slate-600" id="Projects" v-model="form.projects" :searchable="true"
+                      mode="tags" :options="projects" :multiple="true" :close-on-select="true"
+                      placeholder="Select Projects" label="title" track-by="title" />
+                  </div>
                 </div>
 
                 <!-- IMAGE -->
@@ -86,14 +96,20 @@
   </AuthenticatedLayout>
 </template>
 <script setup>
-import { Head } from "@inertiajs/vue3"
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import { Head } from "@inertiajs/vue3";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { ref, shallowRef } from "vue";
 import { useForm } from "@inertiajs/vue3";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import VueMultiselect from 'vue-multiselect';
+
+const props = defineProps({
+  'projects': Object
+})
+
 
 
 const textEditor = shallowRef({
@@ -134,6 +150,7 @@ const form = useForm({
   description: "",
   image: "",
   body: "",
+  projects: []
 });
 
 const urlImage = ref(null);
@@ -191,3 +208,4 @@ function submit() {
 }
 
 </script>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

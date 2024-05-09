@@ -1,21 +1,24 @@
 <script setup>
 import { ref, reactive } from "vue";
-import { Head, Link, router, useForm } from "@inertiajs/vue3";
+import { Head, Link, useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic"
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import TextInput from "@/Components/TextInput.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
+import VueMultiselect from 'vue-multiselect';
 
 const props = defineProps({
   expertise: Object,
+  projects: Array,
 });
 
 const form = useForm({
   _method: "PUT",
   title: props.expertise.title,
   description: props.expertise.description,
+  projects: props.expertise.projects,
   slug: props.expertise.slug,
   image: props.expertise.image,
   body: props.expertise.body,
@@ -79,7 +82,7 @@ const texteditor = reactive({
   editorConfig: {
     extraPlugins: [uploadAdapterPlugin],
     toolbar: {
-      items:  [
+      items: [
         "heading",
         "|",
         "bold",
@@ -146,7 +149,7 @@ const updateexpertise = () => {
                   <InputError class="mt-2" :message="form.errors.title" />
                 </div>
 
-                <!-- SLUG -->
+                <!-- DESCRIPTION -->
                 <div class="w-full col-span-2 mb-3">
                   <InputLabel for="description" value="Description"
                     class="text-base text-gray-700 dark:text-gray-200" />
@@ -154,6 +157,15 @@ const updateexpertise = () => {
                     class="w-full dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
                     required></textarea>
                   <InputError class="mt-2" :message="form.errors.description" />
+                </div>
+                <!-- PROJECTS -->
+                <div class="w-full col-span-2 mb-3">
+                  <div v-if="projects.length > 0" class="mb-2">
+                    <InputLabel value="Projects" for="Projects" />
+                    <VueMultiselect class="dark:bg-slate-600" id="Projects" v-model="form.projects" :searchable="true"
+                      mode="tags" :options="projects" :multiple="true" :close-on-select="true"
+                      placeholder="Select Projects" label="title" track-by="title" />
+                  </div>
                 </div>
 
                 <!-- IMAGE -->
@@ -204,4 +216,4 @@ const updateexpertise = () => {
   </AuthenticatedLayout>
 </template>
 
-<style></style>
+<style src="vue-multiselect/dist/vue-multiselect.css"></style>

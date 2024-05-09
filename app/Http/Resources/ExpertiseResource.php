@@ -22,6 +22,7 @@ class ExpertiseResource extends JsonResource
             'body' => $this->body,
             'image' => $this->image ? '/storage/' .  $this->image : null,
             'created_at' => $this->created_at->format('d/m/Y'),
+            'projects' => $this->projects,
             'user' => $this->user,
         ];
     }

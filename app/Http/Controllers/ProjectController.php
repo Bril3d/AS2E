@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProjectResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -59,7 +60,7 @@ class ProjectController extends Controller
         ]);
 
         if ($project) {
-            return back()->with('success', 'Project created successfully.');
+            return Redirect::route('projects.index')->with('success', 'Project created successfully.');
         }
 
         return back()->with('message', 'Project could not be created.');

@@ -47,7 +47,7 @@ class PostController extends Controller
             'content' => 'required|string',
         ]);
 
-        $post = Post::create([
+        Post::create([
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'image' => $request->input('image'),

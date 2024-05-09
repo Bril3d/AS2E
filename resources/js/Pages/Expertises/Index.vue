@@ -25,7 +25,7 @@ const openFile = (file) => {
 
 <template>
 
-  <Head title="expertises" />
+  <Head title="Expertises" />
 
   <AuthanticatedLayout title="Expertises List">
     <Link as="button" :href="route('expertises.create')"

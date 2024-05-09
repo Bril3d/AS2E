@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Expertise;
+use App\Models\ExperiseProjects;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ExpertiseResource;
+use App\Http\Resources\ProjectResource;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
@@ -27,7 +31,12 @@ class ExpertiseController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Expertises/Create');
+
+        $projects = Project::select('id', 'title')->get();
+
+        return Inertia::render('Expertises/Create', [
+            "projects" => $projects
+        ]);
     }
 
     /**
@@ -59,7 +68,10 @@ class ExpertiseController extends Controller
         ]);
 
         if ($expertise) {
-            return back()->with('success', 'Expertise created successfully.');
+
+            $expertise->projects()->sync($request->input('projects.*.id'));
+
+            return Redirect::route('expertises.index')->with('success', 'Expertise created successfully.');
         }
 
         return back()->with('message', 'Expertise could not be created.');
@@ -92,7 +104,12 @@ class ExpertiseController extends Controller
      */
     public function edit(Expertise $expertise)
     {
-        return Inertia::render('Expertises/Edit', ['expertise' => new ExpertiseResource($expertise)]);
+        $projects = Project::select('id', 'title')->get();
+
+        return Inertia::render('Expertises/Edit', [
+            'expertise' => new ExpertiseResource($expertise),
+            'projects' => $projects
+        ]);
     }
 
     /**
@@ -123,6 +140,8 @@ class ExpertiseController extends Controller
             'image' => $expertiseImage ? $expertiseImage : $expertise->image,
             'body' => $request->body,
         ]);
+
+        $expertise->projects()->sync($request->input('projects.*.id'));
 
         if ($expertise->wasChanged()) {
             return to_route('expertises.index')->with('success', 'Expertise updated successfully.');
