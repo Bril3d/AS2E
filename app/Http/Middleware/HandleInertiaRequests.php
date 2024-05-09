@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
+use App\Models\Expertise;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Spatie\Permission\Models\Permission;
@@ -52,6 +53,7 @@ class HandleInertiaRequests extends Middleware
                 : null,
             'auth.roles' => fn () => $request->user() ? $request->user()->roles->pluck('name') : [],
             'auth.permissions' => $request->user() ? $request->user()->getPermissionsViaRoles()->pluck('name') : [],
+            'expertises' => Expertise::select('title','slug')->get(),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
