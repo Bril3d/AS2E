@@ -2,6 +2,7 @@
 import { onMounted } from 'vue';
 import NavBar from '@/Components/Navbar.vue';
 import HomeNavbar from '@/Components/HomeNavbar.vue';
+import Footer from '@/Components/Footer.vue';
 import { Link, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
@@ -86,8 +87,8 @@ onMounted(() => {
 
                 <div class="mt-20 flex flex-col gap-3" v-show="expertise.projects.length > 0">
                   <div
-                  class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
-                  Content</div>
+                    class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600">
+                    Content</div>
                   <div class="md:w-1/2">
                     <h3 class="uppercase font-bold text-lg text-main">PROJECTS & REFERENCES</h3>
                     <h1 class="uppercase font-bold text-2xl dark:text-white">AS2E employs
@@ -140,7 +141,9 @@ onMounted(() => {
             <!-- End Hero -->
           </div>
         </div>
+        <Footer />
       </template>
     </NavBar>
+
   </div>
 </template>

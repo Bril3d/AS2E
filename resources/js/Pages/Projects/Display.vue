@@ -1,8 +1,9 @@
 <script setup>
 import { onMounted } from 'vue';
-import NavBar from '@/Components/Navbar.vue'
+import NavBar from '@/Components/Navbar.vue';
 import HomeNavbar from '@/Components/HomeNavbar.vue';
-import { Link, Head } from "@inertiajs/vue3"
+import Footer from '@/Components/Footer.vue';
+import { Link, Head } from "@inertiajs/vue3";
 
 const props = defineProps({
   project: Object,
@@ -91,6 +92,7 @@ onMounted(() => {
             <!-- End Hero -->
           </div>
         </div>
+        <Footer />
       </template>
     </NavBar>
   </div>
