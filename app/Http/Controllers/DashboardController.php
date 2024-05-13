@@ -98,6 +98,48 @@ class DashboardController extends Controller
         ];
     }
 
+
+    public function PieChart($table = 'appointments')
+    {
+
+        $today = now()->format('Y-m-d');
+
+
+        $upcomingCount = DB::table($table)
+            ->whereDate('start', '>', $today)
+            ->count();
+
+
+        $priorCount = DB::table($table)
+            ->whereDate('start', '<', $today)
+            ->count();
+
+        $todayCount = DB::table($table)
+            ->whereDate('start', $today)
+            ->count();
+
+        return [
+            'labels' => ['Upcoming', 'Prior', 'Today'],
+            'datasets' => [
+                [
+                    'data' => [$upcomingCount, $priorCount, $todayCount],
+                    'backgroundColor' => [
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                    ],
+                    'borderColor' => [
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                    ],
+                    'borderWidth' => 1,
+                ],
+            ],
+        ];
+    }
+
+
     public function stats(Request $request)
     {
         $newLikesByMonth = $this->LineChart($request);
@@ -111,6 +153,8 @@ class DashboardController extends Controller
             $totalPosts = Post::count();
             $totalDates = Appointment::where('end', '<=', $today)->count();
 
+            $appointments = $this->PieChart();
+
             $newUsersByMonth = $this->BarChart();
 
             $newExpertisesByMonth = $this->BarChart('expertises');
@@ -118,7 +162,7 @@ class DashboardController extends Controller
             $posts = $this->BarChart('posts');
 
 
-            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'charts' => ['usersByMonth' => $newUsersByMonth, 'expertises' => $newExpertisesByMonth, 'posts' => $posts, 'likes' => $newLikesByMonth]]);
+            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'charts' => ['usersByMonth' => $newUsersByMonth, 'appointments' => $appointments, 'expertises' => $newExpertisesByMonth, 'posts' => $posts, 'likes' => $newLikesByMonth]]);
         } else {
             $user = $request->user();
 
