@@ -1,0 +1,17 @@
+{
+    "name": "AS2E",
+    "short_name": "LPT",
+    "start_url": "/index.php",
+    "background_color": "#00acba",
+    "description": "Automation Systems and Energy Efficiency",
+    "display": "fullscreen",
+    "theme_color": "#00acba",
+    "icons": [
+        {
+            "src": "logo.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}
