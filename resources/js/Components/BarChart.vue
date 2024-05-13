@@ -13,7 +13,14 @@ const props = defineProps({
 
 const chartOptions = {
   responsive: true,
-  maintainAspectRatio: false
+  maintainAspectRatio: false,
+  scales: {
+    y: {
+      beginAtZero: true,
+      suggestedMax: 10
+    },
+
+  }
 }
 
 </script>

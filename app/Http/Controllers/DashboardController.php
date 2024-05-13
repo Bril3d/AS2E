@@ -11,14 +11,15 @@ use App\Models\Project;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class DashboardController extends Controller
 {
 
-    public function getNewUsersByMonth()
+    public function BarChart($table = 'users')
     {
-        $newUsersByMonth = User::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as total')
+        $newUsersByMonth = DB::table($table)->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as total')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
@@ -106,9 +107,12 @@ class DashboardController extends Controller
             $totalPosts = Post::count();
             $totalDates = Appointment::where('end', '<=', $today)->count();
 
-            $newUsersByMonth = $this->getNewUsersByMonth();
+            $newUsersByMonth = $this->BarChart();
 
-            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'likes' => $newLikesByMonth]);
+            $newExpertisesByMonth = $this->BarChart('expertises');
+
+
+            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'expertises' => $newExpertisesByMonth, 'likes' => $newLikesByMonth]);
         } else {
             $user = $request->user();
 
