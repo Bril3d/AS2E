@@ -1,10 +1,10 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage, Head } from '@inertiajs/vue3';
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed,CaSaveModel } from "@kalimahapps/vue-icons";
-import ApplicationLogo from "../Components/ApplicationLogo.vue"
-import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue"
-import { usePermission } from '@/Composables/permissions'
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed, CaSaveModel, PhArticleNyTimes } from "@kalimahapps/vue-icons";
+import ApplicationLogo from "../Components/ApplicationLogo.vue";
+import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue";
+import { usePermission } from '@/Composables/permissions';
 
 const { hasRole, hasRoles } = usePermission();
 
@@ -87,7 +87,7 @@ onMounted(() => {
                                     <Link
                                         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
                                         :href="route('posts.saved')">
-                                    <CaSaveModel  />
+                                    <CaSaveModel />
                                     Saved Posts
                                     </Link>
                                     <Link
@@ -210,6 +210,14 @@ onMounted(() => {
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <FaRegComments class="w-4 h-4" />
                         Comments
+                        </Link>
+                    </li>
+                    <li v-if="hasRoles(['admin', 'moderator'])">
+                        <Link as="button" :href="route('expertises.index')"
+                            :class="onPage('Expertises/Index') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <PhArticleNyTimes class="w-4 h-4" />
+                        Expertises
                         </Link>
                     </li>
                     <li v-if="hasRoles(['admin', 'moderator'])">
