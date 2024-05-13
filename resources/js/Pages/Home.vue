@@ -24,11 +24,11 @@ onMounted(() => {
 </script>
 
 <template>
-
     <Head>
         <title>Welcome</title>
         <meta name="description" content="You Partner For Smart Automation You Partner For Smart Automation">
     </Head>
+
     <div>
         <HomeNavBar />
         <SideNavigator :sections="sections" />
