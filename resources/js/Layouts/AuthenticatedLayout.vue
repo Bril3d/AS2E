@@ -20,6 +20,8 @@ const appName = usePage().props.settings.app_name;
 
 onMounted(() => {
     window.HSStaticMethods.autoInit()
+    const backdropDiv = document.querySelector('div[data-hs-overlay-backdrop-template]');
+    backdropDiv?.remove();
 });
 
 </script>
