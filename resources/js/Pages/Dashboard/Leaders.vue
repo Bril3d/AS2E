@@ -10,18 +10,10 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    usersByMonth: {
-        type: Object,
+    charts: {
+        type: Array,
         required: true,
     },
-    likes: {
-        type: Object,
-        required: true
-    },
-    expertises: {
-        type: Object,
-        required: true
-    }
 })
 </script>
 
@@ -57,20 +49,25 @@ const props = defineProps({
                 </StatsCard>
                 <!-- End Card -->
             </div>
-
+            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
+                <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total
+                    Incomers
+                    Per Month</h1>
+                <BarChart class="h-64" :chartData="charts.usersByMonth" />
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
                     <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total
-                        Incomers
+                        Posts
                         Per Month</h1>
-                    <BarChart class="h-64" :chartData="usersByMonth" />
+                    <BarChart class="h-64" :chartData="charts.posts" />
                 </div>
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
                     <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">New Likes
                         Per
                         Month
                     </h1>
-                    <LineChart class="h-64" :chartData="likes" />
+                    <LineChart class="h-64" :chartData="charts.likes" />
                 </div>
             </div>
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
@@ -78,7 +75,7 @@ const props = defineProps({
                     Per
                     Month
                 </h1>
-                <BarChart class="h-64" :chartData="expertises" />
+                <BarChart class="h-64" :chartData="charts.expertises" />
             </div>
         </div>
         <!-- End Grid -->

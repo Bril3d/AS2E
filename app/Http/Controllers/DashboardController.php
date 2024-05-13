@@ -19,7 +19,11 @@ class DashboardController extends Controller
 
     public function BarChart($table = 'users')
     {
+
+        $oneYearAgo = now()->subYear();
+
         $newUsersByMonth = DB::table($table)->selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as total')
+            ->where('created_at', '>=', $oneYearAgo)
             ->groupBy('month')
             ->orderBy('month')
             ->get();
@@ -42,7 +46,7 @@ class DashboardController extends Controller
     }
 
 
-    public function getLikesByMonth(Request $request)
+    public function LineChart(Request $request)
     {
 
         $user = $request->user();
@@ -96,7 +100,7 @@ class DashboardController extends Controller
 
     public function stats(Request $request)
     {
-        $newLikesByMonth = $this->getLikesByMonth($request);
+        $newLikesByMonth = $this->LineChart($request);
 
         if ($request->user()->isLeader()) {
 
@@ -111,8 +115,10 @@ class DashboardController extends Controller
 
             $newExpertisesByMonth = $this->BarChart('expertises');
 
+            $posts = $this->BarChart('posts');
 
-            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'expertises' => $newExpertisesByMonth, 'likes' => $newLikesByMonth]);
+
+            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'charts' => ['usersByMonth' => $newUsersByMonth, 'expertises' => $newExpertisesByMonth, 'posts' => $posts, 'likes' => $newLikesByMonth]]);
         } else {
             $user = $request->user();
 
