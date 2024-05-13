@@ -36,14 +36,14 @@ Route::get('/', HomeController::class);
 Route::get('/project/{slug}', [ProjectController::class, "display"])->name('project.display');
 Route::get('/expertise/{slug}', [ExpertiseController::class, "display"])->name('expertise.display');
 
-Route::middleware(['auth', 'role:admin|moderator'])->group(function () {
+Route::middleware(['auth', 'permission:Projects CRUD'])->group(function () {
     Route::resource('projects', ProjectController::class);
     Route::post('/projects', [ProjectController::class, 'store'])->name('project.store');
-
-    Route::resource('/expertises', ExpertiseController::class);
-    Route::post('/projects', [ExpertiseController::class, 'store'])->name('expertise.store');
 });
-
+Route::middleware(['auth', 'permission:Expertises CRUD'])->group(function () {
+    Route::resource('/expertises', ExpertiseController::class);
+    Route::post('/expertises', [ExpertiseController::class, 'store'])->name('expertise.store');
+});
 
 Route::post('/upload-image', ImageUploaderController::class)->name('upload-image');
 
@@ -53,16 +53,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth'])->name('dashboard.index');
+Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['auth', 'permission:Dashboard View'])->name('dashboard.index');
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::resource('roles', RoleController::class)->middleware(['auth', 'permission:Roles CRUD']);
+Route::resource('permissions', PermissionController::class)->middleware(['auth', 'permission:Permissions CRUD']);
+Route::resource('/settings', SettingController::class)->middleware(['auth', 'permission:Settings CRUD']);
+
+Route::middleware(['auth', 'permission:Users CRUD'])->group(function () {
     Route::resource('users', UserController::class);
     Route::post('/user', [UserController::class, 'update'])->name('users.update');
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
+});
+
+Route::middleware(['auth', 'permission:File Explorer CRUD'])->group(function () {
     Route::get('/files', [FileController::class, 'index'])->name('files.index');
     Route::post('/folder/{folder}', [FileController::class, 'folderCreate'])->name('files.folder');
-    Route::resource('/settings', SettingController::class);
 });
 
 
