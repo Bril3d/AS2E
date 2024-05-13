@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import { ClUsers, BxPackage, BsPostcardHeart, AkCalendar } from "@kalimahapps/vue-icons";
 import StatsCard from '@/Components/StatsCard.vue';
-import NewUsersChart from '@/Components/NewUsersChart.vue'
+import NewUsersChart from '@/Components/NewUsersChart.vue';
 import NewLikesChart from '@/Components/NewLikesChart.vue';
 
 const props = defineProps({
@@ -36,7 +36,7 @@ const props = defineProps({
                 <!-- End Card -->
 
                 <!-- Card -->
-                <StatsCard header="Total Projects" tooltip="The number of projects" :number="50">
+                <StatsCard header="Total Projects" tooltip="The number of projects" :number="stats.projects">
                     <BxPackage class="text-gray-600 dark:text-gray-400 size-5" />
                 </StatsCard>
                 <!-- End Card -->
