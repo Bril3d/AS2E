@@ -4,7 +4,7 @@ import { ClUsers, BxPackage, BsPostcardHeart, AkCalendar } from "@kalimahapps/vu
 import StatsCard from '@/Components/StatsCard.vue';
 import BarChart from '@/Components/BarChart.vue';
 import LineChart from '@/Components/LineChart.vue';
-import PieChart from '@/Components/PieChart.vue'
+import PieChart from '@/Components/PieChart.vue';
 
 const props = defineProps({
     stats: {
@@ -58,9 +58,8 @@ const props = defineProps({
                     <BarChart class="h-64" :chartData="charts.usersByMonth" />
                 </div>
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
-                    <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">Total
-                        Incomers
-                        Per Month</h1>
+                    <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">
+                        Appointments</h1>
                     <PieChart class="h-64" :chartData="charts.appointments" />
                 </div>
 
