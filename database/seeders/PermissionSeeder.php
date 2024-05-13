@@ -13,7 +13,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = ['Dashboard View', 'Users CRUD', 'Roles CRUD', 'Appointments CRUD', 'Settings CRUD', 'Projects CRUD', 'Posts CRUD', 'Comments CRUD', 'Expertises CRUD', 'File Explorer CRUD'];
+        $permissions = ['Dashboard View', 'Users CRUD', 'Roles CRUD','Permissions CRUD', 'Appointments CRUD', 'Settings CRUD', 'Projects CRUD', 'Posts CRUD', 'Comments CRUD', 'Expertises CRUD', 'File Explorer CRUD'];
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

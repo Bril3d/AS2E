@@ -13,9 +13,8 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(["name"=> "admin"]);
-        Role::create(["name"=> "moderator"]);
-        Role::create(["name"=> "writer"]);
-        Role::create(["name"=> "user"]);
+        Role::create(["name" => "admin"])->syncPermissions(['Dashboard View', 'Users CRUD', 'Roles CRUD', 'Appointments CRUD', 'Settings CRUD', 'Projects CRUD', 'Posts CRUD', 'Comments CRUD', 'Expertises CRUD', 'File Explorer CRUD']);
+        Role::create(["name" => "moderator"])->syncPermissions(['Dashboard View', 'Appointments CRUD', 'Projects CRUD', 'Posts CRUD', 'Comments CRUD', 'Expertises CRUD']);
+        Role::create(["name" => "user"])->syncPermissions(['Dashboard View', 'Posts CRUD', 'Comments CRUD']);;
     }
 }

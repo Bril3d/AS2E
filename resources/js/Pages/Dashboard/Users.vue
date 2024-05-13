@@ -2,7 +2,7 @@
 import { Head } from '@inertiajs/vue3';
 import { BsPostcardHeart, FaRegComments } from "@kalimahapps/vue-icons";
 import StatsCard from '@/Components/StatsCard.vue';
-import NewLikesChart from '@/Components/NewLikesChart.vue';
+import LineChart from '@/Components/LineChart.vue';
 
 
 const props = defineProps({
@@ -42,7 +42,7 @@ const props = defineProps({
       <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg space-y-3">
         <h1 class="text-black font-semibold text-center text-2xl font-outline-1 dark:text-white">New Likes Per Month
         </h1>
-        <NewLikesChart class="h-64" :chartData="likes" />
+        <LineChart class="h-64" :chartData="likes" />
       </div>
     </div>
 
