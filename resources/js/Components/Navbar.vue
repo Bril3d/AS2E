@@ -1,4 +1,11 @@
 <template>
+
+  <Head>
+    <meta name="description"
+      content="
+Automation systems and energy efficiency go hand in hand to optimize processes, minimize waste, and reduce environmental impact across various sectors, including manufacturing, buildings, transportation, and utilities." />
+  </Head>
+
   <div class="relative h-screen">
     <DarkModeSwitcher
       class="shadow absolute left-8 mt-6 z-10 bg-white hover:bg-gray-300 dark:text-slate-300 dark:bg-slate-600 " />
@@ -20,8 +27,7 @@
                 $page.props.auth.user.name }}</p>
             </div>
             <div class="mt-2 py-2 first:pt-0 last:pb-0">
-              <Link
-              v-show="$page.component != 'Posts/Index'"
+              <Link v-show="$page.component != 'Posts/Index'"
                 class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
                 :href="route('feed.list')">
               <CgFeed />
@@ -63,7 +69,7 @@
 
 
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, Head } from '@inertiajs/vue3';
 import { AnOutlinedUser, BxLogOut, AnOutlinedDashboard, CgFeed } from "@kalimahapps/vue-icons";
 import DarkModeSwitcher from './DarkModeSwitcher.vue';
 </script>

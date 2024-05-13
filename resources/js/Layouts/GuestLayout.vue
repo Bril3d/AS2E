@@ -1,4 +1,5 @@
 <script setup>
+import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
 import HomeNavbar from '@/Components/HomeNavbar.vue';
 
@@ -10,6 +11,12 @@ onMounted(() => {
 </script>
 
 <template>
+
+    <Head>
+        <meta name="description"
+            content="
+Automation systems and energy efficiency go hand in hand to optimize processes, minimize waste, and reduce environmental impact across various sectors, including manufacturing, buildings, transportation, and utilities." />
+    </Head>
     <div>
         <HomeNavbar />
         <div class="min-h-screen flex sm:flex-col sm:justify-center items-center py-6 dark:bg-slate-900 bg-gray-100">

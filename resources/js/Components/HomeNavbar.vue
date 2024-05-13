@@ -1,6 +1,6 @@
 <script setup>
 import ApplicationLogo from './ApplicationLogo.vue';
-import { Link, usePage } from '@inertiajs/vue3';
+import { Link, Head, usePage } from '@inertiajs/vue3';
 import Dropdown from './Dropdown.vue';
 
 const page = usePage();
@@ -12,6 +12,13 @@ const onPage = (component) => {
 </script>
 
 <template>
+
+  <Head>
+    <meta name="description"
+      content="
+Automation systems and energy efficiency go hand in hand to optimize processes, minimize waste, and reduce environmental impact across various sectors, including manufacturing, buildings, transportation, and utilities." />
+  </Head>
+
   <!-- ========== HEADER ========== -->
   <header class="flex flex-wrap sm:justify-start sm:flex-nowrap shadow-md z-50 w-full text-sm py-3 sm:py-0">
     <nav class="relative  w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:pr-8" aria-label="Global">
@@ -56,7 +63,7 @@ const onPage = (component) => {
                 Expertises
               </div>
             </template>
-            <template #content >
+            <template #content>
               <div class="px-6 flex flex-col gap-5 py-3">
                 <Link v-for="expertise in $page.props.expertises" :key="expertise.slug"
                   :href="route('expertise.display', expertise.slug)"
