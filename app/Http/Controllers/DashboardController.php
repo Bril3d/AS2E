@@ -7,6 +7,7 @@ use App\Models\Appointment;
 use App\Models\Comment;
 use App\Models\LikedPost;
 use App\Models\Post;
+use App\Models\Project;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -41,56 +42,56 @@ class DashboardController extends Controller
 
 
     public function getLikesByMonth(Request $request)
-{
+    {
 
-    $user = $request->user();
+        $user = $request->user();
 
-    $userPosts = $user->posts();
-
-
-    $userPostIds = $userPosts->pluck('id');
-
-    $newLikesByMonth = LikedPost::whereIn('post_id', $userPostIds)
-        ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
-        ->groupBy('month')
-        ->orderBy('month')
-        ->get();
+        $userPosts = $user->posts();
 
 
-    $monthCounts = array_fill(1, 12, 0);
+        $userPostIds = $userPosts->pluck('id');
+
+        $newLikesByMonth = LikedPost::whereIn('post_id', $userPostIds)
+            ->selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
 
-    foreach ($newLikesByMonth as $like) {
-        $monthCounts[$like->month] = $like->total;
-    }
+        $monthCounts = array_fill(1, 12, 0);
 
 
-    $labels = [
-        'January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'
-    ];
+        foreach ($newLikesByMonth as $like) {
+            $monthCounts[$like->month] = $like->total;
+        }
 
 
-    $data = [];
+        $labels = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
 
 
-    foreach ($labels as $index => $monthName) {
-        $data[] = $monthCounts[$index + 1];
-    }
+        $data = [];
 
-    return [
-        'labels' => $labels,
-        'datasets' => [
-            [
-                'label' => 'Likes Per Month',
-                'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
-                'borderColor' => 'rgba(54, 162, 235, 1)',
-                'borderWidth' => 1,
-                'data' => $data,
+
+        foreach ($labels as $index => $monthName) {
+            $data[] = $monthCounts[$index + 1];
+        }
+
+        return [
+            'labels' => $labels,
+            'datasets' => [
+                [
+                    'label' => 'Likes Per Month',
+                    'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
+                    'borderColor' => 'rgba(54, 162, 235, 1)',
+                    'borderWidth' => 1,
+                    'data' => $data,
+                ],
             ],
-        ],
-    ];
-}
+        ];
+    }
 
     public function stats(Request $request)
     {
@@ -101,12 +102,13 @@ class DashboardController extends Controller
             $today = Carbon::now();
 
             $totalUsers = User::count();
+            $totalProjects = Project::count();
             $totalPosts = Post::count();
             $totalDates = Appointment::where('end', '<=', $today)->count();
 
             $newUsersByMonth = $this->getNewUsersByMonth();
 
-            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'likes' => $newLikesByMonth]);
+            return Inertia::render('Dashboard/Leaders', ['stats' => ['users' => $totalUsers, 'projects' => $totalProjects, 'posts' => $totalPosts, 'dates' => $totalDates], 'usersByMonth' => $newUsersByMonth, 'likes' => $newLikesByMonth]);
         } else {
             $user = $request->user();
 

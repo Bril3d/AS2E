@@ -1,8 +1,8 @@
 <script setup>
 import { Head } from '@inertiajs/vue3';
-import { BsPostcardHeart, AkCalendar } from "@kalimahapps/vue-icons";
+import { BsPostcardHeart, FaRegComments } from "@kalimahapps/vue-icons";
 import StatsCard from '@/Components/StatsCard.vue';
-import NewLikesChart from '@/Components/NewLikesChart.vue'
+import NewLikesChart from '@/Components/NewLikesChart.vue';
 
 
 const props = defineProps({
@@ -35,7 +35,7 @@ const props = defineProps({
 
         <!-- Card -->
         <StatsCard header="Total Comments" tooltip="The number of comments" :number="stats.comments">
-          <AkCalendar class="text-gray-600 dark:text-gray-400 size-5" />
+          <FaRegComments class="text-gray-600 dark:text-gray-400 size-5" />
         </StatsCard>
         <!-- End Card -->
       </div>
