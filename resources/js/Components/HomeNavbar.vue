@@ -28,7 +28,7 @@ Automation systems and energy efficiency go hand in hand to optimize processes, 
         </Link>
         <div class="sm:hidden">
           <button type="button"
-            class="hs-collapse-toggle size-9 flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-white/20 text-white hover:border-white/40 disabled:opacity-50 disabled:pointer-events-none"
+            class="hs-collapse-toggle size-9 flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border dark:border-white/20 dark:text-white text-black dark:hover:border-white/40 disabled:opacity-50 disabled:pointer-events-none"
             data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation"
             aria-label="Toggle navigation">
             <svg class="hs-collapse-open:hidden flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
