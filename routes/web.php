@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageUploaderController;
+use App\Http\Controllers\NotificationsClearController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
@@ -52,6 +53,7 @@ Route::middleware(['auth', 'permission:Expertises CRUD'])->group(function () {
 Route::post('/upload-image', ImageUploaderController::class)->name('upload-image');
 
 Route::middleware('auth')->group(function () {
+    Route::post('/notifications', NotificationsClearController::class)->name('notifications.clear');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

@@ -1,22 +1,24 @@
 import './bootstrap';
 import '../css/app.css';
+import './echo.js'
+
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { register } from 'swiper/element/bundle';
-import { router, usePage } from '@inertiajs/vue3'
+import { router, usePage } from '@inertiajs/vue3';
 import "preline";
 import Toast, { POSITION } from "vue-toastification";
 import "vue-toastification/dist/index.css";
 import { toastCall } from './Composables/toast.js';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-import SectionHeader from './Components/SectionHeader.vue'
-import PrimaryButton from './Components/PrimaryButton.vue'
-import DangerButton from './Components/DangerButton.vue'
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import SectionHeader from './Components/SectionHeader.vue';
+import PrimaryButton from './Components/PrimaryButton.vue';
+import DangerButton from './Components/DangerButton.vue';
 import CKEditor from '@ckeditor/ckeditor5-vue';
-import { useDark } from '@vueuse/core'
+import { useDark } from '@vueuse/core';
 
 router.on('finish', (event) => {
     window.HSStaticMethods.autoInit();

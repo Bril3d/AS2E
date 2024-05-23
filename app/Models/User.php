@@ -98,7 +98,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
-
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+    
     /**
      * Get all of the socials for the User
      *

@@ -36,6 +36,11 @@ class Post extends Model
         return $this->belongsToMany(User::class, 'liked_posts')->withTimestamps();;
     }
 
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
     public function isAuthUserLikedPost()
     {
         return $this->likes()->where('user_id',  auth()->id())->exists();

@@ -4,6 +4,7 @@ import { Link, usePage, Head } from '@inertiajs/vue3';
 import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed, CaSaveModel, PhArticleNyTimes } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue";
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue";
+import Dropdown from '../Components/Dropdown.vue';
 import { usePermission } from '@/Composables/permissions';
 
 const { hasRole, hasRoles } = usePermission();
@@ -22,6 +23,12 @@ onMounted(() => {
     window.HSStaticMethods.autoInit()
     const backdropDiv = document.querySelector('div[data-hs-overlay-backdrop-template]');
     backdropDiv?.remove();
+
+    window.Echo.private(`comments.${usePage().props.auth.user.id}`)
+        .listen('CommentPosted', (e) => {
+            console.log(e.comment)
+            usePage().props.auth.user.notifications.unshift({ 'message': `${e.comment.user?.name} commented on your post!`, slug: `${e.comment.post}` })
+        });
 });
 
 </script>
@@ -46,24 +53,44 @@ onMounted(() => {
 
                     <div class="flex flex-row items-center justify-end gap-2">
                         <DarkModeSwitcher />
-                        <button type="button"
-                            class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-                                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
-                            </svg>
-                        </button>
-                        <button type="button"
+                        <Dropdown width="auto">
+                            <template #trigger>
+                                <button type="button"
+                                    class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24"
+                                        height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+                                        <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+                                    </svg>
+                                </button>
+                            </template>
+
+                            <template #content>
+                                <div class="px-6 flex flex-col gap-5 py-3"
+                                    v-if="$page.props.auth.user.notifications.length > 0">
+                                    <Link v-for="(notifcation, index) in $page.props.auth.user.notifications"
+                                        :href="route('posts.show', notifcation.slug)" :key="index"
+                                        class=" font-medium  dark:text-white/80 relative inline-block dark:hover:text-white py-2">
+                                    {{ notifcation.message }}</Link>
+                                    <Link as="button" :href="route('notifications.clear')" method="post"
+                                        class="inline-flex items-center mx-auto px-4 py-2 bg-main border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-main-dark focus:bg-main-dark active:bg-main-dark focus:outline-none focus:ring-2 focus:ring-main focus:ring-offset-2 transition ease-in-out duration-150">
+                                    Mark all as read</Link>
+                                </div>
+                                <div v-else class="px-6 py-3 text-center dark:text-white/80">
+                                    No Notifications Found!
+                                </div>
+                            </template>
+                        </Dropdown>
+                        <Link as="button" :href="route('dashboard.index')"
                             class="w-[2.375rem] h-[2.375rem] inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                             data-hs-offcanvas="#hs-offcanvas-right">
-                            <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                            </svg>
-                        </button>
+                        <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                        </svg>
+                        </Link>
 
                         <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
                             <button id="hs-dropdown-with-header" type="button"

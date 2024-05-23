@@ -23,7 +23,8 @@ class UserResource extends JsonResource
             'permissions' => $this->whenLoaded('permissions', function () {
                 return $this->getPermissionsViaRoles()->pluck('name');
             }),
-            'posts' => $this->savedPosts->pluck('id')
+            'posts' => $this->savedPosts->pluck('id'),
+            'notifications' => NotificationResource::collection($this->notifications()->where('read', 0)->get()),
         ];
     }
 }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentPosted;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class CommentController extends Controller
@@ -44,6 +47,15 @@ class CommentController extends Controller
             'post_id' => $request->input('post_id'),
             'user_id' => auth()->id(),
         ]);
+
+        broadcast(new CommentPosted($comment, $comment->post->user_id))->toOthers();
+        
+        Notification::create([
+            'post_id' => $comment->post_id,
+            'user_id' => $comment->post->user_id,
+            'message' => Auth::user()->name . ' commented on your post!',
+        ]);
+
         if ($request->wantsJson()) {
             return new CommentResource($comment);
         }
