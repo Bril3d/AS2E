@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExpertiseController;
 use App\Http\Controllers\FileController;
@@ -32,6 +33,9 @@ Route::get('/auth/{provider}/redirect', [SocialController::class, 'redirect'])->
 Route::get('/auth/{provider}/callback', [SocialController::class, 'callback'])->where('provider', 'google');
 
 Route::get('/', HomeController::class);
+
+Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot.index');
+Route::post('/chatbot', [ChatbotController::class, 'AiResponse'])->name('chatbot.response');
 
 Route::get('/project/{slug}', [ProjectController::class, "display"])->name('project.display');
 Route::get('/expertise/{slug}', [ExpertiseController::class, "display"])->name('expertise.display');
