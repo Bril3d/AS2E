@@ -72,6 +72,10 @@ Automation systems and energy efficiency go hand in hand to optimize processes, 
               </div>
             </template>
           </Dropdown>
+          <Link :href="route('chatbot.index')"
+            :class="onPage('Chatbot') ? 'before:absolute before:top-0 before:start-0 before:-z-[1] before:w-full before:h-1 before:bg-main' : null"
+            class="font-medium  dark:text-white/80 relative inline-block dark:hover:text-white sm:py-6">
+          Chatbot</Link>
         </div>
       </div>
     </nav>
