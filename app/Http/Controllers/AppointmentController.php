@@ -17,7 +17,7 @@ class AppointmentController extends Controller
     {
 
         $events = Appointment::all();
-        $users = User::select('name', 'id')->orderBy('name')->get();
+        $users = User::select('name', 'id')->role(['admin','moderator'])->orderBy('name')->get();
 
         return Inertia::render('Appointments/Appointments', ["events" => AppointmentResource::collection($events), "users" => $users]);
     }
@@ -67,7 +67,7 @@ class AppointmentController extends Controller
 
         if ($request->has('resize')) {
             $appointment->update($request->except('resize'));
-            
+
             $appointment->save();
         } else {
             $appointment->update($request->except('user_id'));
