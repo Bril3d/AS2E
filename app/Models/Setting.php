@@ -93,7 +93,7 @@ class Setting extends Model
             ],
             'general_settings' => [
                 'app_name' => 'AS2E',
-                'contact_email' => 'commercial@as2e-automation.com'
+                'contact_email' => 'khaledtbk@gmail.com'
             ]
         ];
 
