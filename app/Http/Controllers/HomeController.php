@@ -19,8 +19,23 @@ class HomeController extends Controller
     {
         $projects = Project::latest()->limit(3)->get();
 
+        $keys = [
+            'home_hero',
+            'home_carousel',
+            'home_features',
+            'home_services',
+            'home_stats',
+            'home_faq'
+        ];
+
+        $homeSettings = [];
+        foreach ($keys as $key) {
+            $value = setting($key);
+            $homeSettings[$key] = $value ? json_decode($value, true) : \App\Models\Setting::getHomeDefaults($key);
+        }
+
         return Inertia::render('Home', [
-            'carousel' => Storage::disk('public')->allFiles('carousel'),
+            'homeSettings' => $homeSettings,
             'projects' => ProjectResource::collection($projects)
         ]);
     }

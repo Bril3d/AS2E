@@ -14,6 +14,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeSettingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -64,6 +65,18 @@ Route::get('/dashboard', [DashboardController::class, 'stats'])->middleware(['au
 Route::resource('roles', RoleController::class)->middleware(['auth', 'permission:Roles CRUD']);
 Route::resource('permissions', PermissionController::class)->middleware(['auth', 'permission:Permissions CRUD']);
 Route::resource('/settings', SettingController::class)->middleware(['auth', 'permission:Settings CRUD']);
+
+Route::middleware(['auth', 'permission:Settings CRUD'])->prefix('admin/home')->group(function () {
+    Route::get('settings', [HomeSettingController::class, 'index'])->name('admin.home.settings');
+    Route::post('hero', [HomeSettingController::class, 'updateHero'])->name('admin.home.hero');
+    Route::post('hero/image', [HomeSettingController::class, 'uploadHeroImage'])->name('admin.home.hero.image');
+    Route::delete('hero/image/{index}', [HomeSettingController::class, 'deleteHeroImage'])->name('admin.home.hero.image.delete');
+    Route::post('features', [HomeSettingController::class, 'updateFeatures'])->name('admin.home.features');
+    Route::post('services', [HomeSettingController::class, 'updateServices'])->name('admin.home.services');
+    Route::post('stats', [HomeSettingController::class, 'updateStats'])->name('admin.home.stats');
+    Route::post('faq', [HomeSettingController::class, 'updateFaq'])->name('admin.home.faq');
+});
+
 
 Route::middleware(['auth', 'permission:Users CRUD'])->group(function () {
     Route::resource('users', UserController::class);

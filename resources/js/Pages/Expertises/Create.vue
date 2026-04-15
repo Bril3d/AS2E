@@ -207,5 +207,4 @@ function submit() {
   });
 }
 
-</script>
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+</script>

@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import { Link, usePage, Head } from '@inertiajs/vue3';
-import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed, CaSaveModel, PhArticleNyTimes } from "@kalimahapps/vue-icons";
+import { AnOutlinedDashboard, AnOutlinedUser, ClUsers, BxPackage, BxLogOut, AkCalendar, CgUserAdd, CgUserList, CaSettings, IcMediaImageFolder, ByFeed, FaRegComments, CgFeed, CaSaveModel, PhArticleNyTimes, BxHomeAlt } from "@kalimahapps/vue-icons";
 import ApplicationLogo from "../Components/ApplicationLogo.vue";
 import DarkModeSwitcher from "@/Components/DarkModeSwitcher.vue";
 import Dropdown from '../Components/Dropdown.vue';
@@ -279,6 +279,14 @@ onMounted(() => {
                             class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
                         <CaSettings class="w-4 h-4" />
                         Settings
+                        </Link>
+                    </li>
+                    <li v-if="hasRole('admin')">
+                        <Link as="button" :href="route('admin.home.settings')"
+                            :class="onPage('HomeSettings') ? 'bg-gray-100  dark:hover:bg-gray-600 dark:bg-gray-900 dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600' : 'hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-900 dark:text-slate-400 dark:hover:text-slate-300 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600'"
+                            class="w-full text-start flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg text-slate-700 ">
+                        <BxHomeAlt class="w-4 h-4" />
+                        Home Page
                         </Link>
                     </li>
                 </ul>

@@ -90,5 +90,3 @@ const dateFormats = [
     </div>
   </AuthenticatedLayout>
 </template>
-
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>

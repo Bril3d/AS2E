@@ -14,7 +14,7 @@ import { onMounted } from 'vue';
 const sections = ['Hero', 'Features', 'Services', 'Projects','Stats', 'Faq']
 
 defineProps({
-    carousel: Array,
+    homeSettings: Object,
     projects: Array,
 });
 
@@ -32,12 +32,12 @@ onMounted(() => {
     <div>
         <HomeNavBar />
         <SideNavigator :sections="sections" />
-        <Hero :carousel="carousel" id="Hero" />
-        <Features id="Features" />
-        <Services id="Services" />
+        <Hero :data="homeSettings.home_hero" :carousel="homeSettings.home_carousel" id="Hero" />
+        <Features :data="homeSettings.home_features" id="Features" />
+        <Services :data="homeSettings.home_services" id="Services" />
         <LatestProjects id="Projects" :projects="projects" />
-        <Stats id="Stats" />
-        <Faq id="Faq" />
+        <Stats :data="homeSettings.home_stats" id="Stats" />
+        <Faq :data="homeSettings.home_faq" id="Faq" />
         <Footer />
     </div>
 </template>

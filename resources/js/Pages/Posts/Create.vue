@@ -66,5 +66,4 @@ const submit = () => {
   form.post('/posts');
 }
 </script>
-
-<style src="vue-multiselect/dist/vue-multiselect.css"></style>
+
