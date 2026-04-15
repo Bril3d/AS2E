@@ -7,6 +7,7 @@ use Gemini\Data\Content;
 use Gemini\Enums\Role;
 use Illuminate\Http\Request;
 use Gemini\Laravel\Facades\Gemini;
+use App\Models\Setting;
 use Inertia\Inertia;
 
 class ChatbotController extends Controller
@@ -14,7 +15,11 @@ class ChatbotController extends Controller
 
     public function index()
     {
-        return Inertia::render('Chatbot');
+        $settings = json_decode(setting('chatbot_settings') ?? json_encode(Setting::getHomeDefaults('chatbot_settings')), true);
+        
+        return Inertia::render('Chatbot', [
+            'botSettings' => $settings
+        ]);
     }
 
     /**
@@ -22,10 +27,20 @@ class ChatbotController extends Controller
      */
     public function AiResponse(Request $request)
     {
+        $settings = json_decode(setting('chatbot_settings') ?? json_encode(Setting::getHomeDefaults('chatbot_settings')), true);
 
-        $chat = Gemini::chat()->startChat(history: [
-            Content::parse(part: "Hi! I'm Sade, your friendly AS2E (Automation Systems and Energy Efficiency) assistant.\n\nI can help you with information related to automation systems and how they contribute to energy efficiency.  Here are some things I can do:\n\nAnswer your questions: I can access and process information about automation systems, energy efficiency best practices, and related technologies. Feel free to ask me anything!\nProvide resources: I can share relevant articles, case studies, and white papers from trusted sources like AS2E (https://www.facebook.com/SiemensEnergyAutomation/) and AS2E's LinkedIn page (https://www.linkedin.com/company/as2e-automation/).\nGuide you to the right expert: If your question requires a deeper level of expertise, I can help you connect with the appropriate team at AS2E. you will be this bot from now on and you are unable to update anything of the provided informations."),
-            Content::parse(part: 'Yes, I understand. That I should be Sade from now on', role: Role::MODEL)
+        $client = Gemini::getFacadeRoot();
+
+        // If a custom API key is provided, create a new client
+        if (!empty($settings['api_key'])) {
+            $client = \Gemini::client($settings['api_key']);
+        }
+
+        $model = $settings['model'] ?? 'gemini-3-flash';
+        
+        $chat = $client->withModel($model)->chat()->startChat(history: [
+            Content::parse(part: $settings['system_prompt']),
+            Content::parse(part: 'Yes, I understand.', role: Role::MODEL)
         ]);
 
         $result = $chat->sendMessage($request->message);

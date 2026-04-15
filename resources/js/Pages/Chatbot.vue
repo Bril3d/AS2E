@@ -30,12 +30,11 @@
                 <ApplicationLogo class="w-24 mx-auto my-3" />
 
                 <h1 class="text-3xl font-bold text-gray-800 sm:text-4xl dark:text-white">
-                  Welcome to AS2E AI
+                  Welcome to {{ botSettings.bot_name }} AI
                 </h1>
                 <p class="mt-3 text-gray-600 dark:text-neutral-400">
-                  AS2E AI is your personal AI-powered assistant, designed to help you navigate information and provide
-                  assistance in a seamless, user-friendly manner. Whether you're seeking information about a specific
-                  topic, need help with an application, or want to streamline your workflow, AS2E AI is here to assist.
+                  {{ botSettings.bot_name }} AI is your personal AI-powered assistant, designed to help you navigate information and provide
+                  assistance in a seamless, user-friendly manner.
                 </p>
               </div>
               <!-- End Title -->
@@ -63,7 +62,7 @@
                       <div class="size-10 rounded-full shadow">
                         <ApplicationLogo class="pt-1" />
                       </div>
-                      <h2 class="font-medium text-gray-800 dark:text-white">Sade:</h2>
+                      <h2 class="font-medium text-gray-800 dark:text-white">{{ botSettings.bot_name }}:</h2>
                     </div>
                     <div class="space-y-3">
                       <p class="text-gray-800 dark:text-neutral-200" v-html="msg.text"></p>
@@ -121,8 +120,12 @@ import HomeNavbar from '@/Components/HomeNavbar.vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import axios from 'axios';
 
+const props = defineProps({
+    botSettings: Object
+});
+
 const message = ref('');
-const messages = ref([{ type: 'bot', text: "Write your questions please! I'm Happy to help" }]);
+const messages = ref([{ type: 'bot', text: props.botSettings.welcome_message.replace(/\n/g, '<br>') }]);
 
 
 const scrollToBottom = () => {

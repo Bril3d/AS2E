@@ -18,7 +18,8 @@ class HomeSettingController extends Controller
             'home_features',
             'home_services',
             'home_stats',
-            'home_faq'
+            'home_faq',
+            'chatbot_settings'
         ];
 
         $settings = [];
@@ -150,6 +151,21 @@ class HomeSettingController extends Controller
         $this->save('home_faq', $data);
 
         return back()->with('success', 'FAQ updated.');
+    }
+
+    public function updateChatbot(Request $request)
+    {
+        $data = $request->validate([
+            'bot_name' => 'required|string',
+            'welcome_message' => 'required|string',
+            'system_prompt' => 'required|string',
+            'api_key' => 'nullable|string',
+            'model' => 'required|string',
+        ]);
+
+        $this->save('chatbot_settings', $data);
+
+        return back()->with('success', 'Chatbot settings updated.');
     }
 
     protected function save($key, $value)

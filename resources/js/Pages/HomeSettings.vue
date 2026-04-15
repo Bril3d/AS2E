@@ -20,6 +20,7 @@ const tabs = [
     { id: 'services', name: 'Services' },
     { id: 'stats', name: 'Stats' },
     { id: 'faq', name: 'FAQ' },
+    { id: 'chatbot', name: 'Chatbot' },
 ];
 
 // Hero Form
@@ -90,11 +91,21 @@ const faqForm = useForm({
     items: props.settings.home_faq.items.map(i => ({ ...i })),
 });
 
+// Chatbot Form
+const chatbotForm = useForm({
+    bot_name: props.settings.chatbot_settings.bot_name,
+    welcome_message: props.settings.chatbot_settings.welcome_message,
+    system_prompt: props.settings.chatbot_settings.system_prompt,
+    api_key: props.settings.chatbot_settings.api_key,
+    model: props.settings.chatbot_settings.model,
+});
+
 const submitHero = () => heroForm.post(route('admin.home.hero'));
 const submitFeatures = () => featuresForm.post(route('admin.home.features'));
 const submitServices = () => servicesForm.post(route('admin.home.services'));
 const submitStats = () => statsForm.post(route('admin.home.stats'));
 const submitFaq = () => faqForm.post(route('admin.home.faq'));
+const submitChatbot = () => chatbotForm.post(route('admin.home.chatbot'));
 
 const addItem = () => {
     if (activeTab.value === 'features') featuresForm.items.push('');
@@ -361,6 +372,52 @@ const removeItem = (index) => {
 
                         <div class="flex justify-end">
                             <PrimaryButton :disabled="faqForm.processing" type="submit">Save FAQ Content</PrimaryButton>
+                        </div>
+                    </form>
+                </div>
+                <!-- Chatbot Section -->
+                <div v-if="activeTab === 'chatbot'" class="space-y-6">
+                    <form @submit.prevent="submitChatbot" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <InputLabel for="bot_name" value="Bot Name" />
+                                <TextInput id="bot_name" v-model="chatbotForm.bot_name" class="mt-1 block w-full" />
+                                <InputError :message="chatbotForm.errors.bot_name" />
+                            </div>
+                            <div>
+                                <InputLabel for="model" value="Model" />
+                                <select id="model" v-model="chatbotForm.model"
+                                    class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                                    <option value="gemini-3-flash">Gemini 3 Flash (Fast & Balanced)</option>
+                                    <option value="gemini-3.1-pro-preview">Gemini 3.1 Pro Preview (Powerful)</option>
+                                    <option value="gemini-3.1-flash-lite-preview">Gemini 3.1 Flash Lite (Low Latency)</option>
+                                </select>
+                                <InputError :message="chatbotForm.errors.model" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <InputLabel for="api_key" value="Custom API Key (Optional)" />
+                            <TextInput id="api_key" v-model="chatbotForm.api_key" type="password" class="mt-1 block w-full"
+                                placeholder="Leave empty to use env default" />
+                            <InputError :message="chatbotForm.errors.api_key" />
+                            <p class="mt-1 text-sm text-gray-500">If provided, this key will override the server environment key.</p>
+                        </div>
+
+                        <div>
+                            <InputLabel for="welcome_message" value="Welcome Message" />
+                            <TextArea id="welcome_message" v-model="chatbotForm.welcome_message" class="mt-1 block w-full" rows="3" />
+                            <InputError :message="chatbotForm.errors.welcome_message" />
+                        </div>
+
+                        <div>
+                            <InputLabel for="system_prompt" value="System Prompt / Personality" />
+                            <TextArea id="system_prompt" v-model="chatbotForm.system_prompt" class="mt-1 block w-full" rows="10" />
+                            <InputError :message="chatbotForm.errors.system_prompt" />
+                        </div>
+
+                        <div class="flex justify-end">
+                            <PrimaryButton :disabled="chatbotForm.processing" type="submit">Save Chatbot Settings</PrimaryButton>
                         </div>
                     </form>
                 </div>
