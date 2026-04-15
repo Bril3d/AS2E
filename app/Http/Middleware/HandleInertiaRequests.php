@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\Models\Setting;
 use Tightenco\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
@@ -43,10 +44,11 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn () => $request->session()->get('message'),
                 'success' => fn () => $request->session()->get('success'),
             ],
-            'settings' => [
-                'app_name' => fn () => setting('app_name'),
-                'date_format' => fn () => setting('date_format'),
-                'logo' => fn () => setting('logo'),
+            'settings' => fn () => [
+                'app_name' => json_decode(setting('general_settings'), true)['app_name'] ?? Setting::getHomeDefaults('general_settings')['app_name'],
+                'contact_email' => json_decode(setting('general_settings'), true)['contact_email'] ?? Setting::getHomeDefaults('general_settings')['contact_email'],
+                'date_format' => setting('date_format') ?: 'Y-m-d',
+                'logo' => setting('logo'),
             ],
             'auth.user' => fn () => $request->user()
                 ? new UserResource($request->user())

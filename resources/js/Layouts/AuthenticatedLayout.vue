@@ -36,7 +36,7 @@ onMounted(() => {
 <template>
 
     <Head>
-        <meta name="description" content="Admin Dashboard to access and analyze all data around the as2e website">
+        <meta name="description" :content="'Admin Dashboard to access and analyze all data around the ' + appName + ' website'">
     </Head>
     <div class="bg-gray-50 dark:bg-slate-900">
         <!-- ========== HEADER ========== -->
@@ -44,7 +44,7 @@ onMounted(() => {
             class="sticky top-0 inset-x-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-[48] w-full bg-white border-b text-sm py-2.5 sm:py-4 lg:ps-64 dark:bg-gray-800 dark:border-gray-700">
             <nav class="flex basis-full items-center w-full mx-auto px-4 sm:px-6 md:px-8" aria-label="Global">
                 <div class="me-5 lg:me-0 lg:hidden">
-                    <Link class="flex-none text-xl font-semibold dark:text-white" href="/" aria-label="AS2E">{{ appName
+                    <Link class="flex-none text-xl font-semibold dark:text-white" href="/" :aria-label="appName">{{ appName
                     }}</Link>
                 </div>
 
@@ -184,7 +184,7 @@ onMounted(() => {
             <div class="px-6">
                 <Link
                     class="flex-none text-xl font-semibold dark:text-white dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                    href="/" aria-label="AS2E">
+                    href="/" :aria-label="appName">
                 <ApplicationLogo class="mx-auto" />
                 </Link>
             </div>

@@ -21,6 +21,7 @@ const tabs = [
     { id: 'stats', name: 'Stats' },
     { id: 'faq', name: 'FAQ' },
     { id: 'chatbot', name: 'Chatbot' },
+    { id: 'general', name: 'General' },
 ];
 
 // Hero Form
@@ -100,12 +101,19 @@ const chatbotForm = useForm({
     model: props.settings.chatbot_settings.model,
 });
 
+// General Form
+const generalForm = useForm({
+    app_name: props.settings.general_settings.app_name,
+    contact_email: props.settings.general_settings.contact_email,
+});
+
 const submitHero = () => heroForm.post(route('admin.home.hero'));
 const submitFeatures = () => featuresForm.post(route('admin.home.features'));
 const submitServices = () => servicesForm.post(route('admin.home.services'));
 const submitStats = () => statsForm.post(route('admin.home.stats'));
 const submitFaq = () => faqForm.post(route('admin.home.faq'));
 const submitChatbot = () => chatbotForm.post(route('admin.home.chatbot'));
+const submitGeneral = () => generalForm.post(route('admin.home.general'));
 
 const addItem = () => {
     if (activeTab.value === 'features') featuresForm.items.push('');
@@ -418,6 +426,28 @@ const removeItem = (index) => {
 
                         <div class="flex justify-end">
                             <PrimaryButton :disabled="chatbotForm.processing" type="submit">Save Chatbot Settings</PrimaryButton>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- General Section -->
+                <div v-if="activeTab === 'general'" class="space-y-6">
+                    <form @submit.prevent="submitGeneral" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <InputLabel for="app_name" value="Application Name" />
+                                <TextInput id="app_name" v-model="generalForm.app_name" class="mt-1 block w-full" />
+                                <InputError :message="generalForm.errors.app_name" />
+                            </div>
+                            <div>
+                                <InputLabel for="contact_email" value="Contact Email" />
+                                <TextInput id="contact_email" v-model="generalForm.contact_email" type="email" class="mt-1 block w-full" />
+                                <InputError :message="generalForm.errors.contact_email" />
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <PrimaryButton :disabled="generalForm.processing" type="submit">Save General Settings</PrimaryButton>
                         </div>
                     </form>
                 </div>

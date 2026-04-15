@@ -19,7 +19,8 @@ class HomeSettingController extends Controller
             'home_services',
             'home_stats',
             'home_faq',
-            'chatbot_settings'
+            'chatbot_settings',
+            'general_settings'
         ];
 
         $settings = [];
@@ -164,8 +165,19 @@ class HomeSettingController extends Controller
         ]);
 
         $this->save('chatbot_settings', $data);
-
         return back()->with('success', 'Chatbot settings updated.');
+    }
+
+    public function updateGeneral(Request $request)
+    {
+        $data = $request->validate([
+            'app_name' => 'required|string',
+            'contact_email' => 'required|email',
+        ]);
+
+        $this->save('general_settings', $data);
+
+        return back()->with('success', 'General settings updated.');
     }
 
     protected function save($key, $value)

@@ -90,7 +90,7 @@ onMounted(() => {
                 <div class="mt-20 flex flex-col gap-3" v-show="expertise.projects.length > 0">
                   <div class="md:w-1/2">
                     <h3 class="uppercase font-bold text-lg text-main">PROJECTS & REFERENCES</h3>
-                    <h1 class="uppercase font-bold text-2xl dark:text-white">AS2E employs
+                    <h1 class="uppercase font-bold text-2xl dark:text-white">{{ $page.props.settings.app_name }} employs
                       a wide range of technologies in various business sectors</h1>
                     <p class="text-gray-800 dark:text-neutral-400">Over the course of numerous projects, we have
                       acquired

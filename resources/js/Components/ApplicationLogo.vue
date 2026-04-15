@@ -1,9 +1,9 @@
 <script setup>
 import { usePage } from '@inertiajs/vue3';
 
-let { logo, name } = usePage().props.settings;
+let { logo, app_name } = usePage().props.settings;
 logo = logo ? '/storage/' + logo : null
-name = name ? name : 'AS2E'
+const name = app_name ? app_name : 'AS2E'
 </script>
 
 

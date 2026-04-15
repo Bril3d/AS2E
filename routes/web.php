@@ -76,6 +76,7 @@ Route::middleware(['auth', 'permission:Settings CRUD'])->prefix('admin/home')->g
     Route::post('stats', [HomeSettingController::class, 'updateStats'])->name('admin.home.stats');
     Route::post('faq', [HomeSettingController::class, 'updateFaq'])->name('admin.home.faq');
     Route::post('chatbot', [HomeSettingController::class, 'updateChatbot'])->name('admin.home.chatbot');
+    Route::post('general', [HomeSettingController::class, 'updateGeneral'])->name('admin.home.general');
 });
 
 

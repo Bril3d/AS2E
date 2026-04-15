@@ -12,7 +12,7 @@
           {{ data.description }}
         </p>
         <p class="mt-5">
-          <a class="inline-flex items-center gap-x-1 font-medium text-main dark:text-blue-500" href="mailto:commercial@as2e-automation.com">
+          <a class="inline-flex items-center gap-x-1 font-medium text-main dark:text-blue-500" :href="'mailto:' + $page.props.settings.contact_email">
             Contact us to explore our services
             <svg class="flex-shrink-0 w-4 h-4 transition ease-in-out group-hover:translate-x-1"
               xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
