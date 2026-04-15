@@ -15,7 +15,8 @@ class ChatbotController extends Controller
 
     public function index()
     {
-        $settings = json_decode(setting('chatbot_settings') ?? json_encode(Setting::getHomeDefaults('chatbot_settings')), true);
+        $chatbotSetting = setting('chatbot_settings');
+        $settings = $chatbotSetting ? json_decode($chatbotSetting, true) : Setting::getHomeDefaults('chatbot_settings');
         
         return Inertia::render('Chatbot', [
             'botSettings' => $settings
@@ -27,7 +28,8 @@ class ChatbotController extends Controller
      */
     public function AiResponse(Request $request)
     {
-        $settings = json_decode(setting('chatbot_settings') ?? json_encode(Setting::getHomeDefaults('chatbot_settings')), true);
+        $chatbotSetting = setting('chatbot_settings');
+        $settings = $chatbotSetting ? json_decode($chatbotSetting, true) : Setting::getHomeDefaults('chatbot_settings');
 
         $client = Gemini::getFacadeRoot();
 

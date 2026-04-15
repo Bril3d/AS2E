@@ -125,7 +125,7 @@ const props = defineProps({
 });
 
 const message = ref('');
-const messages = ref([{ type: 'bot', text: props.botSettings.welcome_message.replace(/\n/g, '<br>') }]);
+const messages = ref([{ type: 'bot', text: (props.botSettings?.welcome_message || '').replace(/\n/g, '<br>') }]);
 
 
 const scrollToBottom = () => {
