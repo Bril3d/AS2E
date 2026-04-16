@@ -51,6 +51,58 @@ This platform empowers administrators to manage complex landing pages, AI chatbo
 
 ---
 
+## 📸 Application Showcase
+
+### Landing & Authentication
+
+<div align="center">
+  <img src="public/images/landing.png" width="48%" alt="Landing Page">
+  <img src="public/images/login.png" width="48%" alt="Login Page">
+</div>
+
+### Dashboards
+
+<div align="center">
+  <img src="public/images/user_dashboard.png" width="48%" alt="User Dashboard">
+  <img src="public/images/admin.png" width="48%" alt="Admin Dashboard">
+</div>
+
+### Key Features
+
+<div align="center">
+  <img src="public/images/chatbot.png" width="48%" alt="AI Chatbot Interaction">
+  <img src="public/images/calendar.png" width="48%" alt="Interactive Calendar">
+</div>
+
+### Expertises & Projects Management
+
+<div align="center">
+  <img src="public/images/expertise.png" width="48%" alt="Expertises List">
+  <img src="public/images/add_expertise.png" width="48%" alt="Add Expertise">
+</div>
+
+---
+
+## 📐 System Architecture & Diagrams
+
+As this platform was developed for an End of Studies Project (PFE), comprehensive architectural planning was conducted throughout the software development lifecycle.
+
+### Use Case & Class Diagrams
+
+<div align="center">
+  <img src="public/images/general%20use%20case%20diagram%20of%20the%20project.png" width="48%" alt="General Use Case Diagram">
+  <img src="public/images/Globall%20class%20diagram.png" width="48%" alt="Global Class Diagram">
+</div>
+
+### Deployment & Agile Workflow
+
+<div align="center">
+  <img src="public/images/Deployement%20diagram.png" width="48%" alt="Deployment Diagram">
+  <img src="public/images/Scrum%20process.png" width="48%" alt="Scrum Process">
+</div>
+
+---
+
 ## 🚀 Tech Stack
 
 ### Backend
